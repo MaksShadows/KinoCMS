@@ -6,12 +6,6 @@
         <div class="cards-body__items">
           <div class="cards-body__item">Размер: 1000х190</div>
           <div class="custom-control custom-switch">
-            <input
-              v-model="isEnabled"
-              type="checkbox"
-              class="custom-control-input"
-              id="mainPageTopSwitch"
-            />
             <label class="custom-control-label" for="mainPageTopSwitch"></label>
           </div>
         </div>
