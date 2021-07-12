@@ -5,7 +5,7 @@ import store from "./store";
 
 
 Vue.config.productionTip = false;
- //Vue.config.productionTip = true;
+// Vue.config.productionTip = true;
 
 
 new Vue({
@@ -13,4 +13,5 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount("#app");
+
 

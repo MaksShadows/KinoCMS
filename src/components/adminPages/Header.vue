@@ -9,6 +9,7 @@
       <ul class="navbar-nav ml-auto">
         <router-link tag="li" to="/admin-statistic" class="nav-item">
           <a href="#" class="navbar-admin">
+            <i class="nav-img fas fa-user-cog fa-2x"></i>
             <span>Администратор</span>
           </a>
         </router-link>

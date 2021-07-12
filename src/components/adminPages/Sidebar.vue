@@ -9,11 +9,10 @@
         <router-link
           v-for="link in links"
           :key="link.url"
-          tag="li"
           active-class="active"
-          :to="link.url"
+          :to="link.url "
         >
-          <a href="#" class="nav-link">{{ link.title }}</a>
+         <span class="nav-link" >{{ link.title }}</span>
         </router-link>
       </ul>
     </nav>
@@ -42,11 +41,8 @@ export default {
 <style lang="scss" scoped>
 aside {
   margin-top: 86px;
-      border-right: 1px solid #000;
-
 }
 .active {
   background: #e4e3e3;
-
 }
 </style>

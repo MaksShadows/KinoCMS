@@ -6,13 +6,11 @@
 
 <script>
 import AdminLayout from "@/components/adminPages/AdminLayout.vue";
-
 export default {
   name: "App",
   components: {
     AdminLayout,
   },
-
 };
 </script>
 

@@ -8,7 +8,13 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
 
-
+    {
+      path: "/admin/statistic",
+      name: "Statistic",
+      meta: { layout: "admin" },
+      component: () =>
+        import("@/components/adminPages/statistic/Statistic.vue"),
+    },
     {
       path: "/admin/banners",
       name: "Banners",
@@ -27,12 +33,18 @@ export default new Router({
       meta: { layout: "admin" },
       component: () => import("@/components/adminPages/cinema/Cinema.vue"),
     },
-   
     {
       path: "/admin/news",
       name: "News",
       meta: { layout: "admin" },
       component: () => import("@/components/adminPages/news/News.vue"),
+    },
+    {
+      path: "/admin/news/:way",
+      name: "NewsAdd",
+      meta: { layout: "admin" },
+      props: true,
+      component: () => import("@/components/adminPages/news/NewsAdd.vue"),
     },
     {
       path: "/admin/shares",
@@ -41,11 +53,27 @@ export default new Router({
       component: () => import("@/components/adminPages/shares/Shares.vue"),
     },
     {
+      path: "/admin/shares/:way",
+      name: "SharesAdd",
+      meta: { layout: "admin" },
+      props: true,
+      component: () => import("@/components/adminPages/shares/SharesAdd.vue"),
+    },
+    {
       path: "/admin/pages",
       name: "Pages",
       meta: { layout: "admin" },
-      component: () => import("@/components/adminPages/pages/Pages.vue"),
+      component: () => import("@/components/pages/Pages.vue"),
     },
+    {
+      path: "/admin/pages/:way",
+      name: "PagesAddNewPage",
+      meta: { layout: "admin" },
+      props: true,
+      component: () =>
+        import("@/components/pages/PagesAddNewPage.vue"),
+    },
+
     {
       path: "/admin/users",
       name: "Users",

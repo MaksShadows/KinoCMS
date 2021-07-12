@@ -9,6 +9,16 @@
     <router-link
       class="btn btn-default shares-list-add"
       tag="button"
+      :to="{
+        name: 'SharesAdd',
+        params: {
+          way: 'shares-add',
+          dataArr: sharesData,
+          dbRef: ref,
+          dbMainImageRef: mainImageRef,
+          dbGalleryRef: galleryRef,
+        },
+      }"
     >
       <span></span>
       Создать Акцию
@@ -21,6 +31,18 @@
 export default {
   name: "Shares",
 
+  data() {
+    return {
+      sharesData: [],
+
+      ref: "shares",
+      mainImageRef: "shares/main",
+      galleryRef: "shares/gallery",
+    };
+  },
+  methods: {
+
+  },
 
 };
 </script>

@@ -2,18 +2,31 @@
   <div class="main-block">
     <div class="block block-sms">
       <h2>SMS</h2>
+      <MailingsSms :usersData="usersData" />
     </div>
     <div class="block block-email">
       <h2>E-Mail</h2>
+      <MailingsEmail :usersData="usersData" />
     </div>
   </div>
 </template>
 
 <script>
-
+import MailingsSms from "@/components/adminPages/mailings/MailingsSms.vue";
+import MailingsEmail from "@/components/adminPages/mailings/MailingsEmail.vue";
 
 export default {
   name: "Mailings",
+  components: {
+    MailingsSms,
+    MailingsEmail,
+  },
+  data() {
+    return {
+      usersData: [],
+    };
+  },
+  methods: {},
 
 };
 </script>

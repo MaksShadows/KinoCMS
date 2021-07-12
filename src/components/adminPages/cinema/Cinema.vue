@@ -10,10 +10,8 @@
 </template>
 
 <script>
-
 export default {
   name: "Movies",
-
 };
 </script>
 
@@ -29,17 +27,14 @@ h3 {
   align-items: start;
   padding: 0 10px 0 40px;
   flex-wrap: wrap;
-
   .cinema-add {
     margin: 10px 30px 20px 0;
     max-width: 300px;
-
     .text {
       text-align: center;
       font-size: 1.3em;
       font-weight: bold;
     }
-
     span {
       width: 300px;
       height: 200px;

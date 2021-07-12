@@ -32,11 +32,8 @@
 </template>
 
 <script>
-
-
 export default {
   name: "Users",
-
 };
 </script>
 
@@ -44,7 +41,6 @@ export default {
 .users-list {
   padding: 20px 40px;
   position: relative;
-
   h3 {
     padding: 20px 10px;
     display: flex;
@@ -68,7 +64,6 @@ export default {
     top: 20px;
     right: 35px;
     padding: 6px 0 6px 30px;
-
     span {
       width: 20px;
       height: 20px;
@@ -95,14 +90,12 @@ export default {
       height: 20px;
     }
   }
-
   .title {
     display: flex;
     justify-content: center;
     &-main {
       margin: 0 70px 0 60px;
     }
-
     &__item {
       border: 1px solid #9a9a9a;
       background: #d0d0d0;
@@ -115,16 +108,13 @@ export default {
       word-break: break-all;
     }
   }
-
   .pages {
     display: flex;
     justify-content: center;
     align-items: center;
-
     button {
       margin: 30px 10px;
     }
-
   }
 }
 </style>
