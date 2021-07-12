@@ -6,16 +6,7 @@
       <div class="title__date">Дата создания</div>
       <div class="title__status">Статус</div>
     </div>
-    <!-- <NewsList
-      v-for="(news, index) in newsData"
-      :key="news.id"
-      :data="news"
-      :dataArr="newsData"
-      :dbRef="ref"
-      :dbMainImageRef="mainImageRef"
-      :dbGalleryRef="galleryRef"
-      @remove="deleteNews(index)"
-    /> -->
+
     <router-link
       class="btn btn-default news-list-add"
       tag="button"
@@ -37,8 +28,7 @@
 </template>
 
 <script>
-//import NewsList from "@/components/adminPages/news/NewsList.vue";
-//import firebase from "firebase";
+
 
 export default {
   name: "News",
@@ -55,23 +45,7 @@ export default {
     };
   },
   methods: {
-  //   deleteNews(index) {
-  //     if (this.newsData.length > 1) {
-  //       this.newsData.splice(index, 1);
-  //       const baseRef = firebase.database().ref(this.ref);
-  //       baseRef.set(this.newsData);
-  //     } else {
-  //       alert("Должена оставаться минимум одна новость!");
-  //     }
-  //   },
-  // },
-  // created() {
-  //   const baseRef = firebase.database().ref(this.ref);
-  //   baseRef.on("value", (snapshot) => {
-  //     if (snapshot.val() !== null) {
-  //       this.newsData = snapshot.val();
-  //     }
-  //   });
+ 
    },
 };
 </script>
