@@ -7,12 +7,13 @@
         role="menu"
       >
         <router-link
+        class="nav-link"
           v-for="link in links"
           :key="link.url"
           active-class="active"
           :to="link.url "
         >
-         <span class="nav-link" >{{ link.title }}</span>
+        {{ link.title }}
         </router-link>
       </ul>
     </nav>
