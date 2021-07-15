@@ -25,14 +25,6 @@ export default {
     };
   },
 
-  // <DatePicker
-  //   class="date-title"
-  //   :date="newsData.date"
-  //   @dateChange="newDateValue"
-  // />
-  // newDateValue(value) {
-  //     this.newsData.date = value;
-  //   },
 };
 </script>
 
