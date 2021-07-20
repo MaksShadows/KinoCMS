@@ -3,7 +3,7 @@
     <div class="cards-top">
       <h3>На главной верх</h3>
       <div class="cards-body">
-        <!-- <div class="cards-body__items">
+        <div class="cards-body__items">
           <div class="cards-body__item">Размер: 1000х190</div>
           <div class="custom-control custom-switch">
             <input
@@ -14,11 +14,9 @@
             />
             <label class="custom-control-label" for="mainPageTopSwitch"></label>
           </div>
-        </div> -->
-        <p>Размер: 1000х190</p>
+        </div>
         <div class="cards-body__blocks">
-          <BannersTopCard />
-
+          <BannersCardsTop />
         </div>
       </div>
     </div>
@@ -36,7 +34,18 @@
     <div class="cards-news">
       <h3>На главной Новости Акции</h3>
       <div class="cards-body">
-        <p>Размер: 1000х190</p>
+        <div class="cards-body__items">
+          <div class="cards-body__item">Размер: 1000х190</div>
+          <div class="custom-control custom-switch">
+            <input
+              v-model="isEnabled"
+              type="checkbox"
+              class="custom-control-input"
+              id="mainPageTopSwitch"
+            />
+            <label class="custom-control-label" for="mainPageTopSwitch"></label>
+          </div>
+        </div>
         <div class="cards-body__blocks">
           <BannersCardsNews />
         </div>
@@ -46,17 +55,23 @@
 </template>
 
 <script>
-import BannersTopCard from "@/components/adminPages/banners/BannersTopCard.vue";
+import BannersCardsTop from "@/components/adminPages/banners/BannersCardsTop.vue";
 import BannersCardsBack from "@/components/adminPages/banners/BannersCardsBack.vue";
 import BannersCardsNews from "@/components/adminPages/banners/BannersCardsNews.vue";
 
 export default {
   name: "Banners",
   components: {
-    BannersTopCard,
+    BannersCardsTop,
     BannersCardsBack,
     BannersCardsNews,
   },
+
+  data() {
+    return {
+      isEnabled: false
+    }
+  }
 };
 </script>
 

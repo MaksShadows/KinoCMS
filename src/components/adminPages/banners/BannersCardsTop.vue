@@ -2,12 +2,15 @@
   <div>
     <div class="main-block">
       <div
-        v-for="block in images"
+        v-for="(block, index) in images"
         :key="block.id"
         :data="block"
         class="info-block"
       >
-        <div @click="removeBlock" class="btn btn-default info-block__close">
+        <div
+          @click="removeBlock(index)"
+          class="btn btn-default info-block__close"
+        >
           <svg class="info-block__close-img" viewBox="0 0 8 8">
             <path
               d="M1.406 0l-1.406 1.406.688.719 1.781 1.781-1.781 1.781-.688.719 1.406 1.406.719-.688 1.781-1.781 1.781 1.781.719.688 1.406-1.406-.688-.719-1.781-1.781 1.781-1.781.688-.719-1.406-1.406-.719.688-1.781 1.781-1.781-1.781-.719-.688z"
@@ -26,7 +29,17 @@
             placeholder="Url"
           />
         </div>
+        <div class="input-column">
+          <div class="input-label">Текст:</div>
+          <input
+            v-model="dataSource.text"
+            type="text"
+            class="form-control info-block__input"
+            placeholder="Текст"
+          />
+        </div>
       </div>
+
       <button @click="openFileDialog()" class="btn btn-default card__block-add">
         <input
           ref="fileDialog"
@@ -49,18 +62,15 @@
 import firebase from "firebase";
 
 export default {
-  name: "BannersCardsNews",
+  name: "Banners",
   data() {
     return {
-      ref: "banners/newscards/",
+      ref: "banners/topcards/",
       images: [],
       dataSource: "",
     };
   },
   methods: {
-    openFileDialog() {
-      this.$refs.fileDialog.click();
-    },
     previewImage(file) {
       const preview = this.$refs.filePreview;
       const reader = new FileReader();
@@ -72,6 +82,13 @@ export default {
       this.dataSource.image = file.name;
       this.dataSource.imageFile = file;
     },
+    removeBlock(index) {
+      this.images.splice(index, 1);
+    },
+
+    openFileDialog() {
+      this.$refs.fileDialog.click();
+    },
     addImage() {
       const file = this.$refs.fileDialog.files[0];
       if (file !== undefined) {
@@ -81,9 +98,7 @@ export default {
         });
       }
     },
-      removeBlock(index) {
-      this.images.splice(index, 1);
-    },
+
     save() {
       this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
@@ -141,7 +156,7 @@ export default {
 
     &.card__block-add {
       height: 90px;
-      margin: 40px 0;
+      margin: 50px 0 40px 0;
     }
   }
   .info-block {
