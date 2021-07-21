@@ -38,6 +38,11 @@
       </button>
     </div>
     <div class="main-block__bottom">
+       <div class="option__item">
+        <select v-model="scrollSpeed" class="option__input form-control">
+          <option :key="number" v-for="number in 10">{{ number }} сек.</option>
+        </select>
+      </div>
       <button ref="btnSave" @click="save" class="btn btn-default btn-save">
         Сохранить
       </button>
@@ -55,6 +60,8 @@ export default {
       ref: "banners/newscards/",
       images: [],
       dataSource: "",
+      scrollSpeed: "1 сек.",
+
     };
   },
   methods: {
@@ -185,5 +192,16 @@ export default {
   .info-block__input {
     flex: 140px 0 0;
   }
+}
+.option__item {
+  display: flex;
+   justify-content: flex-start;
+   align-items: center;
+  margin-right: 30px;
+}
+.option__input {
+  max-width: 120px;
+  margin-left: 15px;
+  margin-bottom: 10px;
 }
 </style>
