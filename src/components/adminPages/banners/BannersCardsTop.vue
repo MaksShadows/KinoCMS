@@ -91,7 +91,7 @@ export default {
     removeBlock(index) {
       this.images.splice(index, 1);
     },
-
+/*Add commit */
     openFileDialog() {
       this.$refs.fileDialog.click();
     },
