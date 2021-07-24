@@ -1,6 +1,6 @@
 <template>
   <!-- nav -->
-  <nav class="navbar navbar-expand navbar-light navbar-white">
+  <nav class="navbar navbar-expand navbar-light navbar-dark">
     <div class="container">
       <router-link to="/" class="navbar-brand d-flex">
         <h4>KinoCMS</h4>
@@ -34,11 +34,9 @@ export default {
 nav {
   height: 86px;
   border-bottom: 1px solid #000;
-
   .brand-image {
     width: 130px;
     opacity: 1;
-
     &:hover {
       opacity: 0.7;
     }
@@ -50,22 +48,18 @@ nav {
 }
 .nav-item {
   margin-left: 25px;
-
   .navbar-admin {
     display: flex;
     align-items: center;
-
     span {
       margin-left: 15px;
       color: #000;
     }
   }
-
   .nav-img {
     opacity: 1;
     transition: opacity 0.3s ease;
     color: #000;
-
     &:hover {
       opacity: 0.5;
     }

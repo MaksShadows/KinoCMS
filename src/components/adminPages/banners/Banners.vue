@@ -1,70 +1,79 @@
 <template>
-  <div class="container">
-    <div class="cards-top">
-      <h3>На главной верх</h3>
-      <div class="cards-body">
-        <div class="cards-body__items">
-          <div class="cards-body__item">Размер: 1000х190</div>
-          <div class="custom-control custom-switch">
-            <input
-              v-model="isEnabled"
-              type="checkbox"
-              class="custom-control-input"
-              id="mainPageTopSwitch"
-            />
-            <label class="custom-control-label" for="mainPageTopSwitch"></label>
-          </div>
-        </div>
-        <div class="cards-body__blocks">
-          <BannersCardsTop />
-        </div>
-      </div>
-    </div>
+    <!-- first block -->
+    <div class="about">
+        <div class="card mt-2">
+            <div class="card-header text-center font-weight-bold">
+                На главной верх
+            </div>
+            <div class="row p-3">
+                <div class="col-md-6 text-muted">Pазмер 1000x190</div>
+                <div class="col-md-6 text-right">
+                    <input
+                        v-model="isEnabled"
+                        type="checkbox"
+                        aria-label="Checkbox for on/off"
+                    />
+                </div>
+            </div>
 
-    <div class="cards-back">
-      <h3>Сквозной банер на заднем фоне</h3>
-      <div class="cards-body">
-        <p>Размер: 2000х3000</p>
-        <div class="cards-body__blocks">
-          <BannersCardsBack />
+            <div class="card-group p-3">
+                   <BannersCardsTop />
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="cards-news">
-      <h3>На главной Новости Акции</h3>
-      <div class="cards-body">
-        <div class="cards-body__items">
-          <div class="cards-body__item">Размер: 1000х190</div>
-          <div class="custom-control custom-switch">
-            <input
-              v-model="isEnabled"
-              type="checkbox"
-              class="custom-control-input"
-              id="mainPageTopSwitch"
-            />
-            <label class="custom-control-label" for="mainPageTopSwitch"></label>
-          </div>
+        <!-- second block -->
+        <div class="card mt-2">
+            <div class="card-header text-center font-weight-bold">
+                Сквозной баннер на заднем фоне
+            </div>
+            <div class="row p-3">
+                <div class="col-md-6 text-muted">Pазмер 2000x3000</div>
+            </div>
+
+            <div class="card-group p-3">
+                   <BannersCardsBack />
+            </div>
         </div>
-        <div class="cards-body__blocks">
+
+        <!-- third block -->
+        <div class="card mt-2">
+            <div class="card-header text-center font-weight-bold">
+                На главной новости и акции
+            </div>
+            <div class="row p-3">
+                <div class="col-md-6 text-muted">Pазмер 1000x190</div>
+                <div class="col-md-6 text-right">
+                    <input
+                        v-model="actionsIsOn"
+                        type="checkbox"
+                        aria-label="Checkbox for on/off"
+                    />
+                </div>
+            </div>
+
+            <div class="card-group p-3">
+
           <BannersCardsNews />
+
+
+            </div>
+
+
         </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
-import BannersCardsTop from "@/components/adminPages/banners/BannersCardsTop.vue";
-import BannersCardsBack from "@/components/adminPages/banners/BannersCardsBack.vue";
-import BannersCardsNews from "@/components/adminPages/banners/BannersCardsNews.vue";
+ import BannersCardsTop from "@/components/adminPages/banners/BannersCardsTop.vue";
+ import BannersCardsBack from "@/components/adminPages/banners/BannersCardsBack.vue";
+ import BannersCardsNews from "@/components/adminPages/banners/BannersCardsNews.vue";
 
 export default {
   name: "Banners",
   components: {
-    BannersCardsTop,
-    BannersCardsBack,
-    BannersCardsNews,
+     BannersCardsTop,
+     BannersCardsBack,
+     BannersCardsNews,
   },
 
   data() {

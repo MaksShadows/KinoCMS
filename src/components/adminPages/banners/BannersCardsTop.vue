@@ -88,6 +88,8 @@ export default {
       this.dataSource.image = file.name;
       this.dataSource.imageFile = file;
     },
+    
+
     removeBlock(index) {
       this.images.splice(index, 1);
     },
