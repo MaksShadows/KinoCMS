@@ -1,86 +1,75 @@
 <template>
-    <!-- first block -->
-    <div class="about">
-        <div class="card mt-2">
-            <div class="card-header text-center font-weight-bold">
-                На главной верх
-            </div>
-            <div class="row p-3">
-                <div class="col-md-6 text-muted">Pазмер 1000x190</div>
-                <div class="col-md-6 text-right">
-                    <input
-                        v-model="isEnabled"
-                        type="checkbox"
-                        aria-label="Checkbox for on/off"
-                    />
-                </div>
-            </div>
-
-            <div class="card-group p-3">
-                   <BannersCardsTop />
-            </div>
+  <!-- first block -->
+  <div class="about">
+    <div class="card mt-2">
+      <div class="card-header text-center font-weight-bold">
+        На главной верх
+      </div>
+      <div class="row p-3">
+        <div class="col-md-6 text-muted">Pазмер 1000x190</div>
+        <div class="col-md-6 text-right">
+          <Switcher class="banners-switcher" @stateChanged="showToggle" />
         </div>
+      </div>
 
-        <!-- second block -->
-        <div class="card mt-2">
-            <div class="card-header text-center font-weight-bold">
-                Сквозной баннер на заднем фоне
-            </div>
-            <div class="row p-3">
-                <div class="col-md-6 text-muted">Pазмер 2000x3000</div>
-            </div>
-
-            <div class="card-group p-3">
-                   <BannersCardsBack />
-            </div>
-        </div>
-
-        <!-- third block -->
-        <div class="card mt-2">
-            <div class="card-header text-center font-weight-bold">
-                На главной новости и акции
-            </div>
-            <div class="row p-3">
-                <div class="col-md-6 text-muted">Pазмер 1000x190</div>
-                <div class="col-md-6 text-right">
-                    <input
-                        v-model="actionsIsOn"
-                        type="checkbox"
-                        aria-label="Checkbox for on/off"
-                    />
-                </div>
-            </div>
-
-            <div class="card-group p-3">
-
-          <BannersCardsNews />
-
-
-            </div>
-
-
-        </div>
+      <div class="card-group p-3">
+        <BannersCardsTop />
+      </div>
     </div>
+
+    <!-- second block -->
+    <div class="card mt-2">
+      <div class="card-header text-center font-weight-bold">
+        Сквозной баннер на заднем фоне
+      </div>
+      <div class="row p-3">
+        <div class="col-md-6 text-muted">Pазмер 2000x3000</div>
+      </div>
+
+      <div class="card-group p-3">
+        <BannersCardsBack />
+      </div>
+    </div>
+
+    <!-- third block -->
+    <div class="card mt-2">
+      <div class="card-header text-center font-weight-bold">
+        На главной новости и акции
+      </div>
+      <div class="row p-3">
+        <div class="col-md-6 text-muted">Pазмер 1000x190</div>
+        <div class="col-md-6 text-right">
+          <Switcher class="banners-switcher" @stateChanged="showToggle" />
+        </div>
+      </div>
+
+      <div class="card-group p-3">
+        <BannersCardsNews />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
- import BannersCardsTop from "@/components/adminPages/banners/BannersCardsTop.vue";
- import BannersCardsBack from "@/components/adminPages/banners/BannersCardsBack.vue";
- import BannersCardsNews from "@/components/adminPages/banners/BannersCardsNews.vue";
+import BannersCardsTop from "@/components/adminPages/banners/BannersCardsTop.vue";
+import BannersCardsBack from "@/components/adminPages/banners/BannersCardsBack.vue";
+import BannersCardsNews from "@/components/adminPages/banners/BannersCardsNews.vue";
+import Switcher from "@/components/adminPages/Switcher.vue";
 
 export default {
   name: "Banners",
   components: {
-     BannersCardsTop,
-     BannersCardsBack,
-     BannersCardsNews,
+    BannersCardsTop,
+    BannersCardsBack,
+    BannersCardsNews,
+    Switcher,
   },
 
   data() {
     return {
-      isEnabled: false
-    }
-  }
+      isEnabled: false,
+    };
+  },
 };
 </script>
 
