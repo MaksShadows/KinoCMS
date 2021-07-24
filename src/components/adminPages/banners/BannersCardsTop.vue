@@ -88,8 +88,6 @@ export default {
       this.dataSource.image = file.name;
       this.dataSource.imageFile = file;
     },
-    
-
     removeBlock(index) {
       this.images.splice(index, 1);
     },
@@ -195,10 +193,6 @@ export default {
         width: 13px;
         height: 13px;
       }
-
-      /* &__add {
-      margin-top: 20px;
-    } */
     }
   }
   .input-column {
