@@ -27,12 +27,33 @@
 
         <div class="banner-tabs-content">
           <div class="tab-1">
-            <!-- <img  class="tab-1__image" alt="tab_image"> -->
-            <input type="file" style="display: none" />
-            <label for="photoOnBackground" class="btn btn-primary"
-              >Добавить</label
+            <img
+              v-if="picture !== null"
+              ref="filePreview"
+              :src="picture"
+              class="preview"
+            />
+            <input
+              type="file"
+              ref="fileDialog"
+              @change="addImage"
+              style="display: none"
+              accept="image/*"
+            />
+            <button
+              v-if="picture === null"
+              @click="openFileDialog"
+              class="btn btn-primary"
             >
-            <button class="btn btn-danger">Удалить</button>
+              Добавить
+            </button>
+            <button
+              v-if="picture !== null"
+              @click="deleteImage"
+              class="btn btn-danger"
+            >
+              Удалить
+            </button>
           </div>
         </div>
       </div>
@@ -41,23 +62,96 @@
 </template>
 
 <script>
-//import firebase from 'firebase'
+import firebase from "firebase";
+import "firebase/storage";
+
 export default {
   name: "BannersCardsBack",
 
   data() {
     return {
-      photoOnBackground: "",
-      Background: "",
+      imageData: null,
+      picture: null,
+      imageRef: "banners/backcard/",
     };
   },
-  methods: {},
-  created() {},
+
+  methods: {
+    openFileDialog() {
+      const event = new MouseEvent("click", {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+      });
+      this.$refs.fileDialog.dispatchEvent(event);
+    },
+
+    addImage() {
+      const file = this.$refs.fileDialog.files[0];
+      this.previewImage(file);
+    },
+
+    previewImage(file) {
+      const preview = this.$refs.filePreview;
+      // console.log(preview);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        preview.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+
+      this.imageData = file;
+      this.onUpload();
+    },
+
+    onUpload() {
+      this.picture = null;
+      const storageRef = firebase
+        .storage()
+        .ref(this.imageRef)
+        .child("backcard");
+
+      storageRef
+        .put(this.imageData)
+        .then((snapshot) => snapshot.ref.getDownloadURL())
+        .then((url) => (this.picture = url));
+    },
+
+    deleteImage() {
+      this.picture = null;
+      this.$refs.filePreview.src = null;
+
+      const storageRef = firebase
+        .storage()
+        .ref(this.imageRef)
+        .child("backcard");
+
+      storageRef.delete().catch((error) => {
+        console.log(error);
+      });
+    },
+
+    onDownload() {
+      this.picture = null;
+      const storageRef = firebase
+        .storage()
+        .ref(this.imageRef)
+        .child("backcard");
+
+      storageRef.getDownloadURL().then(
+        (url) => (this.picture = url),
+        (error) => console.log(error)
+      );
+    },
+  },
+
+  mounted() {
+    this.onDownload();
+  },
 };
 </script>
 
-
-<style scoped>
+<style lang="scss" scoped>
 .bannerOnBackground {
   margin: 120px 0;
 }
@@ -89,5 +183,11 @@ export default {
 }
 .btn {
   margin: 0 10px;
+}
+
+.preview {
+  width: 200px;
+  height: 300px;
+  background: #adbcc9;
 }
 </style>

@@ -1,45 +1,14 @@
 <template>
   <div>
     <div class="main-block">
-      <div
+      <BannersCardsTopBlocks
         v-for="(block, index) in images"
         :key="block.id"
         :data="block"
-        class="info-block"
-      >
-        <div
-          @click="removeBlock(index)"
-          class="btn btn-default info-block__close"
-        >
-          <svg class="info-block__close-img" viewBox="0 0 8 8">
-            <path
-              d="M1.406 0l-1.406 1.406.688.719 1.781 1.781-1.781 1.781-.688.719 1.406 1.406.719-.688 1.781-1.781 1.781 1.781.719.688 1.406-1.406-.688-.719-1.781-1.781 1.781-1.781.688-.719-1.406-1.406-.719.688-1.781 1.781-1.781-1.781-.719-.688z"
-              id="x"
-              fill="rgba(0,0,0,0.7)"
-            ></path>
-          </svg>
-        </div>
-        <img ref="filePreview" class="info-block__image" />
-        <div class="input-column">
-          <div class="input-label">Url:</div>
-          <input
-            v-model="dataSource.url"
-            type="text"
-            class="form-control info-block__input"
-            placeholder="Url"
-          />
-        </div>
-        <div class="input-column">
-          <div class="input-label">Текст:</div>
-          <input
-            v-model="dataSource.text"
-            type="text"
-            class="form-control info-block__input"
-            placeholder="Текст"
-          />
-        </div>
-      </div>
-
+        :sourceRef="ref"
+        @remove="removeBlock(index)"
+        class="card__block"
+      />
       <button @click="openFileDialog()" class="btn btn-default card__block-add">
         <input
           ref="fileDialog"
@@ -64,34 +33,26 @@
 </template>
 
 <script>
+import BannersCardsTopBlocks from "@/components/adminPages/banners/BannersCardsTopBlocks.vue";
 import firebase from "firebase";
+import "firebase/storage";
 
 export default {
   name: "Banners",
+  components: {
+    BannersCardsTopBlocks,
+  },
   data() {
     return {
       ref: "banners/topcards/",
       images: [],
-      dataSource: "",
       scrollSpeed: "1 сек.",
     };
   },
   methods: {
-    previewImage(file) {
-      const preview = this.$refs.filePreview;
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        preview.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-
-      this.dataSource.image = file.name;
-      this.dataSource.imageFile = file;
-    },
     removeBlock(index) {
       this.images.splice(index, 1);
     },
-/*Add commit */
     openFileDialog() {
       this.$refs.fileDialog.click();
     },
@@ -104,13 +65,10 @@ export default {
         });
       }
     },
-
     save() {
       this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
-
       const storageRef = firebase.storage().ref(this.ref);
-
       if (this.images.length > 0) {
         Promise.all(
           this.images.map((value) => {
@@ -125,14 +83,32 @@ export default {
                 );
               });
           })
-        ).then((result) => result.map(() => {}));
+        ).then((result) =>
+          result.map((url) => {
+            this.handleData(url);
+          })
+        );
       } else {
         storageRef.delete().catch((error) => {
           console.log(error);
         });
       }
     },
+    handleData(url) {
+      this.images.map((value) => {
+        let id = Math.floor(Math.random() * 10000);
+        value.id = id;
+        return {
+          id: value.id,
+          image: value.image,
+          imageUrl: url,
+          url: value.url,
+          text: value.text,
+        };
+      });
+    },
   },
+  created() {},
 };
 </script>
 
@@ -165,53 +141,16 @@ export default {
       margin: 50px 0 40px 0;
     }
   }
-  .info-block {
-    position: relative;
-    margin: 10px 30px 20px 0;
-    max-width: 300px;
-
-    &__image {
-      width: 235px;
-      height: 84px;
-      background: #a0a6ac;
-      border-radius: 0.25rem;
-      background-size: cover;
-    }
-
-    &__close {
-      position: absolute;
-      top: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 24px;
-      height: 24px;
-      padding: 3px;
-
-      &-img {
-        width: 13px;
-        height: 13px;
-      }
-    }
+  .option__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 30px;
   }
-  .input-column {
-    margin-top: 10px;
+  .option__input {
+    max-width: 120px;
+    margin-left: 15px;
+    margin-bottom: 10px;
   }
-
-  .info-block__input {
-    flex: 140px 0 0;
-  }
-}
-.option__item {
-  display: flex;
-   justify-content: flex-start;
-   align-items: center;
-  margin-right: 30px;
-}
-.option__input {
-  max-width: 120px;
-  margin-left: 15px;
-  margin-bottom: 10px;
 }
 </style>
