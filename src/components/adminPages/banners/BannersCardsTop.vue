@@ -7,6 +7,8 @@
         :data="block"
         :sourceRef="ref"
         @remove="removeBlock(index)"
+          @editUrl="editUrl"
+            @editText="editText"
         class="card__block"
       />
       <button @click="openFileDialog()" class="btn btn-default card__block-add">
@@ -36,6 +38,8 @@
 import BannersCardsTopBlocks from "@/components/adminPages/banners/BannersCardsTopBlocks.vue";
 import firebase from "firebase";
 import "firebase/storage";
+import "firebase/database";
+
 
 export default {
   name: "Banners",
@@ -50,12 +54,15 @@ export default {
     };
   },
   methods: {
+
     removeBlock(index) {
       this.images.splice(index, 1);
     },
+
     openFileDialog() {
       this.$refs.fileDialog.click();
     },
+
     addImage() {
       const file = this.$refs.fileDialog.files[0];
       if (file !== undefined) {
@@ -69,7 +76,8 @@ export default {
       this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
       const storageRef = firebase.storage().ref(this.ref);
-      if (this.images.length > 0) {
+      const databaseRef = firebase.database().ref(this.ref);
+      if (this.dataBlocks.length > 0) {
         Promise.all(
           this.images.map((value) => {
             if (value.imageFile !== undefined)
@@ -92,23 +100,41 @@ export default {
         storageRef.delete().catch((error) => {
           console.log(error);
         });
+        databaseRef.remove().catch((error) => {
+          console.log(error);
+        });
       }
     },
-    handleData(url) {
-      this.images.map((value) => {
-        let id = Math.floor(Math.random() * 10000);
-        value.id = id;
+      handleData(url) {
+      this.images.push((value) => {
         return {
-          id: value.id,
+          id: Math.floor(Math.random() * 10000),
           image: value.image,
           imageUrl: url,
           url: value.url,
           text: value.text,
         };
       });
+      const dataSet = firebase.database().ref(this.ref);
+      dataSet
+        .set(this.images)
+        .then((this.$refs.btnSave.textContent = "Сохранено"));
+
+    },
+     onRead() {
+      const baseRef = firebase.database().ref(this.ref);
+      baseRef.on("value", (snapshot) => {
+        if (snapshot.val() === null) {
+          this.images = [];
+        } else {
+          this.images = snapshot.val();
+        }
+      });
     },
   },
-  created() {},
+  created() {
+        this.onRead();
+  },
 };
 </script>
 

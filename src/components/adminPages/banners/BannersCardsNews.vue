@@ -2,7 +2,7 @@
   <div>
     <div class="main-block">
       <BannersCardsNewsBlocks
-        v-for="(block, index) in dataBlocks"
+        v-for="(block, index) in images"
         :key="block.id"
         :data="block"
         :sourceRef="ref"
@@ -36,6 +36,8 @@
 import BannersCardsNewsBlocks from "@/components/adminPages/banners/BannersCardsNewsBlocks.vue";
 import firebase from "firebase";
 import "firebase/storage";
+import "firebase/database";
+
 export default {
   name: "BannersCardsNews",
   components: {
@@ -44,13 +46,13 @@ export default {
   data() {
     return {
       ref: "banners/newscards/",
-      dataBlocks: [],
+      images: [],
       scrollSpeed: "1 сек.",
     };
   },
   methods: {
     removeBlock(index) {
-      this.dataBlocks.splice(index, 1);
+      this.images.splice(index, 1);
     },
     openFileDialog() {
       this.$refs.fileDialog.click();
@@ -58,16 +60,17 @@ export default {
     addImage() {
       const file = this.$refs.fileDialog.files[0];
       if (file !== undefined) {
-        this.dataBlocks.push({
+        this.images.push({
           image: null,
           imageFile: this.$refs.fileDialog.files[0],
         });
       }
     },
     save() {
-      this.$refs.btnSave.classList.add("show");
+         this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
       const storageRef = firebase.storage().ref(this.ref);
+      const databaseRef = firebase.database().ref(this.ref);
       if (this.dataBlocks.length > 0) {
         Promise.all(
           this.dataBlocks.map((value) => {
@@ -92,10 +95,13 @@ export default {
         storageRef.delete().catch((error) => {
           console.log(error);
         });
+        databaseRef.remove().catch((error) => {
+          console.log(error);
+        });
       }
     },
     handleData(url) {
-      this.dataBlocks.map((value) => {
+      this.images.map((value) => {
         let id = Math.floor(Math.random() * 10000);
         value.id = id;
         return {
@@ -106,6 +112,20 @@ export default {
         };
       });
     },
+       onRead() {
+      const baseRef = firebase.database().ref(this.ref);
+      baseRef.on("value", (snapshot) => {
+        if (snapshot.val() === null) {
+          this.dataBlocks = [];
+        } else {
+          this.dataBlocks = snapshot.val();
+        }
+        // console.log(this.dataBlocks);
+      });
+    },
+  },
+    created() {
+    this.onRead();
   },
 };
 </script>

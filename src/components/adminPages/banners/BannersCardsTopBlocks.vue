@@ -35,6 +35,7 @@
 import firebase from "firebase";
 import "firebase/storage";
 
+
 export default {
   name: "BannersCardsTopBlocks",
   props: ["sourceRef", "data"],
