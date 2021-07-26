@@ -3,6 +3,9 @@
 // };
 
 module.exports = {
+  configureWebpack: {
+    devtool: 'source-map'
+  },
   productionSourceMap: false,
   outputDir: "./dist",
   assetsDir: "static",
