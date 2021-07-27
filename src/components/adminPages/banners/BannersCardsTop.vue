@@ -35,8 +35,8 @@
 <script>
 import BannersCardsTopBlocks from "@/components/adminPages/banners/BannersCardsTopBlocks.vue";
 import firebase from "firebase";
-import "firebase/storage";
 import "firebase/database";
+import "firebase/storage";
 
 export default {
   name: "Banners",
@@ -58,7 +58,6 @@ export default {
     openFileDialog() {
       this.$refs.fileDialog.click();
     },
-
     addImage() {
       const file = this.$refs.fileDialog.files[0];
       if (file !== undefined) {
@@ -68,11 +67,14 @@ export default {
         });
       }
     },
+
     save() {
       this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
+
       const storageRef = firebase.storage().ref(this.ref);
       const databaseRef = firebase.database().ref(this.ref);
+
       if (this.images.length > 0) {
         Promise.all(
           this.images.map((value) => {
@@ -102,9 +104,11 @@ export default {
       }
     },
     handleData(url) {
-      this.images.push((value) => {
+      this.images.map((value) => {
+        let id = Math.floor(Math.random() * 10000);
+        value.id = id;
         return {
-          id: Math.floor(Math.random() * 10000),
+          id: value.id,
           image: value.image,
           imageUrl: url,
           url: value.url,
@@ -115,7 +119,9 @@ export default {
       dataSet
         .set(this.images)
         .then((this.$refs.btnSave.textContent = "Сохранено"));
+
     },
+
     onRead() {
       const baseRef = firebase.database().ref(this.ref);
       baseRef.on("value", (snapshot) => {
@@ -124,6 +130,7 @@ export default {
         } else {
           this.images = snapshot.val();
         }
+        // console.log(this.dataBlocks);
       });
     },
   },
@@ -140,10 +147,8 @@ export default {
   align-items: start;
   padding: 0 10px 0 40px;
   flex-wrap: wrap;
-
   &__bottom {
     flex-wrap: wrap;
-
     .btn-save {
       margin: 0 0 20px 20px;
       &.show {
@@ -156,7 +161,6 @@ export default {
     width: 165px;
     height: 45px;
     margin-left: 20px;
-
     &.card__block-add {
       height: 90px;
       margin: 50px 0 40px 0;
@@ -169,7 +173,6 @@ export default {
     margin-right: 30px;
   }
   .option__input {
-    max-width: 120px;
     margin-left: 15px;
     margin-bottom: 10px;
   }

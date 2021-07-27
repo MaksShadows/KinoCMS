@@ -20,7 +20,7 @@
       </button>
     </div>
     <div class="main-block__bottom">
-      <div class="option__item">
+       <div class="option__item">
         <select v-model="scrollSpeed" class="option__input form-control">
           <option :key="number" v-for="number in 10">{{ number }} сек.</option>
         </select>
@@ -34,9 +34,10 @@
 
 <script>
 import BannersCardsNewsBlocks from "@/components/adminPages/banners/BannersCardsNewsBlocks.vue";
+// import firebase from "@/database";
 import firebase from "firebase";
-import "firebase/storage";
 import "firebase/database";
+import "firebase/storage";
 
 export default {
   name: "BannersCardsNews",
@@ -53,9 +54,11 @@ export default {
   methods: {
     removeBlock(index) {
       this.images.splice(index, 1);
+
     },
     openFileDialog() {
       this.$refs.fileDialog.click();
+
     },
     addImage() {
       const file = this.$refs.fileDialog.files[0];
@@ -65,13 +68,14 @@ export default {
           imageFile: this.$refs.fileDialog.files[0],
         });
       }
-
     },
     save() {
-         this.$refs.btnSave.classList.add("show");
+      this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
+
       const storageRef = firebase.storage().ref(this.ref);
-      // const databaseRef = firebase.database().ref(this.ref);
+      const databaseRef = firebase.database().ref(this.ref);
+
       if (this.images.length > 0) {
         Promise.all(
           this.images.map((value) => {
@@ -92,13 +96,12 @@ export default {
           })
         );
       } else {
-        // console.log(this.dataBlocks.length);
         storageRef.delete().catch((error) => {
           console.log(error);
         });
-        // databaseRef.remove().catch((error) => {
-        //   console.log(error);
-        // });
+        databaseRef.remove().catch((error) => {
+          console.log(error);
+        });
       }
     },
     handleData(url) {
@@ -112,8 +115,13 @@ export default {
           url: value.url,
         };
       });
+      const dataSet = firebase.database().ref(this.ref);
+      dataSet
+        .set(this.images)
+        .then((this.$refs.btnSave.textContent = "Сохранено"));
     },
-       onRead() {
+
+    onRead() {
       const baseRef = firebase.database().ref(this.ref);
       baseRef.on("value", (snapshot) => {
         if (snapshot.val() === null) {
@@ -121,11 +129,10 @@ export default {
         } else {
           this.images = snapshot.val();
         }
-        // console.log(this.dataBlocks);
       });
     },
   },
-    created() {
+  created() {
     this.onRead();
   },
 };
@@ -138,8 +145,10 @@ export default {
   align-items: start;
   padding: 0 10px 0 40px;
   flex-wrap: wrap;
+
   &__bottom {
     flex-wrap: wrap;
+
     .btn-save {
       margin: 0 0 20px 20px;
       &.show {
@@ -152,12 +161,13 @@ export default {
     width: 165px;
     height: 45px;
     margin-left: 20px;
+
     &.card__block-add {
       height: 90px;
       margin: 40px 0;
     }
   }
-  .option__item {
+   .option__item {
     display: flex;
     justify-content: flex-start;
     align-items: center;

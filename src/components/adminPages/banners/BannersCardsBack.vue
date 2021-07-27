@@ -62,10 +62,8 @@
 <script>
 import firebase from "firebase";
 import "firebase/storage";
-
 export default {
   name: "BannersCardsBack",
-
   data() {
     return {
       imageData: null,
@@ -73,7 +71,6 @@ export default {
       imageRef: "banners/backcard/",
     };
   },
-
   methods: {
     openFileDialog() {
       const event = new MouseEvent("click", {
@@ -83,12 +80,10 @@ export default {
       });
       this.$refs.fileDialog.dispatchEvent(event);
     },
-
     addImage() {
       const file = this.$refs.fileDialog.files[0];
       this.previewImage(file);
     },
-
     previewImage(file) {
       const preview = this.$refs.filePreview;
       // console.log(preview);
@@ -97,52 +92,43 @@ export default {
         preview.src = e.target.result;
       };
       reader.readAsDataURL(file);
-
       this.imageData = file;
       this.onUpload();
     },
-
     onUpload() {
       this.picture = null;
       const storageRef = firebase
         .storage()
         .ref(this.imageRef)
         .child("backcard");
-
       storageRef
         .put(this.imageData)
         .then((snapshot) => snapshot.ref.getDownloadURL())
         .then((url) => (this.picture = url));
     },
-
     deleteImage() {
       this.picture = null;
       this.$refs.filePreview.src = null;
-
       const storageRef = firebase
         .storage()
         .ref(this.imageRef)
         .child("backcard");
-
       storageRef.delete().catch((error) => {
         console.log(error);
       });
     },
-
     onDownload() {
       this.picture = null;
       const storageRef = firebase
         .storage()
         .ref(this.imageRef)
         .child("backcard");
-
       storageRef.getDownloadURL().then(
         (url) => (this.picture = url),
         (error) => console.log(error)
       );
     },
   },
-
   mounted() {
     this.onDownload();
   },
@@ -182,7 +168,6 @@ export default {
 .btn {
   margin: 0 10px;
 }
-
 .preview {
   width: 200px;
   height: 300px;

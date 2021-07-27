@@ -23,8 +23,11 @@
 </template>
 
 <script>
+// import firebase from "@/database";
 import firebase from "firebase";
+import "firebase/database";
 import "firebase/storage";
+
 export default {
   name: "BannersCardsNewsBlock",
   props: ["sourceRef", "data"],
@@ -41,10 +44,9 @@ export default {
         preview.src = e.target.result;
       };
       reader.readAsDataURL(file);
+
       this.dataSource.image = file.name;
       this.dataSource.imageFile = file;
-      this.onDownload();
-
     },
     onDownload() {
       this.picture = null;
@@ -52,6 +54,7 @@ export default {
         .storage()
         .ref(this.imageRef)
         .child("newscard");
+
       storageRef.getDownloadURL().then(
         (url) => (this.picture = url),
         (error) => console.log(error)
@@ -73,6 +76,7 @@ export default {
   position: relative;
   margin: 10px 30px 20px 0;
   max-width: 300px;
+
   &__image {
     width: 235px;
     height: 84px;
@@ -80,6 +84,7 @@ export default {
     border-radius: 0.25rem;
     background-size: cover;
   }
+
   &__close {
     position: absolute;
     top: 0;
@@ -90,10 +95,12 @@ export default {
     width: 24px;
     height: 24px;
     padding: 3px;
+
     &-img {
       width: 13px;
       height: 13px;
     }
+
     /* &__add {
       margin-top: 20px;
     } */
@@ -102,6 +109,7 @@ export default {
 .input-column {
   margin-top: 10px;
 }
+
 .info-block__input {
   flex: 140px 0 0;
 }
