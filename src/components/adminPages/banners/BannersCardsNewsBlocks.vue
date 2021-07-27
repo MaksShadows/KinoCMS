@@ -43,6 +43,8 @@ export default {
       reader.readAsDataURL(file);
       this.dataSource.image = file.name;
       this.dataSource.imageFile = file;
+      this.onDownload();
+
     },
     onDownload() {
       this.picture = null;

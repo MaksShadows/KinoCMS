@@ -65,15 +65,16 @@ export default {
           imageFile: this.$refs.fileDialog.files[0],
         });
       }
+
     },
     save() {
          this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
       const storageRef = firebase.storage().ref(this.ref);
-      const databaseRef = firebase.database().ref(this.ref);
-      if (this.dataBlocks.length > 0) {
+      // const databaseRef = firebase.database().ref(this.ref);
+      if (this.images.length > 0) {
         Promise.all(
-          this.dataBlocks.map((value) => {
+          this.images.map((value) => {
             if (value.imageFile !== undefined)
               return new Promise((resolve) => {
                 resolve(
@@ -95,9 +96,9 @@ export default {
         storageRef.delete().catch((error) => {
           console.log(error);
         });
-        databaseRef.remove().catch((error) => {
-          console.log(error);
-        });
+        // databaseRef.remove().catch((error) => {
+        //   console.log(error);
+        // });
       }
     },
     handleData(url) {
@@ -116,9 +117,9 @@ export default {
       const baseRef = firebase.database().ref(this.ref);
       baseRef.on("value", (snapshot) => {
         if (snapshot.val() === null) {
-          this.dataBlocks = [];
+          this.images = [];
         } else {
-          this.dataBlocks = snapshot.val();
+          this.images = snapshot.val();
         }
         // console.log(this.dataBlocks);
       });

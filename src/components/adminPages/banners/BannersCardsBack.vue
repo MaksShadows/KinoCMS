@@ -5,7 +5,6 @@
         <div class="banner-tabs-nav">
           <div class="radio icheck-nephritis">
             <input
-              v-model="currentTabs"
               type="radio"
               id="nephritis1"
               name="nephritis"
@@ -15,7 +14,6 @@
           </div>
           <div class="radio icheck-nephritis">
             <input
-              v-model="currentTabs"
               type="radio"
               id="nephritis2"
               name="nephritis"

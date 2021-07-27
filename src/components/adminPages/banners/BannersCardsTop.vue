@@ -7,8 +7,6 @@
         :data="block"
         :sourceRef="ref"
         @remove="removeBlock(index)"
-          @editUrl="editUrl"
-            @editText="editText"
         class="card__block"
       />
       <button @click="openFileDialog()" class="btn btn-default card__block-add">
@@ -40,7 +38,6 @@ import firebase from "firebase";
 import "firebase/storage";
 import "firebase/database";
 
-
 export default {
   name: "Banners",
   components: {
@@ -54,7 +51,6 @@ export default {
     };
   },
   methods: {
-
     removeBlock(index) {
       this.images.splice(index, 1);
     },
@@ -77,7 +73,7 @@ export default {
       this.$refs.btnSave.textContent = "Сохраняется";
       const storageRef = firebase.storage().ref(this.ref);
       const databaseRef = firebase.database().ref(this.ref);
-      if (this.dataBlocks.length > 0) {
+      if (this.images.length > 0) {
         Promise.all(
           this.images.map((value) => {
             if (value.imageFile !== undefined)
@@ -105,7 +101,7 @@ export default {
         });
       }
     },
-      handleData(url) {
+    handleData(url) {
       this.images.push((value) => {
         return {
           id: Math.floor(Math.random() * 10000),
@@ -119,9 +115,8 @@ export default {
       dataSet
         .set(this.images)
         .then((this.$refs.btnSave.textContent = "Сохранено"));
-
     },
-     onRead() {
+    onRead() {
       const baseRef = firebase.database().ref(this.ref);
       baseRef.on("value", (snapshot) => {
         if (snapshot.val() === null) {
@@ -133,7 +128,7 @@ export default {
     },
   },
   created() {
-        this.onRead();
+    this.onRead();
   },
 };
 </script>
