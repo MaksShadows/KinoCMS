@@ -23,7 +23,6 @@
 </template>
 
 <script>
-// import firebase from "@/database";
 import firebase from "firebase";
 import "firebase/database";
 import "firebase/storage";
@@ -101,9 +100,7 @@ export default {
       height: 13px;
     }
 
-    /* &__add {
-      margin-top: 20px;
-    } */
+    
   }
 }
 .input-column {

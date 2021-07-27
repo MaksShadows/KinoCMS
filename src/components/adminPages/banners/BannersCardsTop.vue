@@ -130,7 +130,6 @@ export default {
         } else {
           this.images = snapshot.val();
         }
-        // console.log(this.dataBlocks);
       });
     },
   },
