@@ -46,7 +46,10 @@
       </div>
       <div class="create__main-img d-flex">
         <p>Главная картинка</p>
-
+        <SharesAddImage
+          :sourceData="sharesData.mainImage"
+          @mainImageChanged="mainImageFile"
+        />
       </div>
 
       <div class="create__gallery">
@@ -54,7 +57,13 @@
         <div class="d-flex">
           <p>Размер: 1000х190</p>
           <div class="create__gallery-img d-flex flex-wrap">
-
+            <SharesAddGallery
+              v-for="(block, index) in galleryData"
+              :key="block.name"
+              :data="block"
+              @remove="galleryData.splice(index, 1)"
+              class="gallery__block"
+            />
             <button
               @click="openFileDialog()"
               class="btn btn-default gallery__block-add"
@@ -115,7 +124,7 @@
     <button
       class="btn btn-default btn-save"
       ref="btnSave"
-      @click="mainImagePromise"
+      @click="saveShare"
     >
       Сохранить
     </button>
@@ -123,11 +132,16 @@
 </template>
 
 <script>
+import SharesAddImage from "@/components/adminPages/shares/SharesAddImage.vue";
+import SharesAddGallery from "@/components/adminPages/shares/SharesAddGallery.vue";
 import DatePicker from "@/components/adminPages/DatePicker.vue";
+import firebase from "firebase";
 
 export default {
   name: "SharesAdd",
   components: {
+    SharesAddImage,
+    SharesAddGallery,
     DatePicker,
   },
   props: ["dataArr", "dataOb", "dbRef", "dbMainImageRef", "dbGalleryRef"],
@@ -146,7 +160,6 @@ export default {
         status: false,
         date: "",
         description: "",
-        // mainImage: {},
         galleryImages: [],
         link: "",
         SEO: {
@@ -162,8 +175,136 @@ export default {
     openFileDialog() {
       this.$refs.fileDialog.click();
     },
+    addImage() {
+      const file = this.$refs.fileDialog.files[0];
+      if (file !== undefined) {
+        this.galleryData.push({
+          name: file.name,
+          imageFile: file,
+        });
+      }
+    },
+    mainImageFile(file) {
+      if (file !== undefined) {
+        this.sharesData.mainImage = file;
+      }
+    },
+    newDateValue(value) {
+      this.sharesData.date = value;
+    },
 
+    saveShare() {
+      this.$refs.btnSave.classList.add("show");
+      this.$refs.btnSave.textContent = "Сохраняется";
+      const storageImageRef = firebase.storage().ref(this.mainImageRef);
 
+      if (
+        this.sharesData.mainImage !== undefined &&
+        this.sharesData.mainImage.imageUrl === undefined
+      ) {
+        new Promise((resolve) => {
+          resolve(
+            storageImageRef
+              .child(this.sharesData.mainImage.name)
+              .put(this.sharesData.mainImage)
+              .then((snapshot) => snapshot.ref.getDownloadURL())
+              .then((url) => ({
+                name: this.sharesData.mainImage.name,
+                imageUrl: url,
+              }))
+          );
+        }).then((mainImg) => this.galleryPromise(mainImg));
+      } else if (
+        this.sharesData.mainImage !== undefined &&
+        this.sharesData.mainImage.imageUrl !== undefined
+      ) {
+        this.galleryPromise(this.sharesData.mainImage);
+      } else {
+        alert("Укажите главную картинку");
+        this.$refs.btnSave.textContent = "Сохранить";
+        this.$refs.btnSave.classList.remove("show");
+      }
+    },
+
+    galleryPromise(mainImg) {
+      const storageGalleryRef = firebase.storage().ref(this.galleryRef);
+
+      if (this.galleryData.length > 0) {
+        let galleryImage = this.galleryData.filter((image) => {
+          return image.id === undefined;
+        });
+        Promise.all(
+          galleryImage.map((value) => {
+            if (value.imageFile !== undefined)
+              return new Promise((resolve) => {
+                resolve(
+                  storageGalleryRef
+                    .child(value.name)
+                    .put(value.imageFile)
+                    .then((snapshot) => snapshot.ref.getDownloadURL())
+                    .then(
+                      (url) =>
+                        (value = {
+                          id: Math.floor(Math.random() * 10000),
+                          name: value.name,
+                          imageUrl: url,
+                        })
+                    )
+                );
+              });
+          })
+        ).then((gallery) => this.saveData(mainImg, gallery));
+      } else {
+        alert("Выберете картинки для галереи");
+        this.$refs.btnSave.textContent = "Сохранить";
+        this.$refs.btnSave.classList.remove("show");
+      }
+    },
+
+    saveData(mainImg, gallery) {
+      let dataEdit = this.dataSource.find((news) => {
+        return news.id === this.sharesData.id;
+      });
+      if (dataEdit !== undefined) {
+        let oldGallery = this.galleryData.filter((image) => {
+          return image.id !== undefined;
+        });
+        let newGallery = oldGallery.concat(gallery);
+        this.onUpload(mainImg, newGallery);
+      } else {
+        this.onUpload(mainImg, gallery);
+      }
+    },
+    onUpload(mainImg, gallery) {
+      let newData = this.dataSource.filter((news) => {
+        return news.id !== this.sharesData.id;
+      });
+      this.sharesData.id = Math.floor(Math.random() * 10000);
+      this.sharesData.mainImage = mainImg;
+      this.sharesData.galleryImages = gallery;
+      newData.push(this.sharesData);
+
+      const baseRef = firebase.database().ref(this.ref);
+      baseRef
+        .set(newData)
+        .then((this.$refs.btnSave.textContent = "Сохранено"))
+        .then(this.$refs.btnSave.classList.remove("show"))
+        .then(this.$router.push("/admin/shares"));
+    },
+  },
+
+  created() {
+    if (this.dataArr !== undefined && this.dataArr.length > 0) {
+      this.dataSource = this.dataArr;
+      if (this.dataOb !== undefined && Object.keys(this.dataOb).length !== 0) {
+        this.sharesData = this.dataOb;
+        if (this.dataOb.galleryImages.length !== 0) {
+          this.galleryData = this.dataOb.galleryImages;
+        }
+      }
+    } else if (this.dataArr === undefined) {
+      this.$router.push("/admin/shares");
+    }
   },
 };
 </script>

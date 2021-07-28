@@ -6,6 +6,16 @@
       <div class="title__date">Дата создания</div>
       <div class="title__status">Статус</div>
     </div>
+    <SharesList
+      v-for="(shares, index) in sharesData"
+      :key="shares.id"
+      :data="shares"
+      :dataArr="sharesData"
+      :dbRef="ref"
+      :dbMainImageRef="mainImageRef"
+      :dbGalleryRef="galleryRef"
+      @remove="deleteShares(index)"
+    />
     <router-link
       class="btn btn-default shares-list-add"
       tag="button"
@@ -27,10 +37,14 @@
 </template>
 
 <script>
+import SharesList from "@/components/adminPages/shares/SharesList.vue";
+import firebase from "firebase";
 
 export default {
   name: "Shares",
-
+  components: {
+    SharesList,
+  },
   data() {
     return {
       sharesData: [],
@@ -41,9 +55,24 @@ export default {
     };
   },
   methods: {
-
+    deleteShares(index) {
+      if (this.sharesData.length > 1) {
+        this.sharesData.splice(index, 1);
+        const baseRef = firebase.database().ref(this.ref);
+        baseRef.set(this.sharesData);
+      } else {
+        alert("Должена оставаться минимум одна акция!");
+      }
+    },
   },
-
+  created() {
+    const baseRef = firebase.database().ref(this.ref);
+    baseRef.on("value", (snapshot) => {
+      if (snapshot.val() !== null) {
+        this.sharesData = snapshot.val();
+      }
+    });
+  },
 };
 </script>
 
