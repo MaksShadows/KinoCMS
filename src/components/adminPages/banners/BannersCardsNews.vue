@@ -45,7 +45,7 @@ export default {
   },
   data() {
     return {
-      ref: "banners/newscards/",
+      ref: "banners/",
       images: [],
       scrollSpeed: "1 сек.",
     };
@@ -68,72 +68,28 @@ export default {
         });
       }
     },
-    save() {
+   save() {
       this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
 
       const storageRef = firebase.storage().ref(this.ref);
-      const databaseRef = firebase.database().ref(this.ref);
 
       if (this.images.length > 0) {
-        Promise.all(
-          this.images.map((value) => {
-            if (value.imageFile !== undefined)
-              return new Promise((resolve) => {
-                resolve(
-                  storageRef
-                    .child(value.image)
-                    .put(value.imageFile)
-                    .then((snapshot) => snapshot.ref.getDownloadURL())
-                    .then((url) => (value.imageUrl = url))
-                );
-              });
-          })
-        ).then((result) =>
-          result.map((url) => {
-            this.handleData(url);
-          })
-        );
+          storageRef
+        .put(this.images)
+        .then((snapshot) => snapshot.ref.getDownloadURL())
+        .then((url) => (this.images = url));
       } else {
         storageRef.delete().catch((error) => {
           console.log(error);
         });
-        databaseRef.remove().catch((error) => {
-          console.log(error);
-        });
+
       }
     },
-    handleData(url) {
-      this.images.map((value) => {
-        let id = Math.floor(Math.random() * 10000);
-        value.id = id;
-        return {
-          id: value.id,
-          image: value.image,
-          imageUrl: url,
-          url: value.url,
-        };
-      });
-      const dataSet = firebase.database().ref(this.ref);
-      dataSet
-        .set(this.images)
-        .then((this.$refs.btnSave.textContent = "Сохранено"));
-    },
 
-    onRead() {
-      const baseRef = firebase.database().ref(this.ref);
-      baseRef.on("value", (snapshot) => {
-        if (snapshot.val() === null) {
-          this.images = [];
-        } else {
-          this.images = snapshot.val();
-        }
-      });
-    },
+
   },
-  created() {
-    this.onRead();
-  },
+
 };
 </script>
 

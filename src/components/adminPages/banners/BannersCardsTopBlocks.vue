@@ -43,7 +43,6 @@ export default {
   data() {
     return {
       dataSource: this.data,
-      // files: [],
     };
   },
   methods: {

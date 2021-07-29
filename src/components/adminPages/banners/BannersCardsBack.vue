@@ -68,17 +68,12 @@ export default {
     return {
       imageData: null,
       picture: null,
-      imageRef: "banners/backcard/",
+      imageRef: "banners/",
     };
   },
   methods: {
     openFileDialog() {
-      const event = new MouseEvent("click", {
-        view: window,
-        bubbles: true,
-        cancelable: true,
-      });
-      this.$refs.fileDialog.dispatchEvent(event);
+      this.$refs.fileDialog.click();
     },
     addImage() {
       const file = this.$refs.fileDialog.files[0];
@@ -86,7 +81,6 @@ export default {
     },
     previewImage(file) {
       const preview = this.$refs.filePreview;
-      // console.log(preview);
       const reader = new FileReader();
       reader.onload = (e) => {
         preview.src = e.target.result;
@@ -100,7 +94,7 @@ export default {
       const storageRef = firebase
         .storage()
         .ref(this.imageRef)
-        .child("backcard");
+        .child("card");
       storageRef
         .put(this.imageData)
         .then((snapshot) => snapshot.ref.getDownloadURL())
@@ -112,7 +106,7 @@ export default {
       const storageRef = firebase
         .storage()
         .ref(this.imageRef)
-        .child("backcard");
+        .child("card");
       storageRef.delete().catch((error) => {
         console.log(error);
       });
@@ -122,7 +116,7 @@ export default {
       const storageRef = firebase
         .storage()
         .ref(this.imageRef)
-        .child("backcard");
+        .child("cars");
       storageRef.getDownloadURL().then(
         (url) => (this.picture = url),
         (error) => console.log(error)
