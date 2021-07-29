@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       dataSource: this.data,
+      // files: [],
     };
   },
   methods: {
@@ -73,7 +74,25 @@ export default {
   },
   mounted() {
     if (this.dataSource.image !== null) {
+      // console.log(this.dataSource);
+      // console.log(this.dataSource.imageUrl);
+      // console.log(this.sourceRef + this.dataSource.image);
+
+      // const storageRef = firebase.storage()
+      // .ref(this.sourceRef);
+      // .child(this.dataSource.image);
+
       this.$refs.filePreview.src = this.dataSource.imageUrl;
+
+      // const storage = firebase.storage();
+      // let gs = storage.ref(this.sourceRef) + this.dataSource.image;
+      // console.log(gs);
+      // let gss = storage.refFromURL(gs);
+      // console.log(gss);
+
+      // this.dataSource.imageFile = storage.refFromURL(this.dataSource.imageUrl);
+      // this.dataSource.imageFile = this.dataSource.imageUrl;
+      // console.log(this.dataSource.imageFile);
     } else {
       this.previewImage(this.dataSource.imageFile);
     }

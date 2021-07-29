@@ -100,7 +100,9 @@ export default {
       height: 13px;
     }
 
-    
+    /* &__add {
+      margin-top: 20px;
+    } */
   }
 }
 .input-column {

@@ -20,11 +20,6 @@
       </button>
     </div>
     <div class="main-block__bottom">
-      <div class="option__item">
-        <select v-model="scrollSpeed" class="option__input form-control">
-          <option :key="number" v-for="number in 10">{{ number }} сек.</option>
-        </select>
-      </div>
       <button ref="btnSave" @click="save" class="btn btn-default btn-save">
         Сохранить
       </button>
@@ -35,6 +30,7 @@
 <script>
 import BannersCardsTopBlocks from "@/components/adminPages/banners/BannersCardsTopBlocks.vue";
 import firebase from "firebase";
+import "firebase/database";
 import "firebase/storage";
 
 export default {
@@ -44,9 +40,8 @@ export default {
   },
   data() {
     return {
-      ref: "banners/",
+      ref: "banners/cards/",
       images: [],
-      scrollSpeed: "1 сек.",
     };
   },
   methods: {
@@ -68,25 +63,73 @@ export default {
     },
 
     save() {
- 
+      this.$refs.btnSave.classList.add("show");
+      this.$refs.btnSave.textContent = "Сохраняется";
 
       const storageRef = firebase.storage().ref(this.ref);
+      const databaseRef = firebase.database().ref(this.ref);
 
       if (this.images.length > 0) {
-          storageRef
-        .put(this.images)
-        .then((snapshot) => snapshot.ref.getDownloadURL())
-        .then((url) => (this.images = url));
+        Promise.all(
+          this.images.map((value) => {
+            if (value.imageFile !== undefined)
+              return new Promise((resolve) => {
+                resolve(
+                  storageRef
+                    .child(value.image)
+                    .put(value.imageFile)
+                    .then((snapshot) => snapshot.ref.getDownloadURL())
+                    .then((url) => (value.imageUrl = url))
+                );
+              });
+          })
+        ).then((result) =>
+          result.map((url) => {
+            this.handleData(url);
+          })
+        );
       } else {
         storageRef.delete().catch((error) => {
           console.log(error);
         });
-
+        databaseRef.remove().catch((error) => {
+          console.log(error);
+        });
       }
     },
+    handleData(url) {
+      this.images.map((value) => {
+        let id = Math.floor(Math.random() * 10000);
+        value.id = id;
+        return {
+          id: value.id,
+          image: value.image,
+          imageUrl: url,
+          url: value.url,
+          text: value.text,
+        };
+      });
+      const dataSet = firebase.database().ref(this.ref);
+      dataSet
+        .set(this.images)
+        .then((this.$refs.btnSave.textContent = "Сохранено"));
+    },
+
+    onRead() {
+      const baseRef = firebase.database().ref(this.ref);
+      baseRef.on("value", (snapshot) => {
+        if (snapshot.val() === null) {
+          this.images = [];
+        } else {
+          this.images = snapshot.val();
+        }
+      });
+    },
+  },
+  mounted() {
+    this.onRead();
 
   },
-
 };
 </script>
 
@@ -97,8 +140,10 @@ export default {
   align-items: start;
   padding: 0 10px 0 40px;
   flex-wrap: wrap;
+
   &__bottom {
     flex-wrap: wrap;
+
     .btn-save {
       margin: 0 0 20px 20px;
       &.show {
@@ -111,20 +156,11 @@ export default {
     width: 165px;
     height: 45px;
     margin-left: 20px;
+
     &.card__block-add {
       height: 90px;
       margin: 50px 0 40px 0;
     }
-  }
-  .option__item {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-right: 30px;
-  }
-  .option__input {
-    margin-left: 15px;
-    margin-bottom: 10px;
   }
 }
 </style>
