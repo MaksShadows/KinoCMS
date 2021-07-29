@@ -5,10 +5,16 @@
       <div class="card-header text-center font-weight-bold">
         На главной верх
       </div>
-      <div class="row p-3">
-        <div class="col-md-6 text-muted">Pазмер 1000x190</div>
-        <div class="col-md-6 text-right">
-          <Switcher class="banners-switcher" @stateChanged="showToggle" />
+      <div class="cards-body__items">
+        <div class="cards-body__item">Размер: 1000х190</div>
+        <div class="custom-control custom-switch">
+          <input
+            v-model="isEnabled"
+            type="checkbox"
+            class="custom-control-input"
+            id="mainPageTopSwitch"
+          />
+          <label class="custom-control-label" for="mainPageTopSwitch"></label>
         </div>
       </div>
 
@@ -36,10 +42,17 @@
       <div class="card-header text-center font-weight-bold">
         На главной новости и акции
       </div>
-      <div class="row p-3">
-        <div class="col-md-6 text-muted">Pазмер 1000x190</div>
-        <div class="col-md-6 text-right">
-          <Switcher class="banners-switcher" @stateChanged="showToggle" />
+
+      <div class="cards-body__items">
+        <div class="cards-body__item">Размер: 1000х190</div>
+        <div class="custom-control custom-switch">
+          <input
+            v-model="isEnabled"
+            type="checkbox"
+            class="custom-control-input"
+            id="mainPageTopSwitch"
+          />
+          <label class="custom-control-label" for="mainPageTopSwitch"></label>
         </div>
       </div>
 
@@ -54,7 +67,7 @@
 import BannersCardsTop from "@/components/adminPages/banners/BannersCardsTop.vue";
 import BannersCardsBack from "@/components/adminPages/banners/BannersCardsBack.vue";
 import BannersCardsNews from "@/components/adminPages/banners/BannersCardsNews.vue";
-import Switcher from "@/components/adminPages/Switcher.vue";
+//import Switcher from "@/components/adminPages/Switcher.vue";
 
 export default {
   name: "Banners",
@@ -62,7 +75,7 @@ export default {
     BannersCardsTop,
     BannersCardsBack,
     BannersCardsNews,
-    Switcher,
+    // Switcher,
   },
 
   data() {
