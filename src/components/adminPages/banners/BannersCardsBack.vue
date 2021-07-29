@@ -116,7 +116,7 @@ export default {
       const storageRef = firebase
         .storage()
         .ref(this.imageRef)
-        .child("cars");
+        .child("card");
       storageRef.getDownloadURL().then(
         (url) => (this.picture = url),
         (error) => console.log(error)
