@@ -69,9 +69,7 @@ export default {
       }
     },
    save() {
-      this.$refs.btnSave.classList.add("show");
-      this.$refs.btnSave.textContent = "Сохраняется";
-
+    
       const storageRef = firebase.storage().ref(this.ref);
 
       if (this.images.length > 0) {
