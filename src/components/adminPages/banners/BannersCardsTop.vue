@@ -20,6 +20,12 @@
       </button>
     </div>
     <div class="main-block__bottom">
+      <div class="seconds">
+        <div class="seconds__label">Скорость вращения</div>
+        <select v-model="scrollSpeed" class="seconds__input">
+          <option :key="number" v-for="number in 10">{{ number }} сек.</option>
+        </select>
+      </div>
       <button ref="btnSave" @click="save" class="btn btn-default btn-save">
         Сохранить
       </button>
@@ -42,6 +48,7 @@ export default {
     return {
       ref: "banners/cards/",
       images: [],
+      scrollSpeed: "1 сек.",
     };
   },
   methods: {
@@ -63,9 +70,6 @@ export default {
     },
 
     save() {
-      this.$refs.btnSave.classList.add("show");
-      this.$refs.btnSave.textContent = "Сохраняется";
-
       const storageRef = firebase.storage().ref(this.ref);
       const databaseRef = firebase.database().ref(this.ref);
 
@@ -100,19 +104,21 @@ export default {
     handleData(url) {
       this.images.map((value) => {
         let id = Math.floor(Math.random() * 10000);
+        let scrollSpeed = this.scrollSpeed;
         value.id = id;
+        value.scrollSpeed = scrollSpeed;
         return {
           id: value.id,
           image: value.image,
           imageUrl: url,
           url: value.url,
           text: value.text,
+          scrollSpeed: value.scrollSpeed,
         };
       });
+
       const dataSet = firebase.database().ref(this.ref);
-      dataSet
-        .set(this.images)
-        .then((this.$refs.btnSave.textContent = "Сохранено"));
+      dataSet.set(this.images);
     },
 
     onRead() {
@@ -128,7 +134,6 @@ export default {
   },
   mounted() {
     this.onRead();
-
   },
 };
 </script>
@@ -161,6 +166,17 @@ export default {
       height: 90px;
       margin: 50px 0 40px 0;
     }
+  }
+  .seconds {
+    flex: 42% 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+  }
+  .seconds__input {
+    max-width: 120px;
+    margin-left: 15px;
   }
 }
 </style>
