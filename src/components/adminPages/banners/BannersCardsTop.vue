@@ -20,8 +20,8 @@
       </button>
     </div>
     <div class="main-block__bottom">
-      <div class="seconds">
-        <div class="seconds__label">Скорость вращения</div>
+      <div class="main-block__seconds">
+        <div class="main-block__label">Скорость вращения</div>
         <select v-model="scrollSpeed" class="seconds__input">
           <option :key="number" v-for="number in 10">{{ number }} сек.</option>
         </select>
@@ -38,7 +38,6 @@ import BannersCardsTopBlocks from "@/components/adminPages/banners/BannersCardsT
 import firebase from "firebase";
 import "firebase/database";
 import "firebase/storage";
-
 export default {
   name: "Banners",
   components: {
@@ -46,7 +45,7 @@ export default {
   },
   data() {
     return {
-      ref: "banners/cards/",
+      ref: "banners/topcards/",
       images: [],
       scrollSpeed: "1 сек.",
     };
@@ -55,7 +54,6 @@ export default {
     removeBlock(index) {
       this.images.splice(index, 1);
     },
-
     openFileDialog() {
       this.$refs.fileDialog.click();
     },
@@ -68,11 +66,9 @@ export default {
         });
       }
     },
-
     save() {
       const storageRef = firebase.storage().ref(this.ref);
       const databaseRef = firebase.database().ref(this.ref);
-
       if (this.images.length > 0) {
         Promise.all(
           this.images.map((value) => {
@@ -116,11 +112,9 @@ export default {
           scrollSpeed: value.scrollSpeed,
         };
       });
-
       const dataSet = firebase.database().ref(this.ref);
       dataSet.set(this.images);
     },
-
     onRead() {
       const baseRef = firebase.database().ref(this.ref);
       baseRef.on("value", (snapshot) => {
@@ -145,10 +139,8 @@ export default {
   align-items: start;
   padding: 0 10px 0 40px;
   flex-wrap: wrap;
-
   &__bottom {
     flex-wrap: wrap;
-
     .btn-save {
       margin: 0 0 20px 20px;
       &.show {
@@ -161,20 +153,19 @@ export default {
     width: 165px;
     height: 45px;
     margin-left: 20px;
-
     &.card__block-add {
       height: 90px;
       margin: 50px 0 40px 0;
     }
   }
-  .seconds {
+  .main-block__seconds {
     flex: 42% 0 0;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 30px;
   }
-  .seconds__input {
+  .main-block__label {
     max-width: 120px;
     margin-left: 15px;
   }

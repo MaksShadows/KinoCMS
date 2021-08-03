@@ -39,14 +39,12 @@
               accept="image/*"
             />
             <button
-              v-if="picture === null"
               @click="openFileDialog"
               class="btn btn-primary"
             >
               Добавить
             </button>
             <button
-              v-if="picture !== null"
               @click="deleteImage"
               class="btn btn-danger"
             >
@@ -156,7 +154,7 @@ export default {
   width: 240px;
   max-width: 240px;
   height: 180px;
-  display: inline-block;
+  // display: inline-block;
   margin: 0 40px 10px 0;
 }
 .btn {
