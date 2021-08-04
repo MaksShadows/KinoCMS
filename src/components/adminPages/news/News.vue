@@ -26,7 +26,7 @@
           dataArr: newsData,
           dbRef: ref,
           dbMainImageRef: mainImageRef,
-          dbGalleryRef: galleryRef,
+         // dbGalleryRef: galleryRef,
         },
       }"
     >
@@ -37,23 +37,40 @@
 </template>
 
 <script>
-//import firebase from "firebase";
-
+import NewsList from "@/components/adminPages/news/NewsList.vue";
+import firebase from "firebase";
 export default {
   name: "News",
   components: {
-
+    NewsList,
   },
   data() {
     return {
       newsData: [],
-
+      ref: "news",
+      mainImageRef: "news/main",
+      // galleryRef: "news/gallery",
     };
   },
   methods: {
-
+    deleteNews(index) {
+      if (this.newsData.length > 1) {
+        this.newsData.splice(index, 1);
+        const baseRef = firebase.database().ref(this.ref);
+        baseRef.set(this.newsData);
+      } else {
+        alert("Должена оставаться минимум одна новость!");
+      }
+    },
   },
-
+  created() {
+    const baseRef = firebase.database().ref(this.ref);
+    baseRef.on("value", (snapshot) => {
+      if (snapshot.val() !== null) {
+        this.newsData = snapshot.val();
+      }
+    });
+  },
 };
 </script>
 
@@ -61,7 +78,6 @@ export default {
 .news-list {
   padding: 20px 40px;
   position: relative;
-
   h3 {
     padding: 20px 10px;
     display: flex;
@@ -73,7 +89,6 @@ export default {
     position: absolute;
     top: 20px;
     right: 35px;
-
     span {
       width: 20px;
       height: 20px;
@@ -100,14 +115,12 @@ export default {
       height: 20px;
     }
   }
-
   .title {
     display: flex;
     justify-content: center;
     &-main {
       margin: 0 70px 0 60px;
     }
-
     &__date,
     &__name,
     &__status {

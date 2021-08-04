@@ -10,25 +10,13 @@
       </svg>
     </div>
     <img ref="filePreview" class="info-block__image" />
-    <div class="input-column">
-      <div class="input-label">Url:</div>
-      <input
-        v-model="dataSource.url"
-        type="text"
-        class="form-control info-block__input"
-        placeholder="Url"
-      />
-    </div>
   </div>
 </template>
 
 <script>
-import firebase from "firebase";
-import "firebase/database";
-import "firebase/storage";
 export default {
-  name: "BannersCardsNewsBlock",
-  props: ["sourceRef", "data"],
+  name: "NewsAddGallery",
+  props: ["data"],
   data() {
     return {
       dataSource: this.data,
@@ -42,23 +30,16 @@ export default {
         preview.src = e.target.result;
       };
       reader.readAsDataURL(file);
-      this.dataSource.image = file.name;
+
+      this.dataSource.name = file.name;
       this.dataSource.imageFile = file;
-    },
-    onDownload() {
-      this.picture = null;
-      const storageRef = firebase
-        .storage()
-        .ref(this.imageRef)
-        .child("newscard");
-      storageRef.getDownloadURL().then(
-        (url) => (this.picture = url),
-        (error) => console.log(error)
-      );
     },
   },
   mounted() {
-    if (this.dataSource.image !== null) {
+    if (
+      this.dataSource.imageUrl !== null &&
+      this.dataSource.imageUrl !== undefined
+    ) {
       this.$refs.filePreview.src = this.dataSource.imageUrl;
     } else {
       this.previewImage(this.dataSource.imageFile);
@@ -70,15 +51,17 @@ export default {
 <style lang="scss" scoped>
 .info-block {
   position: relative;
-  margin: 10px 30px 20px 0;
+  margin: 20px;
   max-width: 300px;
+
   &__image {
     width: 235px;
-    height: auto;
+    height: 84px;
     background: #a0a6ac;
     border-radius: 0.25rem;
     background-size: cover;
   }
+
   &__close {
     position: absolute;
     top: 0;
@@ -89,17 +72,11 @@ export default {
     width: 24px;
     height: 24px;
     padding: 3px;
+
     &-img {
       width: 13px;
       height: 13px;
     }
-
   }
-}
-.input-column {
-  margin-top: 10px;
-}
-.info-block__input {
-  flex: 140px 0 0;
 }
 </style>

@@ -46,7 +46,10 @@
       </div>
       <div class="create__main-img d-flex">
         <p>Главная картинка</p>
-      
+        <NewsAddImage
+          :sourceData="newsData.mainImage"
+          @mainImageChanged="mainImageFile"
+        />
       </div>
 
       <div class="create__gallery">
@@ -54,7 +57,13 @@
         <div class="d-flex">
           <p>Размер: 1000х190</p>
           <div class="create__gallery-img d-flex flex-wrap">
-
+            <NewsAddGallery
+              v-for="(block, index) in galleryData"
+              :key="block.name"
+              :data="block"
+              @remove="galleryData.splice(index, 1)"
+              class="gallery__block"
+            />
             <button
               @click="openFileDialog()"
               class="btn btn-default gallery__block-add"
@@ -123,18 +132,27 @@
 </template>
 
 <script>
-
+import NewsAddImage from "@/components/adminPages/news/NewsAddImage.vue";
+import NewsAddGallery from "@/components/adminPages/news/NewsAddGallery.vue";
 import DatePicker from "@/components/adminPages/DatePicker.vue";
-//import firebase from "firebase";
+import firebase from "firebase";
 
 export default {
   name: "NewsAdd",
   components: {
+    NewsAddImage,
+    NewsAddGallery,
     DatePicker,
   },
-  props: [],
+  props: ["dataArr", "dataOb", "dbRef", "dbMainImageRef", "dbGalleryRef"],
   data() {
     return {
+      ref: this.dbRef,
+      mainImageRef: this.dbMainImageRef,
+      galleryRef: this.dbGalleryRef,
+
+      dataSource: [],
+      galleryData: [],
 
       newsData: {
         id: "",
@@ -149,26 +167,92 @@ export default {
           title: "",
           keyword: "",
           description: "",
-        }
+        },
       },
     };
   },
   methods: {
     openFileDialog() {
-      this.$refs.fileDialog.click()
+      this.$refs.fileDialog.click();
     },
     addImage() {
-      const item = this.$refs.fileDialog.files[0];
-      if (item !== undefined) {
+      const file = this.$refs.fileDialog.files[0];
+      if (file !== undefined) {
         this.galleryData.push({
-          name: item.name,
-          imageFile: item,
-        })
+          name: file.name,
+          imageFile: file,
+        });
+      }
+    },
+    mainImageFile(file) {
+      if (file !== undefined) {
+        this.newsData.mainImage = file;
+      }
+    },
+    newDateValue(value) {
+      this.newsData.date = value;
+    },
+
+    saveNews() {
+      this.$refs.btnSave.classList.add("show");
+      this.$refs.btnSave.textContent = "Сохраняется";
+      const storageImageRef = firebase.storage().ref(this.mainImageRef);
+
+      if(this.newsData.mainImage !== undefined  &&
+        this.newsData.mainImage.imageUrl === undefined){
+        storageImageRef
+            .child(this.newsData.mainImage.name)
+            .put(this.newsData.mainImage)
+            .then((snapshot) => snapshot.ref.getDownloadURL())
+            .then((url) => ({
+              name: this.newsData.mainImage.name,
+              imageUrl: url,
+            }))
+            .then((mainImg) => this.galleryPromise(mainImg));
+      }else if (
+        this.newsData.mainImage !== undefined &&
+        this.newsData.mainImage.imageUrl !== undefined
+      )
+      {
+        this.onUpload(this.newsData.mainImage);
+      } else {
+        alert("Укажите главную картинку");
+        this.$refs.btnSave.textContent = "Сохранить";
+        this.$refs.btnSave.classList.remove("show");
       }
     },
 
+    onUpload(mainImg, gallery) {
+      let newData = this.dataSource.filter((news) => {
+        return news.id !== this.newsData.id;
+      });
+      this.newsData.id = Math.floor(Math.random() * 10000);
+      this.newsData.mainImage = mainImg;
+      this.newsData.galleryImages = gallery;
+      newData.push(this.newsData);
+
+      const baseRef = firebase.database().ref(this.ref);
+      baseRef
+        .set(newData)
+        .then((this.$refs.btnSave.textContent = "Сохранено"))
+        .then(this.$refs.btnSave.classList.remove("show"))
+        .then(this.$router.push("/admin/news"));
+    },
   },
 
+  created() {
+    if (this.dataArr !== undefined && this.dataArr.length > 0) {
+      this.dataSource = this.dataArr;
+      if (this.dataOb !== undefined && Object.keys(this.dataOb).length !== 0) {
+        this.newsData = this.dataOb;
+        if (this.dataOb.galleryImages.length !== 0) {
+          this.galleryData = this.dataOb.galleryImages;
+        }
+      }
+    } else if (this.dataArr === undefined) {
+      this.$router.push("/admin/news");
+    }
+  },
 };
 </script>
 
