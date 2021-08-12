@@ -118,11 +118,11 @@
 </template>
 
 <script>
- import MoviesAddCurrentImage from "@/components/adminPages/movies/MoviesAddCurrentImage.vue";
+import MoviesAddCurrentImage from "@/components/adminPages/movies/MoviesAddCurrentImage.vue";
 import MoviesAddCurrentGallery from "@/components/adminPages/movies/MoviesAddCurrentGallery.vue";
 import firebase from "firebase";
-
-
+import "firebase/database";
+import "firebase/storage";
 
 export default {
   name: "MoviesAddCurrent",
@@ -303,21 +303,19 @@ export default {
   },
 
   created() {
-   if (this.dataArray !== undefined && this.dataArray.length > 0) {
-      this.dataSource = this.dataArray;
-      if (
-        this.dataObject !== undefined &&
-        Object.keys(this.dataObject).length !== 0
-      ) {
-        this.movieData = this.dataObject;
-        this.galleryData = this.dataObject.galleryImages;
-        this.mainImageData = this.dataImg;
 
-    } else {
+     if (this.dataArray !== undefined && this.dataArray.length > 0) {
+      this.dataSource = this.dataArray;
+      if (this.dataObject !== undefined && Object.keys(this.dataObject).length !== 0) {
+        this.movieData = this.dataObject;
+        if (this.dataObject.galleryImages.length !== 0) {
+          this.galleryData = this.dataObject.galleryImages;
+        }
+      }
+    } else if (this.dataArr === undefined) {
       this.$router.push("/admin/movies");
     }
   }
-  },
 };
 </script>
 

@@ -14,6 +14,7 @@
 </template>
 
 <script>
+// import firebase from "@/database";
 import firebase from "firebase";
 import "firebase/database";
 import "firebase/storage";

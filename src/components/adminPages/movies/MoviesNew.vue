@@ -18,8 +18,8 @@
           dataArr: dataBlocks,
           dataOb: movieUpDate,
           dbRef: 'movies/new',
-          dbMainImageRef: 'movies/new/',
-          dbGalleryRef: ' movies/new/',
+          dbMainImageRef: 'movies/new/main',
+          dbGalleryRef: ' movies/new/gallery',
         },
       }"
     >
@@ -30,6 +30,7 @@
 
 <script>
 import MoviesNewBlocks from "@/components/adminPages/movies/MoviesNewBlocks.vue";
+// import firebase from "@/database";
 import firebase from "firebase";
 import "firebase/database";
 import "firebase/storage";

@@ -21,8 +21,8 @@
           dataOb: movieData,
           dataImg: movieData.mainImage.imageUrl,
           dbRef: 'movies/current',
-          dbMainImageRef: 'movies/current/',
-          dbGalleryRef: 'movies/current/',
+          dbMainImageRef: 'movies/current/main',
+          dbGalleryRef: 'movies/current/gallery',
         },
       }"
     >
