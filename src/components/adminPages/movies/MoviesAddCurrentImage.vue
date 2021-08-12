@@ -1,7 +1,7 @@
 <template>
   <div class="main-block flex-wrap">
     <img
-      v-if="imageData !== undefined"
+      v-if="imageData !== null"
       ref="filePreview"
       :src="imageData"
       class="preview"
@@ -15,7 +15,7 @@
     />
 
     <button
-      v-if="imageData === undefined"
+      v-if="imageData === null"
       @click="openFileDialog"
       class="btn btn-default"
     >
@@ -23,7 +23,7 @@
     </button>
 
     <button
-      v-if="imageData !== undefined"
+      v-if="imageData !== null"
       @click="deleteImage"
       class="btn btn-default info-block__remove"
     >
@@ -34,10 +34,11 @@
 
 <script>
 export default {
-  name: "NewsAddImage",
-  props: ["sourceData"],
+  name: "MoviesAddCurrentImage",
+  props: ["sourceRef", "sourceData"],
   data() {
     return {
+      imageRef: this.sourceRef,
       imageData: this.sourceData,
     };
   },
@@ -67,21 +68,9 @@ export default {
     },
 
     deleteImage() {
-      this.imageData = undefined;
-      this.$emit("mainImageChanged", undefined);
+      this.imageData = null;
+      this.$emit("mainImageChanged", null);
     },
-  },
-  mounted() {
-    if (this.imageData !== undefined) {
-      if (
-        this.imageData.imageUrl !== null &&
-        this.imageData.imageUrl !== undefined
-      ) {
-        this.$refs.filePreview.src = this.imageData.imageUrl;
-      } else {
-        this.previewImage(this.imageData.imageFile);
-      }
-    }
   },
 };
 </script>
@@ -101,8 +90,8 @@ export default {
 }
 
 .preview {
-  width: 160px;
-  height: 170px;
+  width: 135px;
+  height: 180px;
   background: #adbcc9;
 }
 </style>

@@ -28,6 +28,16 @@ export default new Router({
       component: () => import("@/components/adminPages/movies/Movies.vue"),
     },
     {
+      path: "/admin/movies/:way",
+      name: "MoviesAddCurrent",
+      meta: {
+        layout: "admin"
+      },
+      props: true,
+      component: () =>
+        import("@/components/adminPages/movies/MoviesAddCurrent.vue"),
+    },
+    {
       path: "/admin/cinema",
       name: "Cinema",
       meta: { layout: "admin" },

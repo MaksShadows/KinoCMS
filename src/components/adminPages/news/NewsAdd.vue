@@ -160,6 +160,7 @@ export default {
         status: false,
         date: "",
         description: "",
+        // mainImage: {},
         galleryImages: [],
         link: "",
         SEO: {
@@ -214,7 +215,9 @@ export default {
         this.newsData.mainImage.imageUrl !== undefined
       )
       {
-        this.onUpload(this.newsData.mainImage);
+        // if (Object.keys(this.newsData.mainImage).length !== 0) {
+        this.galleryPromise(this.newsData.mainImage);
+        //   console.log(this.newsData.mainImage, "3");
       } else {
         alert("Укажите главную картинку");
         this.$refs.btnSave.textContent = "Сохранить";
@@ -222,6 +225,54 @@ export default {
       }
     },
 
+    galleryPromise(mainImg) {
+      const storageGalleryRef = firebase.storage().ref(this.galleryRef);
+
+           if (this.galleryData.length > 0) {
+        let galleryImage = this.galleryData.filter((image) => {
+          return image.id === undefined;
+        });
+        Promise.all(
+          galleryImage.map((value) => {
+            if (value.imageFile !== undefined)
+              return new Promise((resolve) => {
+                resolve(
+                  storageGalleryRef
+                    .child(value.name)
+                    .put(value.imageFile)
+                    .then((snapshot) => snapshot.ref.getDownloadURL())
+                    .then(
+                      (url) =>
+                        (value = {
+                          id: Math.floor(Math.random() * 10000),
+                          name: value.name,
+                          imageUrl: url,
+                        })
+                    )
+                );
+              });
+          })
+        ).then((gallery) => this.saveData(mainImg, gallery));
+      } else {
+        alert("Выберете картинки для галереи");
+        this.$refs.btnSave.textContent = "Сохранить";
+        this.$refs.btnSave.classList.remove("show");
+      }
+    },
+
+    saveData(mainImg, gallery) {
+     let dataEdit = this.dataSource.find((news) => news.id === this.newsData.id);
+
+      if (dataEdit !== undefined) {
+        let oldGallery = this.galleryData.filter((image) =>  image.id !== undefined);
+
+        let newGallery = oldGallery.concat(gallery);
+        this.onUpload(mainImg, newGallery);
+      } else {
+        this.onUpload(mainImg, gallery);
+      }
+
+    },
     onUpload(mainImg, gallery) {
       let newData = this.dataSource.filter((news) => {
         return news.id !== this.newsData.id;

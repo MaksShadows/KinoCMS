@@ -37,11 +37,13 @@
 </template>
 
 <script>
+import SharesList from "@/components/adminPages/shares/SharesList.vue";
 import firebase from "firebase";
 
 export default {
   name: "Shares",
   components: {
+    SharesList,
   },
   data() {
     return {

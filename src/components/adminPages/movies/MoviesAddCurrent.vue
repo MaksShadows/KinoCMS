@@ -1,66 +1,40 @@
 <template>
   <div class="main-block">
     <div class="create">
-      <div class="create__status">
-        <div class="custom-control custom-switch custom-switch-on-success">
-          <input
-            v-model="sharesData.status"
-            type="checkbox"
-            class="custom-control-input"
-            id="customSwitch3"
-          />
-          <label
-            class="custom-control-label"
-            for="customSwitch3"
-            v-if="sharesData.status"
-          >
-            Показывать
-          </label>
-          <label class="custom-control-label" for="customSwitch3" v-else
-            >Не показывать
-          </label>
-        </div>
-      </div>
-
       <div class="create__name d-flex">
-        <p>Название акции</p>
+        <p>Название фильма</p>
         <input
-          v-model="sharesData.name"
+          v-model="movieData.name"
           type="text"
-          placeholder="Название акции"
-        />
-        <p class="date-title">Дата публикации</p>
-        <DatePicker
-          class="date-title"
-          :date="sharesData.date"
-          @dateChange="newDateValue"
+          placeholder="Название фильма"
         />
       </div>
       <div class="create__description d-flex">
         <p>Описание</p>
         <textarea
-          v-model="sharesData.description"
+          v-model="movieData.description"
           type="text"
           placeholder="Описание"
         ></textarea>
       </div>
       <div class="create__main-img d-flex">
         <p>Главная картинка</p>
-        <SharesAddImage
-          :sourceData="sharesData.mainImage"
+        <MoviesAddCurrentImage
+          :sourceRef="mainImageRef"
+          :sourceData="mainImageData"
           @mainImageChanged="mainImageFile"
         />
       </div>
-
       <div class="create__gallery">
         <p>Галерея картинок</p>
         <div class="d-flex">
           <p>Размер: 1000х190</p>
           <div class="create__gallery-img d-flex flex-wrap">
-            <SharesAddGallery
+            <MoviesAddCurrentGallery
               v-for="(block, index) in galleryData"
               :key="block.name"
               :data="block"
+              :sourceRef="galleryRef"
               @remove="galleryData.splice(index, 1)"
               class="gallery__block"
             />
@@ -79,25 +53,34 @@
           </div>
         </div>
       </div>
-      <div class="create__link d-flex">
-        <p>Ссылка на видео</p>
+      <div class="create__trailer d-flex">
+        <p>Ссылка на трейлер</p>
         <input
-          v-model="sharesData.link"
+          v-model="movieData.trailer"
           type="text"
           placeholder="Ссылка на видео в YouTube"
         />
+      </div>
+      <div class="create__movie-type d-flex">
+        <p>Тип кино</p>
+        <input type="radio" id="3d" value="3D" v-model="movieData.type" />
+        <label for="3d">3D</label>
+        <input type="radio" id="2d" value="2D" v-model="movieData.type" />
+        <label for="2d">2D</label>
+        <input type="radio" id="imax" value="IMAX" v-model="movieData.type" />
+        <label for="imax">IMAX</label>
       </div>
       <div class="create__seo d-flex">
         <p>SEO блок:</p>
         <div class="create__seo-info">
           <div class="create__seo-info-block d-flex">
             <p>URL:</p>
-            <input v-model="sharesData.SEO.url" type="text" placeholder="URL" />
+            <input v-model="movieData.SEO.url" type="text" placeholder="URL" />
           </div>
           <div class="create__seo-info-block d-flex">
             <p>Title:</p>
             <input
-              v-model="sharesData.SEO.title"
+              v-model="movieData.SEO.title"
               type="text"
               placeholder="Title"
             />
@@ -105,7 +88,7 @@
           <div class="create__seo-info-block d-flex">
             <p>Keywords:</p>
             <input
-              v-model="sharesData.SEO.keyword"
+              v-model="movieData.SEO.keyword"
               type="text"
               placeholder="word"
             />
@@ -113,7 +96,7 @@
           <div class="create__seo-info-block d-flex">
             <p>Description:</p>
             <input
-              v-model="sharesData.SEO.description"
+              v-model="movieData.SEO.description"
               type="text"
               placeholder="Description"
             />
@@ -121,48 +104,62 @@
         </div>
       </div>
     </div>
-    <button
-      class="btn btn-default btn-save"
-      ref="btnSave"
-      @click="mainImagePromise"
-    >
-      Сохранить
-    </button>
+    <div class="buttons">
+      <button
+        class="btn btn-default btn-save"
+        ref="btnSave"
+        @click="mainImagePromise"
+      >
+        Сохранить
+      </button>
+
+    </div>
   </div>
 </template>
 
 <script>
-import SharesAddImage from "@/components/adminPages/shares/SharesAddImage.vue";
-import SharesAddGallery from "@/components/adminPages/shares/SharesAddGallery.vue";
-import DatePicker from "@/components/adminPages/DatePicker.vue";
+ import MoviesAddCurrentImage from "@/components/adminPages/movies/MoviesAddCurrentImage.vue";
+import MoviesAddCurrentGallery from "@/components/adminPages/movies/MoviesAddCurrentGallery.vue";
 import firebase from "firebase";
 
+
+
 export default {
-  name: "SharesAdd",
+  name: "MoviesAddCurrent",
   components: {
-    SharesAddImage,
-    SharesAddGallery,
-    DatePicker,
+    MoviesAddCurrentImage,
+    MoviesAddCurrentGallery,
   },
-  props: ["dataArr", "dataOb", "dbRef", "dbMainImageRef", "dbGalleryRef"],
+  props: [
+    "dataArr",
+    "dataOb",
+    "dataImg",
+    "dbRef",
+    "dbMainImageRef",
+    "dbGalleryRef",
+  ],
   data() {
     return {
+      dataArray: this.dataArr,
+      dataObject: this.dataOb,
+      dataImage: this.dataImg,
+
       ref: this.dbRef,
       mainImageRef: this.dbMainImageRef,
       galleryRef: this.dbGalleryRef,
 
       dataSource: [],
-      galleryData: [],
 
-      sharesData: {
+      galleryData: [],
+      mainImageData: null,
+      movieData: {
         id: "",
         name: "",
-        status: false,
-        date: "",
         description: "",
-        // mainImage: {},
+        mainImage: {},
         galleryImages: [],
-        link: "",
+        trailer: "",
+        type: "",
         SEO: {
           url: "",
           title: "",
@@ -180,52 +177,51 @@ export default {
       const file = this.$refs.fileDialog.files[0];
       if (file !== undefined) {
         this.galleryData.push({
-          name: file.name,
+          name: null,
           imageFile: file,
         });
       }
     },
     mainImageFile(file) {
-      if (file !== undefined) {
-        this.sharesData.mainImage = file;
+      //   console.log(file);
+      if (file === null) {
+        //   const storageRef = firebase
+        //     .storage()
+        //     .ref(this.mainImageRef)
+        //     .child("mainImage");
+        //   storageRef.delete().catch((error) => {
+        //     console.log(error);
+        //   });
+        //
+        //   const databaseRef = firebase.database().ref();
+        //   databaseRef.remove().catch((error) => {
+        //     console.log(error);
+        //   });
+        // },
+      } else {
+        this.mainImageData = file;
       }
     },
-    newDateValue(value) {
-      this.sharesData.date = value;
-    },
-
     mainImagePromise() {
       this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
       const storageImageRef = firebase.storage().ref(this.mainImageRef);
 
-      if (
-        this.sharesData.mainImage !== undefined &&
-        this.sharesData.mainImage.imageUrl === undefined
-      ) {
+      if (this.mainImageData.name !== undefined) {
         new Promise((resolve) => {
           resolve(
             storageImageRef
-              .child(this.sharesData.mainImage.name)
-              .put(this.sharesData.mainImage)
+              .child(this.mainImageData.name)
+              .put(this.mainImageData)
               .then((snapshot) => snapshot.ref.getDownloadURL())
               .then((url) => ({
-                name: this.sharesData.mainImage.name,
+                name: this.mainImageData.name,
                 imageUrl: url,
               }))
           );
         }).then((mainImg) => this.galleryPromise(mainImg));
-      } else if (
-        this.sharesData.mainImage !== undefined &&
-        this.sharesData.mainImage.imageUrl !== undefined
-      ) {
-        // if (Object.keys(this.sharesData.mainImage).length !== 0) {
-        this.galleryPromise(this.sharesData.mainImage);
-        //   console.log(this.sharesData.mainImage, "3");
       } else {
-        alert("Укажите главную картинку");
-        this.$refs.btnSave.textContent = "Сохранить";
-        this.$refs.btnSave.classList.remove("show");
+        this.galleryPromise(this.movieData.mainImage);
       }
     },
 
@@ -259,14 +255,12 @@ export default {
         ).then((gallery) => this.saveData(mainImg, gallery));
       } else {
         alert("Выберете картинки для галереи");
-        this.$refs.btnSave.textContent = "Сохранить";
-        this.$refs.btnSave.classList.remove("show");
       }
     },
 
     saveData(mainImg, gallery) {
-      let dataEdit = this.dataSource.find((news) => {
-        return news.id === this.sharesData.id;
+      let dataEdit = this.dataSource.find((movie) => {
+        return movie.id === this.movieData.id;
       });
       if (dataEdit !== undefined) {
         let oldGallery = this.galleryData.filter((image) => {
@@ -279,63 +273,71 @@ export default {
       }
     },
     onUpload(mainImg, gallery) {
-      let newData = this.dataSource.filter((news) => {
-        return news.id !== this.sharesData.id;
+      let newData = this.dataSource.filter((movie) => {
+        return movie.id !== this.movieData.id;
       });
-      this.sharesData.id = Math.floor(Math.random() * 10000);
-      this.sharesData.mainImage = mainImg;
-      this.sharesData.galleryImages = gallery;
-      newData.push(this.sharesData);
+      this.movieData.id = Math.floor(Math.random() * 10000);
+      this.movieData.mainImage = mainImg;
+      this.movieData.galleryImages = gallery;
+      newData.push(this.movieData);
 
       const baseRef = firebase.database().ref(this.ref);
       baseRef
         .set(newData)
         .then((this.$refs.btnSave.textContent = "Сохранено"))
         .then(this.$refs.btnSave.classList.remove("show"))
-        .then(this.$router.push("/admin/shares"));
+        .then(this.$router.push("/admin/movies"));
+    },
+
+    restore() {
+      const baseRef = firebase.database().ref(this.ref);
+      baseRef.on("value", (snapshot) => {
+        if (snapshot.val() !== null) {
+          const dbMovieData = snapshot.val().find((movie) => {
+            return movie.id === this.movieData.id;
+          });
+          this.movieData = dbMovieData;
+        }
+      });
     },
   },
 
   created() {
-    if (this.dataArr !== undefined && this.dataArr.length > 0) {
-      this.dataSource = this.dataArr;
-      if (this.dataOb !== undefined && Object.keys(this.dataOb).length !== 0) {
-        this.sharesData = this.dataOb;
-        if (this.dataOb.galleryImages.length !== 0) {
-          this.galleryData = this.dataOb.galleryImages;
-        }
-      }
-    } else if (this.dataArr === undefined) {
-      this.$router.push("/admin/shares");
+   if (this.dataArray !== undefined && this.dataArray.length > 0) {
+      this.dataSource = this.dataArray;
+      if (
+        this.dataObject !== undefined &&
+        Object.keys(this.dataObject).length !== 0
+      ) {
+        this.movieData = this.dataObject;
+        this.galleryData = this.dataObject.galleryImages;
+        this.mainImageData = this.dataImg;
+
+    } else {
+      this.$router.push("/admin/movies");
     }
+  }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.main-block {
-}
+
 .create {
-  &__status {
-    padding: 20px 18%;
-  }
   &__name {
     padding: 20px 40px;
     input {
       width: 200px;
-      margin-left: 35px;
+      margin-left: 20px;
       padding: 5px;
       transition: width 0.4s ease-in-out;
       &::placeholder {
         padding-left: 7px;
       }
       &:focus {
-        width: 40%;
+        width: 50%;
         padding-left: 10px;
       }
-    }
-    .date-title {
-      margin-left: 35px;
     }
   }
   &__description {
@@ -343,7 +345,7 @@ export default {
     textarea {
       width: 40%;
       height: 100px;
-      margin-left: 96px;
+      margin-left: 77px;
       padding: 5px;
       transition: width 0.4s ease-in-out;
       &::placeholder {
@@ -355,19 +357,17 @@ export default {
       }
     }
   }
-
   &__main-img {
     padding: 20px 40px;
   }
   &__gallery {
     padding: 20px 40px;
   }
-
-  &__link {
+  &__trailer {
     padding: 20px 40px;
     input {
       width: 40%;
-      margin-left: 45px;
+      margin-left: 20px;
       padding: 5px;
       transition: width 0.4s ease-in-out;
       &::placeholder {
@@ -379,11 +379,20 @@ export default {
       }
     }
   }
+  &__movie-type {
+    padding: 20px 40px;
+    input {
+      margin: 7px 7px 7px 63px;
+    }
+    label {
+      font-weight: normal;
+    }
+  }
   &__seo {
-    padding: 25px 40px;
+    padding: 20px 40px;
     &-info {
       width: 70%;
-      margin-left: 60px;
+      margin-left: 20px;
       &-block {
         padding: 10px 40px;
 
@@ -416,11 +425,15 @@ export default {
     }
   }
 }
+.buttons {
+  display: flex;
+  justify-content: center;
+}
 .btn {
   &.gallery__block-add {
     width: 130px;
     height: 80px;
-    margin: 25px 70px;
+    margin: 20px;
   }
   &-save {
     margin: 0 0 20px 20px;
@@ -428,6 +441,9 @@ export default {
       color: #178817;
       border: 2px solid #55cc55;
     }
+  }
+  &-restore {
+    margin: 0 0 20px 20px;
   }
 }
 </style>

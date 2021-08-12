@@ -26,7 +26,7 @@
           dataArr: newsData,
           dbRef: ref,
           dbMainImageRef: mainImageRef,
-         // dbGalleryRef: galleryRef,
+          dbGalleryRef: galleryRef,
         },
       }"
     >
@@ -39,6 +39,7 @@
 <script>
 import NewsList from "@/components/adminPages/news/NewsList.vue";
 import firebase from "firebase";
+
 export default {
   name: "News",
   components: {
@@ -47,9 +48,10 @@ export default {
   data() {
     return {
       newsData: [],
+
       ref: "news",
       mainImageRef: "news/main",
-      // galleryRef: "news/gallery",
+      galleryRef: "news/gallery",
     };
   },
   methods: {
@@ -78,6 +80,7 @@ export default {
 .news-list {
   padding: 20px 40px;
   position: relative;
+
   h3 {
     padding: 20px 10px;
     display: flex;
@@ -89,6 +92,7 @@ export default {
     position: absolute;
     top: 20px;
     right: 35px;
+
     span {
       width: 20px;
       height: 20px;
@@ -115,12 +119,14 @@ export default {
       height: 20px;
     }
   }
+
   .title {
     display: flex;
     justify-content: center;
     &-main {
       margin: 0 70px 0 60px;
     }
+
     &__date,
     &__name,
     &__status {

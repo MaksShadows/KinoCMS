@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<div class="main-block">
+			
 			<BannersCardsTopBlocks
 				v-for="(block, index) in images"
 				:key="block.id"

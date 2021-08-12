@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: "NewsAddImage",
+  name: "SharesAddImage",
   props: ["sourceData"],
   data() {
     return {
