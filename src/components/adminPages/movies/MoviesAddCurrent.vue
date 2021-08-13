@@ -112,7 +112,6 @@
       >
         Сохранить
       </button>
-
     </div>
   </div>
 </template>
@@ -128,7 +127,7 @@ export default {
   name: "MoviesAddCurrent",
   components: {
     MoviesAddCurrentImage,
-    MoviesAddCurrentGallery,
+    MoviesAddCurrentGallery
   },
   props: [
     "dataArr",
@@ -136,7 +135,7 @@ export default {
     "dataImg",
     "dbRef",
     "dbMainImageRef",
-    "dbGalleryRef",
+    "dbGalleryRef"
   ],
   data() {
     return {
@@ -164,9 +163,9 @@ export default {
           url: "",
           title: "",
           keyword: "",
-          description: "",
-        },
-      },
+          description: ""
+        }
+      }
     };
   },
   methods: {
@@ -178,7 +177,7 @@ export default {
       if (file !== undefined) {
         this.galleryData.push({
           name: null,
-          imageFile: file,
+          imageFile: file
         });
       }
     },
@@ -208,18 +207,18 @@ export default {
       const storageImageRef = firebase.storage().ref(this.mainImageRef);
 
       if (this.mainImageData.name !== undefined) {
-        new Promise((resolve) => {
+        new Promise(resolve => {
           resolve(
             storageImageRef
               .child(this.mainImageData.name)
               .put(this.mainImageData)
-              .then((snapshot) => snapshot.ref.getDownloadURL())
-              .then((url) => ({
+              .then(snapshot => snapshot.ref.getDownloadURL())
+              .then(url => ({
                 name: this.mainImageData.name,
-                imageUrl: url,
+                imageUrl: url
               }))
           );
-        }).then((mainImg) => this.galleryPromise(mainImg));
+        }).then(mainImg => this.galleryPromise(mainImg));
       } else {
         this.galleryPromise(this.movieData.mainImage);
       }
@@ -229,41 +228,41 @@ export default {
       const storageGalleryRef = firebase.storage().ref(this.galleryRef);
 
       if (this.galleryData.length > 0) {
-        let galleryImage = this.galleryData.filter((image) => {
+        let galleryImage = this.galleryData.filter(image => {
           return image.id === undefined;
         });
         Promise.all(
-          galleryImage.map((value) => {
+          galleryImage.map(value => {
             if (value.imageFile !== undefined)
-              return new Promise((resolve) => {
+              return new Promise(resolve => {
                 resolve(
                   storageGalleryRef
                     .child(value.name)
                     .put(value.imageFile)
-                    .then((snapshot) => snapshot.ref.getDownloadURL())
+                    .then(snapshot => snapshot.ref.getDownloadURL())
                     .then(
-                      (url) =>
+                      url =>
                         (value = {
                           id: Math.floor(Math.random() * 10000),
                           name: value.name,
-                          imageUrl: url,
+                          imageUrl: url
                         })
                     )
                 );
               });
           })
-        ).then((gallery) => this.saveData(mainImg, gallery));
+        ).then(gallery => this.saveData(mainImg, gallery));
       } else {
         alert("Выберете картинки для галереи");
       }
     },
 
     saveData(mainImg, gallery) {
-      let dataEdit = this.dataSource.find((movie) => {
+      let dataEdit = this.dataSource.find(movie => {
         return movie.id === this.movieData.id;
       });
       if (dataEdit !== undefined) {
-        let oldGallery = this.galleryData.filter((image) => {
+        let oldGallery = this.galleryData.filter(image => {
           return image.id !== undefined;
         });
         let newGallery = oldGallery.concat(gallery);
@@ -273,7 +272,7 @@ export default {
       }
     },
     onUpload(mainImg, gallery) {
-      let newData = this.dataSource.filter((movie) => {
+      let newData = this.dataSource.filter(movie => {
         return movie.id !== this.movieData.id;
       });
       this.movieData.id = Math.floor(Math.random() * 10000);
@@ -291,22 +290,24 @@ export default {
 
     restore() {
       const baseRef = firebase.database().ref(this.ref);
-      baseRef.on("value", (snapshot) => {
+      baseRef.on("value", snapshot => {
         if (snapshot.val() !== null) {
-          const dbMovieData = snapshot.val().find((movie) => {
+          const dbMovieData = snapshot.val().find(movie => {
             return movie.id === this.movieData.id;
           });
           this.movieData = dbMovieData;
         }
       });
-    },
+    }
   },
 
   created() {
-
-     if (this.dataArray !== undefined && this.dataArray.length > 0) {
+    if (this.dataArray !== undefined && this.dataArray.length > 0) {
       this.dataSource = this.dataArray;
-      if (this.dataObject !== undefined && Object.keys(this.dataObject).length !== 0) {
+      if (
+        this.dataObject !== undefined &&
+        Object.keys(this.dataObject).length !== 0
+      ) {
         this.movieData = this.dataObject;
         if (this.dataObject.galleryImages.length !== 0) {
           this.galleryData = this.dataObject.galleryImages;
@@ -320,7 +321,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .create {
   &__name {
     padding: 20px 40px;

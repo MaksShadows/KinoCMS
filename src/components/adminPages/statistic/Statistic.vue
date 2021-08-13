@@ -26,17 +26,17 @@ export default {
   name: "Statistic",
   data() {
     return {
-      usersData: ["user"],
+      usersData: ["user"]
     };
   },
   created() {
     const baseRef = firebase.database().ref("users");
-    baseRef.on("value", (snapshot) => {
+    baseRef.on("value", snapshot => {
       if (snapshot.val() !== null) {
         this.usersData = snapshot.val();
       }
     });
-  },
+  }
 };
 </script>
 

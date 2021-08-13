@@ -16,8 +16,8 @@
 
           dbRef: ref,
           dbMainImageRef: mainImageRef,
-          dbGalleryRef: galleryRef,
-        },
+          dbGalleryRef: galleryRef
+        }
       }"
     >
       <div class="icon fas fa-pen"></div>
@@ -37,9 +37,9 @@ export default {
 
       ref: this.dbRef,
       mainImageRef: this.dbMainImageRef,
-      galleryRef: this.dbGalleryRef,
+      galleryRef: this.dbGalleryRef
     };
-  },
+  }
 };
 </script>
 

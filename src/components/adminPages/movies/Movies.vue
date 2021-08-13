@@ -21,8 +21,8 @@ export default {
   name: "Movies",
   components: {
     MoviesCurrent,
-    MoviesNew,
-  },
+    MoviesNew
+  }
 };
 </script>
 

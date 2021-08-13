@@ -26,8 +26,8 @@
           dataArr: sharesData,
           dbRef: ref,
           dbMainImageRef: mainImageRef,
-          dbGalleryRef: galleryRef,
-        },
+          dbGalleryRef: galleryRef
+        }
       }"
     >
       <span></span>
@@ -43,7 +43,7 @@ import firebase from "firebase";
 export default {
   name: "Shares",
   components: {
-    SharesList,
+    SharesList
   },
   data() {
     return {
@@ -51,7 +51,7 @@ export default {
 
       ref: "shares",
       mainImageRef: "shares/main",
-      galleryRef: "shares/gallery",
+      galleryRef: "shares/gallery"
     };
   },
   methods: {
@@ -63,16 +63,16 @@ export default {
       } else {
         alert("Должена оставаться минимум одна акция!");
       }
-    },
+    }
   },
   created() {
     const baseRef = firebase.database().ref(this.ref);
-    baseRef.on("value", (snapshot) => {
+    baseRef.on("value", snapshot => {
       if (snapshot.val() !== null) {
         this.sharesData = snapshot.val();
       }
     });
-  },
+  }
 };
 </script>
 

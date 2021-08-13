@@ -121,11 +121,7 @@
         </div>
       </div>
     </div>
-    <button
-      class="btn btn-default btn-save"
-      ref="btnSave"
-      @click="saveNews"
-    >
+    <button class="btn btn-default btn-save" ref="btnSave" @click="saveNews">
       Сохранить
     </button>
   </div>
@@ -142,7 +138,7 @@ export default {
   components: {
     NewsAddImage,
     NewsAddGallery,
-    DatePicker,
+    DatePicker
   },
   props: ["dataArr", "dataOb", "dbRef", "dbMainImageRef", "dbGalleryRef"],
   data() {
@@ -166,9 +162,9 @@ export default {
           url: "",
           title: "",
           keyword: "",
-          description: "",
-        },
-      },
+          description: ""
+        }
+      }
     };
   },
   methods: {
@@ -180,7 +176,7 @@ export default {
       if (file !== undefined) {
         this.galleryData.push({
           name: file.name,
-          imageFile: file,
+          imageFile: file
         });
       }
     },
@@ -198,22 +194,23 @@ export default {
       this.$refs.btnSave.textContent = "Сохраняется";
       const storageImageRef = firebase.storage().ref(this.mainImageRef);
 
-      if(this.newsData.mainImage !== undefined  &&
-        this.newsData.mainImage.imageUrl === undefined){
+      if (
+        this.newsData.mainImage !== undefined &&
+        this.newsData.mainImage.imageUrl === undefined
+      ) {
         storageImageRef
-            .child(this.newsData.mainImage.name)
-            .put(this.newsData.mainImage)
-            .then((snapshot) => snapshot.ref.getDownloadURL())
-            .then((url) => ({
-              name: this.newsData.mainImage.name,
-              imageUrl: url,
-            }))
-            .then((mainImg) => this.galleryPromise(mainImg));
-      }else if (
+          .child(this.newsData.mainImage.name)
+          .put(this.newsData.mainImage)
+          .then(snapshot => snapshot.ref.getDownloadURL())
+          .then(url => ({
+            name: this.newsData.mainImage.name,
+            imageUrl: url
+          }))
+          .then(mainImg => this.galleryPromise(mainImg));
+      } else if (
         this.newsData.mainImage !== undefined &&
         this.newsData.mainImage.imageUrl !== undefined
-      )
-      {
+      ) {
         // if (Object.keys(this.newsData.mainImage).length !== 0) {
         this.galleryPromise(this.newsData.mainImage);
         //   console.log(this.newsData.mainImage, "3");
@@ -227,31 +224,31 @@ export default {
     galleryPromise(mainImg) {
       const storageGalleryRef = firebase.storage().ref(this.galleryRef);
 
-           if (this.galleryData.length > 0) {
-        let galleryImage = this.galleryData.filter((image) => {
+      if (this.galleryData.length > 0) {
+        let galleryImage = this.galleryData.filter(image => {
           return image.id === undefined;
         });
         Promise.all(
-          galleryImage.map((value) => {
+          galleryImage.map(value => {
             if (value.imageFile !== undefined)
-              return new Promise((resolve) => {
+              return new Promise(resolve => {
                 resolve(
                   storageGalleryRef
                     .child(value.name)
                     .put(value.imageFile)
-                    .then((snapshot) => snapshot.ref.getDownloadURL())
+                    .then(snapshot => snapshot.ref.getDownloadURL())
                     .then(
-                      (url) =>
+                      url =>
                         (value = {
                           id: Math.floor(Math.random() * 10000),
                           name: value.name,
-                          imageUrl: url,
+                          imageUrl: url
                         })
                     )
                 );
               });
           })
-        ).then((gallery) => this.saveData(mainImg, gallery));
+        ).then(gallery => this.saveData(mainImg, gallery));
       } else {
         alert("Выберете картинки для галереи");
         this.$refs.btnSave.textContent = "Сохранить";
@@ -260,20 +257,21 @@ export default {
     },
 
     saveData(mainImg, gallery) {
-     let dataEdit = this.dataSource.find((news) => news.id === this.newsData.id);
+      let dataEdit = this.dataSource.find(news => news.id === this.newsData.id);
 
       if (dataEdit !== undefined) {
-        let oldGallery = this.galleryData.filter((image) =>  image.id !== undefined);
+        let oldGallery = this.galleryData.filter(
+          image => image.id !== undefined
+        );
 
         let newGallery = oldGallery.concat(gallery);
         this.onUpload(mainImg, newGallery);
       } else {
         this.onUpload(mainImg, gallery);
       }
-
     },
     onUpload(mainImg, gallery) {
-      let newData = this.dataSource.filter((news) => {
+      let newData = this.dataSource.filter(news => {
         return news.id !== this.newsData.id;
       });
       this.newsData.id = Math.floor(Math.random() * 10000);
@@ -287,7 +285,7 @@ export default {
         .then((this.$refs.btnSave.textContent = "Сохранено"))
         .then(this.$refs.btnSave.classList.remove("show"))
         .then(this.$router.push("/admin/news"));
-    },
+    }
   },
 
   created() {
@@ -302,12 +300,11 @@ export default {
     } else if (this.dataArr === undefined) {
       this.$router.push("/admin/news");
     }
-  },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-
 .create {
   &__status {
     padding: 20px 18%;

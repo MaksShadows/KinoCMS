@@ -22,8 +22,8 @@
           dataImg: movieData.mainImage.imageUrl,
           dbRef: 'movies/new',
           dbMainImageRef: 'movies/new/main',
-          dbGalleryRef: 'movies/new/gallery',
-        },
+          dbGalleryRef: 'movies/new/gallery'
+        }
       }"
     >
     </router-link>
@@ -38,9 +38,9 @@ export default {
   data() {
     return {
       movieData: this.data,
-      movieDataArr: this.dataBlocks,
+      movieDataArr: this.dataBlocks
     };
-  },
+  }
 };
 </script>
 

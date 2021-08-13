@@ -26,8 +26,8 @@
           dataArr: newsData,
           dbRef: ref,
           dbMainImageRef: mainImageRef,
-          dbGalleryRef: galleryRef,
-        },
+          dbGalleryRef: galleryRef
+        }
       }"
     >
       <span></span>
@@ -43,7 +43,7 @@ import firebase from "firebase";
 export default {
   name: "News",
   components: {
-    NewsList,
+    NewsList
   },
   data() {
     return {
@@ -51,7 +51,7 @@ export default {
 
       ref: "news",
       mainImageRef: "news/main",
-      galleryRef: "news/gallery",
+      galleryRef: "news/gallery"
     };
   },
   methods: {
@@ -63,16 +63,16 @@ export default {
       } else {
         alert("Должена оставаться минимум одна новость!");
       }
-    },
+    }
   },
   created() {
     const baseRef = firebase.database().ref(this.ref);
-    baseRef.on("value", (snapshot) => {
+    baseRef.on("value", snapshot => {
       if (snapshot.val() !== null) {
         this.newsData = snapshot.val();
       }
     });
-  },
+  }
 };
 </script>
 

@@ -31,14 +31,14 @@ export default {
   props: ["sourceRef", "data"],
   data() {
     return {
-      dataSource: this.data,
+      dataSource: this.data
     };
   },
   methods: {
     previewImage(file) {
       const preview = this.$refs.filePreview;
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = function(e) {
         preview.src = e.target.result;
       };
       reader.readAsDataURL(file);
@@ -52,10 +52,10 @@ export default {
         .ref(this.imageRef)
         .child("newscard");
       storageRef.getDownloadURL().then(
-        (url) => (this.picture = url),
-        (error) => console.log(error)
+        url => (this.picture = url),
+        error => console.log(error)
       );
-    },
+    }
   },
   mounted() {
     if (this.dataSource.image !== null) {
@@ -63,7 +63,7 @@ export default {
     } else {
       this.previewImage(this.dataSource.imageFile);
     }
-  },
+  }
 };
 </script>
 
@@ -93,7 +93,6 @@ export default {
       width: 13px;
       height: 13px;
     }
-
   }
 }
 .input-column {

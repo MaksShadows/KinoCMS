@@ -4,21 +4,11 @@
       <div class="banner-content">
         <div class="banner-tabs-nav">
           <div class="radio icheck-nephritis">
-            <input
-              type="radio"
-              id="nephritis1"
-              name="nephritis"
-              :value="1"
-            />
+            <input type="radio" id="nephritis1" name="nephritis" :value="1" />
             <label for="nephritis1">Фото на фон</label>
           </div>
           <div class="radio icheck-nephritis">
-            <input
-              type="radio"
-              id="nephritis2"
-              name="nephritis"
-              :value="2"
-            />
+            <input type="radio" id="nephritis2" name="nephritis" :value="2" />
             <label for="nephritis2">Просто фон</label>
           </div>
         </div>
@@ -38,16 +28,10 @@
               style="display: none"
               accept="image/*"
             />
-            <button
-              @click="openFileDialog"
-              class="btn btn-primary"
-            >
+            <button @click="openFileDialog" class="btn btn-primary">
               Добавить
             </button>
-            <button
-              @click="deleteImage"
-              class="btn btn-danger"
-            >
+            <button @click="deleteImage" class="btn btn-danger">
               Удалить
             </button>
           </div>
@@ -66,7 +50,7 @@ export default {
     return {
       imageData: null,
       picture: null,
-      imageRef: "banners/",
+      imageRef: "banners/"
     };
   },
   methods: {
@@ -80,7 +64,7 @@ export default {
     previewImage(file) {
       const preview = this.$refs.filePreview;
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = e => {
         preview.src = e.target.result;
       };
       reader.readAsDataURL(file);
@@ -95,8 +79,8 @@ export default {
         .child("card");
       storageRef
         .put(this.imageData)
-        .then((snapshot) => snapshot.ref.getDownloadURL())
-        .then((url) => (this.picture = url));
+        .then(snapshot => snapshot.ref.getDownloadURL())
+        .then(url => (this.picture = url));
     },
     deleteImage() {
       this.picture = null;
@@ -105,7 +89,7 @@ export default {
         .storage()
         .ref(this.imageRef)
         .child("card");
-      storageRef.delete().catch((error) => {
+      storageRef.delete().catch(error => {
         console.log(error);
       });
     },
@@ -116,14 +100,14 @@ export default {
         .ref(this.imageRef)
         .child("card");
       storageRef.getDownloadURL().then(
-        (url) => (this.picture = url),
-        (error) => console.log(error)
+        url => (this.picture = url),
+        error => console.log(error)
       );
-    },
+    }
   },
   mounted() {
     this.onDownload();
-  },
+  }
 };
 </script>
 

@@ -16,7 +16,7 @@ export default {
   name: "AdminLayout",
   components: {
     Header,
-    Sidebar,
-  },
+    Sidebar
+  }
 };
 </script>

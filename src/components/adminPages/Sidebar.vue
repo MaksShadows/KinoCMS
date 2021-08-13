@@ -46,9 +46,9 @@ export default {
       { title: "Акции", url: "/admin/shares" },
       { title: "Страницы", url: "/admin/pages" },
       { title: "Пользователи", url: "/admin/users" },
-      { title: "Рассылки", url: "/admin/mailings" },
-    ],
-  }),
+      { title: "Рассылки", url: "/admin/mailings" }
+    ]
+  })
 };
 </script>
 

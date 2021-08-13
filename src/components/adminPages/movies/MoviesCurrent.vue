@@ -19,8 +19,8 @@
           dataOb: movieUpDate,
           dbRef: 'movies/current',
           dbMainImageRef: 'movies/current/main',
-          dbGalleryRef: 'movies/current/gallery',
-        },
+          dbGalleryRef: 'movies/current/gallery'
+        }
       }"
     >
       Добавить фильм
@@ -37,13 +37,13 @@ import "firebase/storage";
 export default {
   name: "Movies",
   components: {
-    MoviesCurrentBlocks,
+    MoviesCurrentBlocks
   },
   data() {
     return {
       ref: "movies/current",
       dataBlocks: [],
-      movieUpDate: {},
+      movieUpDate: {}
     };
   },
   methods: {
@@ -54,16 +54,16 @@ export default {
     },
     onRead() {
       const baseRef = firebase.database().ref(this.ref);
-      baseRef.on("value", (snapshot) => {
+      baseRef.on("value", snapshot => {
         if (snapshot.val() !== null) {
           this.dataBlocks = snapshot.val();
         }
       });
-    },
+    }
   },
   created() {
     this.onRead();
-  },
+  }
 };
 </script>
 

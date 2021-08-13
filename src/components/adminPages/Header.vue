@@ -23,9 +23,8 @@
 
 <script>
 export default {
-  name: "Header",
+  name: "Header"
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

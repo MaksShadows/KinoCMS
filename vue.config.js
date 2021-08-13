@@ -1,9 +1,9 @@
 module.exports = {
   configureWebpack: {
-    devtool: 'source-map'
+    devtool: "source-map"
   },
   productionSourceMap: false,
   outputDir: "./dist",
   assetsDir: "static",
-  indexPath: "templates/index.html",
+  indexPath: "templates/index.html"
 };

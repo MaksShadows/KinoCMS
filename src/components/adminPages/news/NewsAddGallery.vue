@@ -19,21 +19,21 @@ export default {
   props: ["data"],
   data() {
     return {
-      dataSource: this.data,
+      dataSource: this.data
     };
   },
   methods: {
     previewImage(file) {
       const preview = this.$refs.filePreview;
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = function(e) {
         preview.src = e.target.result;
       };
       reader.readAsDataURL(file);
 
       this.dataSource.name = file.name;
       this.dataSource.imageFile = file;
-    },
+    }
   },
   mounted() {
     if (
@@ -44,7 +44,7 @@ export default {
     } else {
       this.previewImage(this.dataSource.imageFile);
     }
-  },
+  }
 };
 </script>
 

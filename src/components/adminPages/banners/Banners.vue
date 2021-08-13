@@ -16,12 +16,11 @@
             change="stateChanged"
           />
           <label class="custom-control-label" for="mainPageTopSwitch"></label> -->
-        <Switcher class="banners-switcher" @stateChanged="showToggle" />
-
+          <Switcher class="banners-switcher" @stateChanged="showToggle" />
         </div>
       </div>
 
-      <div class="card-group p-3" v-show="showTopSliderConfig" >
+      <div class="card-group p-3" v-show="showTopSliderConfig">
         <BannersCardsTop />
       </div>
     </div>
@@ -41,7 +40,7 @@
     </div>
 
     <!-- third block -->
-    <div class="card mt-2" >
+    <div class="card mt-2">
       <div class="card-header text-center font-weight-bold">
         На главной новости и акции
       </div>
@@ -56,7 +55,7 @@
             id="mainPageTopSwitch"
           />
           <label class="custom-control-label" for="mainPageTopSwitch"></label> -->
-           <Switcher class="banners-switcher" @stateChanged="showToggle" />
+          <Switcher class="banners-switcher" @stateChanged="showToggle" />
         </div>
       </div>
 
@@ -79,26 +78,25 @@ export default {
     BannersCardsTop,
     BannersCardsBack,
     BannersCardsNews,
-    Switcher,
+    Switcher
   },
 
   data() {
     return {
       isEnabled: false,
-    showTopSliderConfig: null,
-     status: null
-    }
+      showTopSliderConfig: null,
+      status: null
+    };
   },
-   methods: {
-        stateChanged() {
-            this.$emit('stateChanged', this.status)
-        },
-
-         showToggle(status) {
-      this.showTopSliderConfig = status;
+  methods: {
+    stateChanged() {
+      this.$emit("stateChanged", this.status);
     },
 
+    showToggle(status) {
+      this.showTopSliderConfig = status;
     }
+  }
 };
 </script>
 

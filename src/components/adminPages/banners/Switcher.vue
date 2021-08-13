@@ -7,16 +7,16 @@
 
 <script>
 export default {
-    data() {
-        return {
-            status: null
-        }
-    },
-    methods: {
-        stateChanged() {
-            this.$emit('stateChanged', this.status)
-        }
+  data() {
+    return {
+      status: null
+    };
+  },
+  methods: {
+    stateChanged() {
+      this.$emit("stateChanged", this.status);
     }
+  }
 };
 </script>
 
@@ -43,8 +43,8 @@ export default {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 .slider:before {
   position: absolute;
@@ -54,14 +54,14 @@ export default {
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #2196f3;
 }
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);

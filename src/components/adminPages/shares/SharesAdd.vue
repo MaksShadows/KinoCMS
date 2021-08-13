@@ -142,7 +142,7 @@ export default {
   components: {
     SharesAddImage,
     SharesAddGallery,
-    DatePicker,
+    DatePicker
   },
   props: ["dataArr", "dataOb", "dbRef", "dbMainImageRef", "dbGalleryRef"],
   data() {
@@ -167,9 +167,9 @@ export default {
           url: "",
           title: "",
           keyword: "",
-          description: "",
-        },
-      },
+          description: ""
+        }
+      }
     };
   },
   methods: {
@@ -181,7 +181,7 @@ export default {
       if (file !== undefined) {
         this.galleryData.push({
           name: file.name,
-          imageFile: file,
+          imageFile: file
         });
       }
     },
@@ -203,18 +203,18 @@ export default {
         this.sharesData.mainImage !== undefined &&
         this.sharesData.mainImage.imageUrl === undefined
       ) {
-        new Promise((resolve) => {
+        new Promise(resolve => {
           resolve(
             storageImageRef
               .child(this.sharesData.mainImage.name)
               .put(this.sharesData.mainImage)
-              .then((snapshot) => snapshot.ref.getDownloadURL())
-              .then((url) => ({
+              .then(snapshot => snapshot.ref.getDownloadURL())
+              .then(url => ({
                 name: this.sharesData.mainImage.name,
-                imageUrl: url,
+                imageUrl: url
               }))
           );
-        }).then((mainImg) => this.galleryPromise(mainImg));
+        }).then(mainImg => this.galleryPromise(mainImg));
       } else if (
         this.sharesData.mainImage !== undefined &&
         this.sharesData.mainImage.imageUrl !== undefined
@@ -233,30 +233,30 @@ export default {
       const storageGalleryRef = firebase.storage().ref(this.galleryRef);
 
       if (this.galleryData.length > 0) {
-        let galleryImage = this.galleryData.filter((image) => {
+        let galleryImage = this.galleryData.filter(image => {
           return image.id === undefined;
         });
         Promise.all(
-          galleryImage.map((value) => {
+          galleryImage.map(value => {
             if (value.imageFile !== undefined)
-              return new Promise((resolve) => {
+              return new Promise(resolve => {
                 resolve(
                   storageGalleryRef
                     .child(value.name)
                     .put(value.imageFile)
-                    .then((snapshot) => snapshot.ref.getDownloadURL())
+                    .then(snapshot => snapshot.ref.getDownloadURL())
                     .then(
-                      (url) =>
+                      url =>
                         (value = {
                           id: Math.floor(Math.random() * 10000),
                           name: value.name,
-                          imageUrl: url,
+                          imageUrl: url
                         })
                     )
                 );
               });
           })
-        ).then((gallery) => this.saveData(mainImg, gallery));
+        ).then(gallery => this.saveData(mainImg, gallery));
       } else {
         alert("Выберете картинки для галереи");
         this.$refs.btnSave.textContent = "Сохранить";
@@ -265,11 +265,11 @@ export default {
     },
 
     saveData(mainImg, gallery) {
-      let dataEdit = this.dataSource.find((news) => {
+      let dataEdit = this.dataSource.find(news => {
         return news.id === this.sharesData.id;
       });
       if (dataEdit !== undefined) {
-        let oldGallery = this.galleryData.filter((image) => {
+        let oldGallery = this.galleryData.filter(image => {
           return image.id !== undefined;
         });
         let newGallery = oldGallery.concat(gallery);
@@ -279,7 +279,7 @@ export default {
       }
     },
     onUpload(mainImg, gallery) {
-      let newData = this.dataSource.filter((news) => {
+      let newData = this.dataSource.filter(news => {
         return news.id !== this.sharesData.id;
       });
       this.sharesData.id = Math.floor(Math.random() * 10000);
@@ -293,7 +293,7 @@ export default {
         .then((this.$refs.btnSave.textContent = "Сохранено"))
         .then(this.$refs.btnSave.classList.remove("show"))
         .then(this.$router.push("/admin/shares"));
-    },
+    }
   },
 
   created() {
@@ -308,7 +308,7 @@ export default {
     } else if (this.dataArr === undefined) {
       this.$router.push("/admin/shares");
     }
-  },
+  }
 };
 </script>
 

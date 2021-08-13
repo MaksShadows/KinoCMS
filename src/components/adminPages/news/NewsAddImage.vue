@@ -38,7 +38,7 @@ export default {
   props: ["sourceData"],
   data() {
     return {
-      imageData: this.sourceData,
+      imageData: this.sourceData
     };
   },
 
@@ -47,7 +47,7 @@ export default {
       const event = new MouseEvent("click", {
         view: window,
         bubbles: true,
-        cancelable: true,
+        cancelable: true
       });
       this.$refs.fileDialog.dispatchEvent(event);
     },
@@ -60,7 +60,7 @@ export default {
     previewImage(file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = (e) => {
+      reader.onload = e => {
         this.imageData = e.target.result;
       };
       this.$emit("mainImageChanged", file);
@@ -69,7 +69,7 @@ export default {
     deleteImage() {
       this.imageData = undefined;
       this.$emit("mainImageChanged", undefined);
-    },
+    }
   },
   mounted() {
     if (this.imageData !== undefined) {
@@ -82,7 +82,7 @@ export default {
         this.previewImage(this.imageData.imageFile);
       }
     }
-  },
+  }
 };
 </script>
 

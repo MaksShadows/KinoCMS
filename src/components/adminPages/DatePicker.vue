@@ -1,4 +1,3 @@
-
 <template>
   <div class="calendar">
     <date-picker
@@ -21,12 +20,10 @@ export default {
   props: ["date", "type", "format"],
   data() {
     return {
-      calendar: this.date,
+      calendar: this.date
     };
-  },
-
+  }
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

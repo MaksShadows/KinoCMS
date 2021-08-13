@@ -11,7 +11,7 @@ export default {
   computed: {
     error() {
       return this.$store.getters.error;
-    },
+    }
   },
   watch: {
     error(fbError) {
@@ -19,8 +19,8 @@ export default {
       if (fbError.code === "auth/user-not-found") {
         alert("Такого пользователя не существует");
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
