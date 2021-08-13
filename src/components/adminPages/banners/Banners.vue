@@ -125,7 +125,7 @@ p {
   }
   &__blocks {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
   }
 }
 </style>

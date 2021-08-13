@@ -14,7 +14,6 @@
 </template>
 
 <script>
-// import firebase from "@/database";
 import firebase from "firebase";
 import "firebase/database";
 import "firebase/storage";
@@ -72,7 +71,7 @@ export default {
 
   &__image {
     width: 235px;
-    height: 84px;
+    height: auto;
     background: #a0a6ac;
     border-radius: 0.25rem;
     background-size: cover;

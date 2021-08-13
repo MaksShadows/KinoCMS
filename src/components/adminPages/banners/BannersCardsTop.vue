@@ -136,7 +136,7 @@ export default {
 .main-block {
   display: flex;
   min-height: 240px;
-  align-items: start;
+  align-items: flex-start;
   padding: 0 10px 0 40px;
   flex-wrap: wrap;
   &__bottom {
