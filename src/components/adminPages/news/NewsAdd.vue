@@ -160,7 +160,6 @@ export default {
         status: false,
         date: "",
         description: "",
-        // mainImage: {},
         galleryImages: [],
         link: "",
         SEO: {

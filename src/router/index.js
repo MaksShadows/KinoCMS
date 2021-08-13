@@ -44,6 +44,20 @@ export default new Router({
       component: () => import("@/components/adminPages/cinema/Cinema.vue"),
     },
     {
+      path: "/admin/cinema/:way",
+      name: "CinemaAdd",
+      meta: { layout: "admin" },
+      props: true,
+      component: () => import("@/components/adminPages/cinema/CinemaAdd.vue"),
+    },
+    {
+      path: "/admin/cinema/:way",
+      name: "HallAdd",
+      meta: { layout: "admin" },
+      props: true,
+      component: () => import("@/components/adminPages/cinema/HallAdd.vue"),
+    },
+    {
       path: "/admin/news",
       name: "News",
       meta: { layout: "admin" },
@@ -90,12 +104,27 @@ export default new Router({
       meta: { layout: "admin" },
       component: () => import("@/components/adminPages/users/Users.vue"),
     },
+     {
+      path: "/admin/users/:way",
+      name: "UsersEdit",
+      meta: { layout: "admin" },
+      props: true,
+      component: () => import("@/components/adminPages/users/UsersEdit.vue"),
+    },
     {
       path: "/admin/mailings",
       name: "Mailings",
       meta: { layout: "admin" },
       props: true,
       component: () => import("@/components/adminPages/mailings/Mailings.vue"),
+    },
+     {
+      path: "/admin/mailings/:way",
+      name: "MailingsChoose",
+      meta: { layout: "admin" },
+      props: true,
+      component: () =>
+        import("@/components/adminPages/mailings/MailingsChoose.vue"),
     },
 
   ],

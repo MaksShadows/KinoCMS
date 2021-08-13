@@ -30,7 +30,6 @@
 
 <script>
 import MoviesNewBlocks from "@/components/adminPages/movies/MoviesNewBlocks.vue";
-// import firebase from "@/database";
 import firebase from "firebase";
 import "firebase/database";
 import "firebase/storage";
