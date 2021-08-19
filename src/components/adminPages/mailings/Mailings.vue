@@ -14,20 +14,29 @@
 <script>
 import MailingsSms from "@/components/adminPages/mailings/MailingsSms.vue";
 import MailingsEmail from "@/components/adminPages/mailings/MailingsEmail.vue";
+import firebase from "firebase";
 
 export default {
   name: "Mailings",
   components: {
     MailingsSms,
-    MailingsEmail,
+    MailingsEmail
   },
   data() {
     return {
-      usersData: [],
+      usersData: []
     };
   },
   methods: {},
-
+  created() {
+    const baseRef = firebase.database().ref("users");
+    baseRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.usersData = snapshot.val();
+        // console.log(this.usersData);
+      }
+    });
+  }
 };
 </script>
 

@@ -7,6 +7,7 @@
         id="all"
         value="all"
         v-model="select"
+        @click="selectUsers(true)"
       />
       <label for="all">Все пользователи</label>
       <input
@@ -14,10 +15,27 @@
         id="select"
         value="select"
         v-model="select"
+        @click="selectUsers(false)"
       />
       <label for="select">Выборочно</label>
 
-
+      <router-link
+        :disabled="select !== 'select'"
+        class="users-choose btn btn-default"
+        tag="button"
+        :to="{
+          name: 'MailingsChoose',
+          params: {
+            way: 'users-choose',
+            usersData: usersData,
+            message: text,
+            mailingsData: mailingsData,
+            ref: ref
+          }
+        }"
+      >
+        Выбрать пользователей
+      </router-link>
     </div>
     <div class="mailings__text">
       <div class="mailings__text-info d-flex">
@@ -31,6 +49,7 @@
       <button
         :disabled="textLength < 1"
         class="btn btn-default"
+        @click="startMeiling()"
       >
         Начать рассылку
       </button>
@@ -39,6 +58,7 @@
 </template>
 
 <script>
+import firebase from "firebase";
 
 export default {
   name: "MailingsSms",
@@ -47,23 +67,52 @@ export default {
     return {
       select: false,
       text: "",
+
+      mailingsData: [],
+      ref: "mailings"
     };
   },
   methods: {
+    selectUsers(boolean) {
+      this.usersData.map(user => {
+        user.mailing = boolean;
+      });
+    },
+    startMeiling() {
+      let mailUsers = this.usersData
+        .filter(user => user.mailing)
+        .map(user => {
+          return { id: user.id, telephone: user.phone, email: user.email };
+        });
 
+      let mailing = {};
+      mailing.text = this.text;
+      mailing.users = mailUsers;
+      this.mailingsData.push(mailing);
+
+      const baseRef = firebase.database().ref(this.ref);
+      baseRef.set(this.mailingsData).then((this.text = ""), (this.select = ""));
+    }
   },
   computed: {
     textLength() {
       return this.text.toString().length;
     },
     smsLength() {
-      let mailUsers = this.usersData.filter((sms) => {
+      let mailUsers = this.usersData.filter(sms => {
         return sms.mailing;
       });
       return mailUsers.length;
-    },
+    }
   },
-
+  created() {
+    const baseRef = firebase.database().ref(this.ref);
+    baseRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.mailingsData = snapshot.val();
+      }
+    });
+  }
 };
 </script>
 

@@ -7,6 +7,16 @@
       <div class="title__status">Статус</div>
     </div>
 
+    <PagesList
+      v-for="(page, index) in pagesList"
+      :key="page.id"
+      :data="page"
+      :dataArr="pagesList"
+      :dbRef="ref"
+      :dbMainImageRef="mainImageRef"
+      :dbGalleryRef="galleryRef"
+      @remove="deletePage(index)"
+    />
     <router-link
       class="btn btn-default shares-list-add"
       tag="button"
@@ -17,8 +27,8 @@
           dataArr: pagesList,
           dbRef: ref,
           dbMainImageRef: mainImageRef,
-          dbGalleryRef: galleryRef,
-        },
+          dbGalleryRef: galleryRef
+        }
       }"
     >
       <span></span>
@@ -28,21 +38,87 @@
 </template>
 
 <script>
-
+import PagesList from "@/components/adminPages/pages/PagesList.vue";
+import firebase from "firebase";
 
 export default {
   name: "Pages",
-
+  components: {
+    PagesList
+  },
   data() {
     return {
-      ref: "pages/new",
+      mainPage: {},
+      aboutCinemaPage: {},
+      cafePage: {},
+      vipHallPage: {},
+      adPage: {},
+      kidRoomPage: {},
+      contactsPage: {},
+      pagesList: [],
 
+      ref: "pages/new",
+      mainImageRef: "pages/new/main",
+      galleryRef: "pages/new/gallery"
     };
   },
   methods: {
-
+    deletePage(index) {
+      this.pagesList.splice(index, 1);
+      const baseRef = firebase.database().ref(this.ref);
+      baseRef.set(this.pagesList);
+    }
   },
-
+  created() {
+    const mainPageRef = firebase.database().ref("pages/main");
+    mainPageRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.mainPage = snapshot.val();
+      }
+    });
+    const aboutCinemaPageRef = firebase.database().ref("pages/aboutCinema");
+    aboutCinemaPageRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.aboutCinemaPage = snapshot.val();
+      }
+    });
+    const cafePageRef = firebase.database().ref("pages/cafe");
+    cafePageRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.cafePage = snapshot.val();
+      }
+    });
+    const vipHallPageRef = firebase.database().ref("pages/vipHall");
+    vipHallPageRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.vipHallPage = snapshot.val();
+      }
+    });
+    const adPageRef = firebase.database().ref("pages/ad");
+    adPageRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.adPage = snapshot.val();
+      }
+    });
+    const kidRoomPageRef = firebase.database().ref("pages/kidRoom");
+    kidRoomPageRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.kidRoomPage = snapshot.val();
+      }
+    });
+    const contactsPageRef = firebase.database().ref("pages/contacts");
+    contactsPageRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.contactsPage = snapshot.val();
+      }
+    });
+    const baseRef = firebase.database().ref(this.ref);
+    baseRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.pagesList = snapshot.val();
+      }
+    });
+  }
 };
 </script>
 

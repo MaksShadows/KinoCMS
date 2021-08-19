@@ -2,6 +2,9 @@
   <div class="users-list">
     <h3>Пользователи</h3>
     <div class="title title-main">
+      <div class="title__item title__checkbox">
+        <input type="checkbox" v-model="allUsers" @click="selectUsers()" />
+      </div>
       <div class="title__item">ID</div>
       <div class="title__item">Дата регистрации</div>
       <div class="title__item">День рождения</div>
@@ -11,30 +14,12 @@
       <div class="title__item">Псевдоним</div>
       <div class="title__item">Город</div>
     </div>
-    <UsersList
-      v-for="(users, index) in paginatedData"
-      :key="users.id"
-      :data="users"
-      :dataArr="usersData"
-      :dbRef="ref"
-      @remove="deleteUser(index)"
+    <MailingsList
+      v-for="user in paginatedData"
+      :key="user.id"
+      :user="user"
+      :usersData="usersData"
     />
-    <router-link
-      class="btn btn-default users-list-add"
-      tag="button"
-      :to="{
-        name: 'UsersEdit',
-        params: {
-          way: 'users-edit',
-          dataArr: usersData,
-          dataObj: usersData,
-          dbRef: ref
-        }
-      }"
-    >
-      <span></span>
-      Добавить пользоватля
-    </router-link>
 
     <input
       v-model="search"
@@ -79,26 +64,29 @@
         Next
       </button>
     </div>
+    <button class="btn btn-default start" @click="startMeiling()">
+      Отправить выбранным
+    </button>
   </div>
 </template>
 
 <script>
-import UsersList from "@/components/adminPages/users/UsersList.vue";
+import MailingsList from "@/components/adminPages/mailings/MailingsList.vue";
 import firebase from "firebase";
 
 export default {
-  name: "Users",
+  name: "MailingsChoose",
+  props: ["usersData", "message", "mailingsData", "ref"],
+
   components: {
-    UsersList
+    MailingsList
   },
   data() {
     return {
-      usersData: [],
       search: "",
       size: 5,
       pageNumber: 0,
-
-      ref: "users"
+      allUsers: false
     };
   },
   methods: {
@@ -111,25 +99,37 @@ export default {
     setPage(page) {
       this.pageNumber = page - 1;
     },
-    deleteUser(index) {
-      this.usersData.splice(index, 1);
+    selectUsers() {
+      this.usersData.map(user => {
+        user.mailing = !this.allUsers;
+      });
+    },
+    startMeiling() {
+      let mailUsers = this.usersData
+        .filter(user => user.mailing)
+        .map(user => {
+          return { id: user.id, telephone: user.phone, email: user.email };
+        });
+
+      let mailing = {};
+      mailing.message = this.message;
+      mailing.users = mailUsers;
+      this.mailingsData.push(mailing);
+
+      // console.log(mailing);
+
       const baseRef = firebase.database().ref(this.ref);
-      baseRef.set(this.usersData);
+      baseRef
+        .set(this.mailingsData)
+        .then(this.$router.push("/admin/" + this.ref));
     }
   },
-  created() {
-    const baseRef = firebase.database().ref(this.ref);
-    baseRef.on("value", snapshot => {
-      if (snapshot.val() !== null) {
-        this.usersData = snapshot.val();
-      }
-    });
-  },
+
   computed: {
     pageCount() {
-      let length = this.usersData.length,
-        size = this.size;
-      return Math.ceil(length / size);
+      let l = this.usersData.length,
+        s = this.size;
+      return Math.ceil(l / s);
     },
     paginatedData() {
       const start = this.pageNumber * this.size,
@@ -144,6 +144,11 @@ export default {
         })
         .slice(start, end);
     }
+  },
+  created() {
+    if (this.usersData === undefined) {
+      this.$router.push("/admin/mailings");
+    }
   }
 };
 </script>
@@ -156,7 +161,7 @@ export default {
   h3 {
     padding: 20px 10px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
   }
   &-search {
     width: 225px;
@@ -168,40 +173,6 @@ export default {
     padding: 6px;
     background-color: #f8f9fa;
     border-color: #ddd;
-  }
-  &-add {
-    margin: 20px auto;
-    width: 225px;
-    position: absolute;
-    top: 20px;
-    right: 35px;
-    padding: 6px 0 6px 30px;
-
-    span {
-      width: 20px;
-      height: 20px;
-      display: flex;
-      position: absolute;
-      left: 11px;
-      top: 8px;
-    }
-    span::after,
-    span::before {
-      content: " ";
-      position: absolute;
-      background-color: #72bb53;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    span::after {
-      width: 20px;
-      height: 2px;
-    }
-    span::before {
-      width: 2px;
-      height: 20px;
-    }
   }
 
   .title {
@@ -221,6 +192,10 @@ export default {
       display: flex;
       justify-content: center;
       word-break: break-all;
+    }
+
+    &__checkbox {
+      width: 20%;
     }
   }
 
@@ -255,6 +230,10 @@ export default {
         content: "...";
       }
     }
+  }
+
+  button.start {
+    margin: 0 0 35px 60px;
   }
 }
 </style>
