@@ -208,8 +208,8 @@ export default {
       const baseRef = firebase.database().ref(this.ref);
       baseRef
         .set(newData)
-        //   .then((this.$refs.btnSave.textContent = "Сохранено"))
-        //   .then(this.$refs.btnSave.classList.remove("show"))
+        .then((this.$refs.btnSave.textContent = "Сохранено"))
+        .then(this.$refs.btnSave.classList.remove("show"))
         .then(this.$router.push("/admin/users"));
     }
   },

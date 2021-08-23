@@ -1,6 +1,6 @@
 <template>
   <div class="title">
-    <div class="title__name">{{ dataSource.name }}</div>
+    <div class="title__name">Главная страница</div>
     <div class="title__date">{{ dataSource.date }}</div>
     <div class="title__status" v-if="dataSource.status">ВКЛ</div>
     <div class="title__status" v-else>ВЫКЛ</div>
@@ -8,36 +8,27 @@
       class="title__edit"
       tag="div"
       :to="{
-        name: 'PagesAddNewPage',
+        name: 'PagesAddMain',
         params: {
-          way: 'pages-add-page',
+          way: 'pages-add-main',
           dataOb: dataSource,
-          dataArr: newsData,
 
-          dbRef: ref,
-          dbMainImageRef: mainImageRef,
-          dbGalleryRef: galleryRef
+          dbRef: 'pages/main'
         }
       }"
     >
       <div class="icon fas fa-pen"></div>
     </router-link>
-    <div @click="$emit('remove')" class="icon title__remove fas fa-trash"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "PagesList",
-  props: ["data", "dataArr", "dbRef", "dbMainImageRef", "dbGalleryRef"],
+  name: "PageMain",
+  props: ["data"],
   data() {
     return {
-      dataSource: this.data,
-      newsData: this.dataArr,
-
-      ref: this.dbRef,
-      mainImageRef: this.dbMainImageRef,
-      galleryRef: this.dbGalleryRef
+      dataSource: this.data
     };
   }
 };
@@ -47,7 +38,7 @@ export default {
 .title {
   display: flex;
   justify-content: center;
-  margin-left: 60px;
+  margin: 0 34px 0 60px;
 
   &__date,
   &__name,

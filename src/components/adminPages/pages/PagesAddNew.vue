@@ -119,19 +119,19 @@ import PagesAddGallery from "@/components/adminPages/pages/PagesAddGallery.vue";
 import firebase from "firebase";
 
 export default {
-  name: "PagesAddNewPage",
+  name: "PagesAddNew",
   components: {
     PagesAddImage,
     PagesAddGallery
   },
-  props: ["dataArr", "dataOb", "dbRef"],
+  props: ["dataOb", "dbRef", "dbMainImageRef", "dbGalleryRef"],
   data() {
     return {
       ref: this.dbRef,
+      mainImageRef: this.dbMainImageRef,
+      galleryRef: this.dbGalleryRef,
 
-      dataSource: [],
       galleryData: [],
-
       pageData: {
         id: "",
         name: "",
@@ -140,7 +140,6 @@ export default {
         description: "",
         // mainImage: {},
         galleryImages: [],
-        link: "",
         SEO: {
           url: "",
           title: "",
@@ -194,9 +193,7 @@ export default {
         this.pageData.mainImage !== undefined &&
         this.pageData.mainImage.imageUrl !== undefined
       ) {
-        // if (Object.keys(this.pageData.mainImage).length !== 0) {
         this.galleryPromise(this.pageData.mainImage);
-        //   console.log(this.pageData.mainImage, "3");
       } else {
         alert("Укажите главную картинку");
         this.$refs.btnSave.textContent = "Сохранить";
@@ -211,7 +208,6 @@ export default {
         let galleryImage = this.galleryData.filter(image => {
           return image.id === undefined;
         });
-
         Promise.all(
           galleryImage.map(value => {
             if (value.imageFile !== undefined)
@@ -241,24 +237,13 @@ export default {
     },
 
     saveData(mainImg, gallery) {
-      let dataEdit = this.dataSource.find(news => {
-        return news.id === this.pageData.id;
+      let oldGallery = this.galleryData.filter(image => {
+        return image.id !== undefined;
       });
-      if (dataEdit !== undefined) {
-        let oldGallery = this.galleryData.filter(image => {
-          return image.id !== undefined;
-        });
-        let newGallery = oldGallery.concat(gallery);
-        this.onUpload(mainImg, newGallery);
-      } else {
-        this.onUpload(mainImg, gallery);
-      }
+      let newGallery = oldGallery.concat(gallery);
+      this.onUpload(mainImg, newGallery);
     },
     onUpload(mainImg, gallery) {
-      let newData = this.dataSource.filter(news => {
-        return news.id !== this.pageData.id;
-      });
-
       let date = new Date();
       let day;
       if (date.getDate().toString().length === 1) {
@@ -275,11 +260,10 @@ export default {
       this.pageData.id = Math.floor(Math.random() * 10000);
       this.pageData.mainImage = mainImg;
       this.pageData.galleryImages = gallery;
-      newData.push(this.pageData);
 
       const baseRef = firebase.database().ref(this.ref);
       baseRef
-        .set(newData)
+        .set(this.pageData)
         .then((this.$refs.btnSave.textContent = "Сохранено"))
         .then(this.$refs.btnSave.classList.remove("show"))
         .then(this.$router.push("/admin/pages"));
@@ -287,15 +271,12 @@ export default {
   },
 
   created() {
-    if (this.dataArr !== undefined && this.dataArr.length > 0) {
-      this.dataSource = this.dataArr;
-      if (this.dataOb !== undefined && Object.keys(this.dataOb).length !== 0) {
-        this.pageData = this.dataOb;
-        if (this.dataOb.galleryImages.length !== 0) {
-          this.galleryData = this.dataOb.galleryImages;
-        }
+    if (this.dataOb !== undefined && Object.keys(this.dataOb).length !== 0) {
+      this.pageData = this.dataOb;
+      if (this.dataOb.galleryImages.length !== 0) {
+        this.galleryData = this.dataOb.galleryImages;
       }
-    } else if (this.dataArr === undefined) {
+    } else if (this.dataOb === undefined) {
       this.$router.push("/admin/pages");
     }
   }
@@ -303,8 +284,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-block {
-}
 .create {
   &__status {
     padding: 20px 18%;
@@ -353,6 +332,22 @@ export default {
     padding: 20px 40px;
   }
 
+  &__link {
+    padding: 20px 40px;
+    input {
+      width: 40%;
+      margin-left: 45px;
+      padding: 5px;
+      transition: width 0.4s ease-in-out;
+      &::placeholder {
+        padding-left: 7px;
+      }
+      &:focus {
+        width: 70%;
+        padding-left: 10px;
+      }
+    }
+  }
   &__seo {
     padding: 25px 40px;
     &-info {

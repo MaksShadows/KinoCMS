@@ -6,6 +6,13 @@
       <div class="title__date">Дата создания</div>
       <div class="title__status">Статус</div>
     </div>
+    <PagesMain :key="mainPage.id" :data="mainPage" />
+    <PagesAboutCinema :key="aboutCinemaPage.id" :data="aboutCinemaPage" />
+    <PagesCafe :key="cafePage.id" :data="cafePage" />
+    <PagesVipHall :key="vipHallPage.id" :data="vipHallPage" />
+    <PagesAd :key="adPage.id" :data="adPage" />
+    <PagesKidRoom :key="kidRoomPage.id" :data="kidRoomPage" />
+    <PagesContacts :key="contactsPage.id" :data="contactsPage" />
 
     <PagesList
       v-for="(page, index) in pagesList"
@@ -38,12 +45,26 @@
 </template>
 
 <script>
+import PagesMain from "@/components/adminPages/pages/PagesMain.vue";
+import PagesAboutCinema from "@/components/adminPages/pages/PagesAboutCinema.vue";
+import PagesCafe from "@/components/adminPages/pages/PagesCafe.vue";
+import PagesVipHall from "@/components/adminPages/pages/PagesVipHall.vue";
+import PagesAd from "@/components/adminPages/pages/PagesAd.vue";
+import PagesKidRoom from "@/components/adminPages/pages/PagesKidRoom.vue";
+import PagesContacts from "@/components/adminPages/pages/PagesContacts.vue";
 import PagesList from "@/components/adminPages/pages/PagesList.vue";
 import firebase from "firebase";
 
 export default {
   name: "Pages",
   components: {
+    PagesMain,
+    PagesAboutCinema,
+    PagesCafe,
+    PagesVipHall,
+    PagesAd,
+    PagesKidRoom,
+    PagesContacts,
     PagesList
   },
   data() {

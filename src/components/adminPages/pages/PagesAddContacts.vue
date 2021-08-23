@@ -21,53 +21,22 @@
           </label>
         </div>
       </div>
-
-      <div class="create__name d-flex">
-        <p>Название</p>
-        <input v-model="pageData.name" type="text" placeholder="Название" />
-      </div>
-      <div class="create__description d-flex">
-        <p>Описание</p>
-        <textarea
-          v-model="pageData.description"
-          type="text"
-          placeholder="Описание"
-        ></textarea>
-      </div>
-      <div class="create__main-img d-flex">
-        <p>Главная картинка</p>
-        <PagesAddImage
-          :sourceData="pageData.mainImage"
-          @mainImageChanged="mainImageFile"
-        />
-      </div>
-
       <div class="create__gallery">
-        <p>Галерея картинок</p>
-        <div class="d-flex">
-          <p>Размер: 1000х190</p>
-          <div class="create__gallery-img d-flex flex-wrap">
-            <PagesAddGallery
-              v-for="(block, index) in galleryData"
-              :key="block.name"
-              :data="block"
-              @remove="galleryData.splice(index, 1)"
-              class="gallery__block"
-            />
-            <button
-              @click="openFileDialog()"
-              class="btn btn-default gallery__block-add"
-            >
-              <input
-                ref="fileDialog"
-                @change="addImage"
-                style="display: none"
-                type="file"
-              />
-              Добавить<br />фото
-            </button>
-          </div>
-        </div>
+        <PagesContactsGallery
+          v-for="(block, index) in galleryData"
+          :key="block.id"
+          :data="block"
+          :gallery="galleryData"
+          @remove="galleryData.splice(index, 1)"
+          class="gallery__block"
+        />
+        <button
+          @click="addGalleryBlock()"
+          class="btn btn-default gallery__block-add"
+        >
+          <span></span>
+          Добавить еще кинотеатр
+        </button>
       </div>
       <div class="create__seo d-flex">
         <p>SEO блок:</p>
@@ -106,7 +75,7 @@
     <button
       class="btn btn-default btn-save"
       ref="btnSave"
-      @click="mainImagePromise"
+      @click="galleryPromise"
     >
       Сохранить
     </button>
@@ -114,33 +83,26 @@
 </template>
 
 <script>
-import PagesAddImage from "@/components/adminPages/pages/PagesAddImage.vue";
-import PagesAddGallery from "@/components/adminPages/pages/PagesAddGallery.vue";
+import PagesContactsGallery from "@/components/adminPages/pages/PagesContactsGallery.vue";
 import firebase from "firebase";
 
 export default {
-  name: "PagesAddNewPage",
+  name: "PagesAddContacts",
   components: {
-    PagesAddImage,
-    PagesAddGallery
+    PagesContactsGallery
   },
-  props: ["dataArr", "dataOb", "dbRef"],
+  props: ["dataOb", "dbRef"],
   data() {
     return {
       ref: this.dbRef,
 
-      dataSource: [],
       galleryData: [],
 
       pageData: {
         id: "",
-        name: "",
         status: false,
         date: "",
-        description: "",
-        // mainImage: {},
-        galleryImages: [],
-        link: "",
+        galleryCinema: [],
         SEO: {
           url: "",
           title: "",
@@ -151,88 +113,55 @@ export default {
     };
   },
   methods: {
-    openFileDialog() {
-      this.$refs.fileDialog.click();
-    },
-    addImage() {
-      const file = this.$refs.fileDialog.files[0];
-      if (file !== undefined) {
-        this.galleryData.push({
-          name: file.name,
-          imageFile: file
-        });
-      }
-    },
-    mainImageFile(file) {
-      if (file !== undefined) {
-        this.pageData.mainImage = file;
-      }
+    addGalleryBlock() {
+      this.galleryData.push({
+        id: Math.floor(Math.random() * 10000),
+        status: false,
+        name: "",
+        adress: "",
+        map: ""
+      });
+      console.log(this.galleryData);
     },
 
-    mainImagePromise() {
+    galleryPromise() {
       this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
-      const storageImageRef = firebase.storage().ref(this.mainImageRef);
-
-      if (
-        this.pageData.mainImage !== undefined &&
-        this.pageData.mainImage.imageUrl === undefined
-      ) {
-        new Promise(resolve => {
-          resolve(
-            storageImageRef
-              .child(this.pageData.mainImage.name)
-              .put(this.pageData.mainImage)
-              .then(snapshot => snapshot.ref.getDownloadURL())
-              .then(url => ({
-                name: this.pageData.mainImage.name,
-                imageUrl: url
-              }))
-          );
-        }).then(mainImg => this.galleryPromise(mainImg));
-      } else if (
-        this.pageData.mainImage !== undefined &&
-        this.pageData.mainImage.imageUrl !== undefined
-      ) {
-        // if (Object.keys(this.pageData.mainImage).length !== 0) {
-        this.galleryPromise(this.pageData.mainImage);
-        //   console.log(this.pageData.mainImage, "3");
-      } else {
-        alert("Укажите главную картинку");
-        this.$refs.btnSave.textContent = "Сохранить";
-        this.$refs.btnSave.classList.remove("show");
-      }
-    },
-
-    galleryPromise(mainImg) {
       const storageGalleryRef = firebase.storage().ref(this.galleryRef);
 
       if (this.galleryData.length > 0) {
-        let galleryImage = this.galleryData.filter(image => {
-          return image.id === undefined;
+        let galleryImage = this.galleryData.filter(ob => {
+          return ob.mainImage.id === undefined;
         });
 
         Promise.all(
           galleryImage.map(value => {
-            if (value.imageFile !== undefined)
+            if (value.mainImage !== undefined)
               return new Promise(resolve => {
                 resolve(
                   storageGalleryRef
-                    .child(value.name)
-                    .put(value.imageFile)
+                    .child(value.mainImage.name)
+                    .put(value.mainImage.file)
                     .then(snapshot => snapshot.ref.getDownloadURL())
                     .then(
                       url =>
                         (value = {
-                          id: Math.floor(Math.random() * 10000),
+                          id: value.id,
+                          status: value.status,
                           name: value.name,
-                          imageUrl: url
+                          adress: value.adress,
+                          map: value.map,
+                          mainImage: {
+                            id: Math.floor(Math.random() * 10000),
+                            name: value.mainImage.name,
+                            imageUrl: url
+                          }
                         })
                     )
                 );
               });
           })
-        ).then(gallery => this.saveData(mainImg, gallery));
+        ).then(gallery => this.onUpload(gallery));
       } else {
         alert("Выберете картинки для галереи");
         this.$refs.btnSave.textContent = "Сохранить";
@@ -240,24 +169,12 @@ export default {
       }
     },
 
-    saveData(mainImg, gallery) {
-      let dataEdit = this.dataSource.find(news => {
-        return news.id === this.pageData.id;
+    onUpload(gallery) {
+      let oldGallery = this.galleryData.filter(ob => {
+        return ob.mainImage.id !== undefined;
       });
-      if (dataEdit !== undefined) {
-        let oldGallery = this.galleryData.filter(image => {
-          return image.id !== undefined;
-        });
-        let newGallery = oldGallery.concat(gallery);
-        this.onUpload(mainImg, newGallery);
-      } else {
-        this.onUpload(mainImg, gallery);
-      }
-    },
-    onUpload(mainImg, gallery) {
-      let newData = this.dataSource.filter(news => {
-        return news.id !== this.pageData.id;
-      });
+
+      let newGallery = oldGallery.concat(gallery);
 
       let date = new Date();
       let day;
@@ -271,15 +188,13 @@ export default {
       let year = date.getFullYear();
       let dateCreate = `${day}.${month}.${year}`;
 
-      this.pageData.date = dateCreate;
       this.pageData.id = Math.floor(Math.random() * 10000);
-      this.pageData.mainImage = mainImg;
-      this.pageData.galleryImages = gallery;
-      newData.push(this.pageData);
+      this.pageData.date = dateCreate;
+      this.pageData.galleryCinema = newGallery;
 
       const baseRef = firebase.database().ref(this.ref);
       baseRef
-        .set(newData)
+        .set(this.pageData)
         .then((this.$refs.btnSave.textContent = "Сохранено"))
         .then(this.$refs.btnSave.classList.remove("show"))
         .then(this.$router.push("/admin/pages"));
@@ -287,15 +202,12 @@ export default {
   },
 
   created() {
-    if (this.dataArr !== undefined && this.dataArr.length > 0) {
-      this.dataSource = this.dataArr;
-      if (this.dataOb !== undefined && Object.keys(this.dataOb).length !== 0) {
-        this.pageData = this.dataOb;
-        if (this.dataOb.galleryImages.length !== 0) {
-          this.galleryData = this.dataOb.galleryImages;
-        }
+    if (this.dataOb !== undefined && Object.keys(this.dataOb).length !== 0) {
+      this.pageData = this.dataOb;
+      if (this.dataOb.galleryCinema.length !== 0) {
+        this.galleryData = this.dataOb.galleryCinema;
       }
-    } else if (this.dataArr === undefined) {
+    } else if (this.dataOb === undefined) {
       this.$router.push("/admin/pages");
     }
   }
@@ -308,6 +220,8 @@ export default {
 .create {
   &__status {
     padding: 20px 18%;
+    display: flex;
+    justify-content: center;
   }
   &__name {
     padding: 20px 40px;
@@ -353,6 +267,22 @@ export default {
     padding: 20px 40px;
   }
 
+  &__link {
+    padding: 20px 40px;
+    input {
+      width: 40%;
+      margin-left: 45px;
+      padding: 5px;
+      transition: width 0.4s ease-in-out;
+      &::placeholder {
+        padding-left: 7px;
+      }
+      &:focus {
+        width: 70%;
+        padding-left: 10px;
+      }
+    }
+  }
   &__seo {
     padding: 25px 40px;
     &-info {
@@ -392,9 +322,37 @@ export default {
 }
 .btn {
   &.gallery__block-add {
-    width: 130px;
-    height: 80px;
-    margin: 25px 70px;
+    margin: 20px auto;
+    width: 285px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    span {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      position: absolute;
+      left: 11px;
+      top: 8px;
+    }
+    span::after,
+    span::before {
+      content: " ";
+      position: absolute;
+      background-color: #72bb53;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    span::after {
+      width: 20px;
+      height: 2px;
+    }
+    span::before {
+      width: 2px;
+      height: 20px;
+    }
   }
   &-save {
     margin: 0 0 20px 20px;

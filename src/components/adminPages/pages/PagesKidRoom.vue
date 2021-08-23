@@ -8,36 +8,29 @@
       class="title__edit"
       tag="div"
       :to="{
-        name: 'PagesAddNewPage',
+        name: 'PagesAddNew',
         params: {
-          way: 'pages-add-page',
+          way: 'pages-add-new',
           dataOb: dataSource,
-          dataArr: newsData,
 
-          dbRef: ref,
-          dbMainImageRef: mainImageRef,
-          dbGalleryRef: galleryRef
+          dbRef: 'pages/kidRoom',
+          dbMainImageRef: 'pages/kidRoom/main',
+          dbGalleryRef: 'pages/kidRoom/gallery'
         }
       }"
     >
       <div class="icon fas fa-pen"></div>
     </router-link>
-    <div @click="$emit('remove')" class="icon title__remove fas fa-trash"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "PagesList",
-  props: ["data", "dataArr", "dbRef", "dbMainImageRef", "dbGalleryRef"],
+  name: "PagesKidRoom",
+  props: ["data"],
   data() {
     return {
-      dataSource: this.data,
-      newsData: this.dataArr,
-
-      ref: this.dbRef,
-      mainImageRef: this.dbMainImageRef,
-      galleryRef: this.dbGalleryRef
+      dataSource: this.data
     };
   }
 };
@@ -47,7 +40,7 @@ export default {
 .title {
   display: flex;
   justify-content: center;
-  margin-left: 60px;
+  margin: 0 34px 0 60px;
 
   &__date,
   &__name,

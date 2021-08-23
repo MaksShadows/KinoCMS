@@ -7,6 +7,21 @@ export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
+    // Auth page
+    {
+      path: "/login",
+      name: "Login.vue",
+      meta: { layout: "auth" },
+      component: () => import("@/components/authPages/Login.vue")
+    },
+    {
+      path: "/registr",
+      name: "Registr.vue",
+      meta: { layout: "auth" },
+      component: () => import("@/components/authPages/Registr.vue")
+    },
+
+    // Admin pages
     {
       path: "/admin/statistic",
       name: "Statistic",
@@ -28,9 +43,7 @@ export default new Router({
     {
       path: "/admin/movies/:way",
       name: "MoviesAddCurrent",
-      meta: {
-        layout: "admin"
-      },
+      meta: { layout: "admin" },
       props: true,
       component: () =>
         import("@/components/adminPages/movies/MoviesAddCurrent.vue")
@@ -84,22 +97,39 @@ export default new Router({
     {
       path: "/admin/pages",
       name: "Pages",
-      meta: {
-        layout: "admin"
-      },
+      meta: { layout: "admin" },
       component: () => import("@/components/adminPages/pages/Pages.vue")
     },
     {
       path: "/admin/pages/:way",
       name: "PagesAddNewPage",
-      meta: {
-        layout: "admin"
-      },
+      meta: { layout: "admin" },
       props: true,
       component: () =>
         import("@/components/adminPages/pages/PagesAddNewPage.vue")
     },
-
+    {
+      path: "/admin/pages/:way",
+      name: "PagesAddMain",
+      meta: { layout: "admin" },
+      props: true,
+      component: () => import("@/components/adminPages/pages/PagesAddMain.vue")
+    },
+    {
+      path: "/admin/pages/:way",
+      name: "PagesAddNew",
+      meta: { layout: "admin" },
+      props: true,
+      component: () => import("@/components/adminPages/pages/PagesAddNew.vue")
+    },
+    {
+      path: "/admin/pages/:way",
+      name: "PagesAddContacts",
+      meta: { layout: "admin" },
+      props: true,
+      component: () =>
+        import("@/components/adminPages/pages/PagesAddContacts.vue")
+    },
     {
       path: "/admin/users",
       name: "Users",
