@@ -1,6 +1,6 @@
 <template>
-  <div class="shares-list">
-    <h3>Список Страницу</h3>
+  <div class="news-list">
+    <h3>Список Cтраниц</h3>
     <div class="title title-main">
       <div class="title__name">Название</div>
       <div class="title__date">Дата создания</div>
@@ -15,23 +15,23 @@
     <PagesContacts :key="contactsPage.id" :data="contactsPage" />
 
     <PagesList
-      v-for="(page, index) in pagesList"
-      :key="page.id"
-      :data="page"
-      :dataArr="pagesList"
+      v-for="(news, index) in pageData"
+      :key="news.id"
+      :data="news"
+      :dataArr="pageData"
       :dbRef="ref"
       :dbMainImageRef="mainImageRef"
       :dbGalleryRef="galleryRef"
       @remove="deletePage(index)"
     />
     <router-link
-      class="btn btn-default shares-list-add"
+      class="btn btn-default news-list-add"
       tag="button"
       :to="{
         name: 'PagesAddNewPage',
         params: {
           way: 'pages-add-page',
-          dataArr: pagesList,
+          dataArr: pageData,
           dbRef: ref,
           dbMainImageRef: mainImageRef,
           dbGalleryRef: galleryRef
@@ -39,7 +39,7 @@
       }"
     >
       <span></span>
-      Создать Страницу
+      Создать Новость
     </router-link>
   </div>
 </template>
@@ -76,7 +76,7 @@ export default {
       adPage: {},
       kidRoomPage: {},
       contactsPage: {},
-      pagesList: [],
+       pageData: [],
 
       ref: "pages/new",
       mainImageRef: "pages/new/main",
@@ -85,9 +85,9 @@ export default {
   },
   methods: {
     deletePage(index) {
-      this.pagesList.splice(index, 1);
+      this.pageData.splice(index, 1);
       const baseRef = firebase.database().ref(this.ref);
-      baseRef.set(this.pagesList);
+      baseRef.set(this.pageData);
     }
   },
   created() {
@@ -136,7 +136,7 @@ export default {
     const baseRef = firebase.database().ref(this.ref);
     baseRef.on("value", snapshot => {
       if (snapshot.val() !== null) {
-        this.pagesList = snapshot.val();
+        this.pageData = snapshot.val();
       }
     });
   }
@@ -144,10 +144,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.shares-list {
+.news-list {
   padding: 20px 40px;
   position: relative;
-
   h3 {
     padding: 20px 10px;
     display: flex;
@@ -159,7 +158,6 @@ export default {
     position: absolute;
     top: 20px;
     right: 35px;
-
     span {
       width: 20px;
       height: 20px;
@@ -186,14 +184,12 @@ export default {
       height: 20px;
     }
   }
-
   .title {
     display: flex;
     justify-content: center;
     &-main {
       margin: 0 70px 0 60px;
     }
-
     &__date,
     &__name,
     &__status {

@@ -117,7 +117,6 @@
 import PagesAddImage from "@/components/adminPages/pages/PagesAddImage.vue";
 import PagesAddGallery from "@/components/adminPages/pages/PagesAddGallery.vue";
 import firebase from "firebase";
-
 export default {
   name: "PagesAddNew",
   components: {
@@ -130,7 +129,6 @@ export default {
       ref: this.dbRef,
       mainImageRef: this.dbMainImageRef,
       galleryRef: this.dbGalleryRef,
-
       galleryData: [],
       pageData: {
         id: "",
@@ -167,12 +165,10 @@ export default {
         this.pageData.mainImage = file;
       }
     },
-
     mainImagePromise() {
       this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
       const storageImageRef = firebase.storage().ref(this.mainImageRef);
-
       if (
         this.pageData.mainImage !== undefined &&
         this.pageData.mainImage.imageUrl === undefined
@@ -200,10 +196,8 @@ export default {
         this.$refs.btnSave.classList.remove("show");
       }
     },
-
     galleryPromise(mainImg) {
       const storageGalleryRef = firebase.storage().ref(this.galleryRef);
-
       if (this.galleryData.length > 0) {
         let galleryImage = this.galleryData.filter(image => {
           return image.id === undefined;
@@ -235,7 +229,6 @@ export default {
         this.$refs.btnSave.classList.remove("show");
       }
     },
-
     saveData(mainImg, gallery) {
       let oldGallery = this.galleryData.filter(image => {
         return image.id !== undefined;
@@ -255,12 +248,10 @@ export default {
       }
       let year = date.getFullYear();
       let dateCreate = `${day}.${month}.${year}`;
-
       this.pageData.date = dateCreate;
       this.pageData.id = Math.floor(Math.random() * 10000);
       this.pageData.mainImage = mainImg;
       this.pageData.galleryImages = gallery;
-
       const baseRef = firebase.database().ref(this.ref);
       baseRef
         .set(this.pageData)
@@ -269,7 +260,6 @@ export default {
         .then(this.$router.push("/admin/pages"));
     }
   },
-
   created() {
     if (this.dataOb !== undefined && Object.keys(this.dataOb).length !== 0) {
       this.pageData = this.dataOb;
@@ -324,14 +314,12 @@ export default {
       }
     }
   }
-
   &__main-img {
     padding: 20px 40px;
   }
   &__gallery {
     padding: 20px 40px;
   }
-
   &__link {
     padding: 20px 40px;
     input {
@@ -355,7 +343,6 @@ export default {
       margin-left: 60px;
       &-block {
         padding: 10px 40px;
-
         &:nth-child(1) input {
           margin-left: 80px;
         }
@@ -368,7 +355,6 @@ export default {
         &:nth-child(4) input {
           margin-left: 28px;
         }
-
         input {
           width: 200px;
           padding: 5px;

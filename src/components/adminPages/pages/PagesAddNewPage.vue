@@ -25,9 +25,10 @@
       <div class="create__name d-flex">
         <p>Название</p>
         <input v-model="pageData.name" type="text" placeholder="Название" />
+          <p class="date-title">Дата публикации</p>
         <DatePicker
           class="date-title"
-          :date="newsData.date"
+          :date="pageData.date"
           @dateChange="newDateValue"
         />
       </div>
@@ -118,25 +119,29 @@
   </div>
 </template>
 
+
 <script>
 import PagesAddImage from "@/components/adminPages/pages/PagesAddImage.vue";
 import PagesAddGallery from "@/components/adminPages/pages/PagesAddGallery.vue";
-import firebase from "firebase";
+import DatePicker from "@/components/adminPages/DatePicker.vue";
 
+import firebase from "firebase";
 export default {
   name: "PagesAddNewPage",
   components: {
     PagesAddImage,
-    PagesAddGallery
+    PagesAddGallery,
+    DatePicker
   },
-  props: ["dataArr", "dataOb", "dbRef"],
+  props: ["dataArr", "dataOb", "dbRef", "dbMainImageRef", "dbGalleryRef"],
   data() {
     return {
       ref: this.dbRef,
+      mainImageRef: this.dbMainImageRef,
+      galleryRef: this.dbGalleryRef,
 
       dataSource: [],
       galleryData: [],
-
       pageData: {
         id: "",
         name: "",
@@ -150,9 +155,9 @@ export default {
           url: "",
           title: "",
           keyword: "",
-          description: ""
-        }
-      }
+          description: "",
+        },
+      },
     };
   },
   methods: {
@@ -164,7 +169,7 @@ export default {
       if (file !== undefined) {
         this.galleryData.push({
           name: file.name,
-          imageFile: file
+          imageFile: file,
         });
       }
     },
@@ -173,28 +178,30 @@ export default {
         this.pageData.mainImage = file;
       }
     },
+     newDateValue(value) {
+      this.pageData.date = value;
+    },
 
     mainImagePromise() {
       this.$refs.btnSave.classList.add("show");
       this.$refs.btnSave.textContent = "Сохраняется";
       const storageImageRef = firebase.storage().ref(this.mainImageRef);
-
       if (
         this.pageData.mainImage !== undefined &&
         this.pageData.mainImage.imageUrl === undefined
       ) {
-        new Promise(resolve => {
+        new Promise((resolve) => {
           resolve(
             storageImageRef
               .child(this.pageData.mainImage.name)
               .put(this.pageData.mainImage)
-              .then(snapshot => snapshot.ref.getDownloadURL())
-              .then(url => ({
+              .then((snapshot) => snapshot.ref.getDownloadURL())
+              .then((url) => ({
                 name: this.pageData.mainImage.name,
-                imageUrl: url
+                imageUrl: url,
               }))
           );
-        }).then(mainImg => this.galleryPromise(mainImg));
+        }).then((mainImg) => this.galleryPromise(mainImg));
       } else if (
         this.pageData.mainImage !== undefined &&
         this.pageData.mainImage.imageUrl !== undefined
@@ -208,80 +215,59 @@ export default {
         this.$refs.btnSave.classList.remove("show");
       }
     },
-
     galleryPromise(mainImg) {
       const storageGalleryRef = firebase.storage().ref(this.galleryRef);
-
       if (this.galleryData.length > 0) {
-        let galleryImage = this.galleryData.filter(image => {
+        let galleryImage = this.galleryData.filter((image) => {
           return image.id === undefined;
         });
-
         Promise.all(
-          galleryImage.map(value => {
+          galleryImage.map((value) => {
             if (value.imageFile !== undefined)
-              return new Promise(resolve => {
+              return new Promise((resolve) => {
                 resolve(
                   storageGalleryRef
                     .child(value.name)
                     .put(value.imageFile)
-                    .then(snapshot => snapshot.ref.getDownloadURL())
+                    .then((snapshot) => snapshot.ref.getDownloadURL())
                     .then(
-                      url =>
+                      (url) =>
                         (value = {
                           id: Math.floor(Math.random() * 10000),
                           name: value.name,
-                          imageUrl: url
+                          imageUrl: url,
                         })
                     )
                 );
               });
           })
-        ).then(gallery => this.saveData(mainImg, gallery));
+        ).then((gallery) => this.saveData(mainImg, gallery));
       } else {
         alert("Выберете картинки для галереи");
         this.$refs.btnSave.textContent = "Сохранить";
         this.$refs.btnSave.classList.remove("show");
       }
     },
-
     saveData(mainImg, gallery) {
-      let dataEdit = this.dataSource.find(news => {
-        return news.id === this.pageData.id;
-      });
+      let dataEdit = this.dataSource.find(news => news.id === this.pageData.id);
       if (dataEdit !== undefined) {
-        let oldGallery = this.galleryData.filter(image => {
-          return image.id !== undefined;
-        });
+        let oldGallery = this.galleryData.filter(
+          image => image.id !== undefined
+        );
         let newGallery = oldGallery.concat(gallery);
         this.onUpload(mainImg, newGallery);
       } else {
         this.onUpload(mainImg, gallery);
       }
     },
-    onUpload(mainImg, gallery) {
+  onUpload(mainImg, gallery) {
       let newData = this.dataSource.filter(news => {
         return news.id !== this.pageData.id;
       });
-
-      let date = new Date();
-      let day;
-      if (date.getDate().toString().length === 1) {
-        day = "0" + date.getDate();
-      }
-      let month;
-      if (date.getMonth().toString().length === 1) {
-        month = "0" + date.getMonth();
-      }
-      let year = date.getFullYear();
-      let dateCreate = `${day}.${month}.${year}`;
-
-      this.pageData.date = dateCreate;
       this.pageData.id = Math.floor(Math.random() * 10000);
       this.pageData.mainImage = mainImg;
       this.pageData.galleryImages = gallery;
       newData.push(this.pageData);
-
       const baseRef = firebase.database().ref(this.ref);
       baseRef
         .set(newData)
@@ -303,11 +289,12 @@ export default {
     } else if (this.dataArr === undefined) {
       this.$router.push("/admin/pages");
     }
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+
 .create {
   &__status {
     padding: 20px 18%;
@@ -348,14 +335,12 @@ export default {
       }
     }
   }
-
   &__main-img {
     padding: 20px 40px;
   }
   &__gallery {
     padding: 20px 40px;
   }
-
   &__seo {
     padding: 25px 40px;
     &-info {
@@ -363,7 +348,6 @@ export default {
       margin-left: 60px;
       &-block {
         padding: 10px 40px;
-
         &:nth-child(1) input {
           margin-left: 80px;
         }
@@ -376,7 +360,6 @@ export default {
         &:nth-child(4) input {
           margin-left: 28px;
         }
-
         input {
           width: 200px;
           padding: 5px;

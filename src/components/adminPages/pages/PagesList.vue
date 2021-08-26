@@ -12,7 +12,7 @@
         params: {
           way: 'pages-add-page',
           dataOb: dataSource,
-          dataArr: newsData,
+          dataArr: pageData,
 
           dbRef: ref,
           dbMainImageRef: mainImageRef,
@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       dataSource: this.data,
-      newsData: this.dataArr,
+      pageData: this.dataArr,
 
       ref: this.dbRef,
       mainImageRef: this.dbMainImageRef,
@@ -66,9 +66,6 @@ export default {
     margin-left: 20px;
     align-items: center;
     display: flex;
-  }
-
-  .icon {
   }
 }
 </style>
