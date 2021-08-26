@@ -215,8 +215,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-block {
-}
+
 .create {
   &__status {
     padding: 20px 18%;

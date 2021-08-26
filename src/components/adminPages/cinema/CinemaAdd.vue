@@ -423,8 +423,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-block {
-}
 .create {
   &__name {
     padding: 20px 40px;

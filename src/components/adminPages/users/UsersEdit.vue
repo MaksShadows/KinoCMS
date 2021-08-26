@@ -140,7 +140,7 @@ export default {
   data() {
     return {
       ref: this.dbRef,
-      userData: this.dataObj,
+       userData: this.dataObj,
       usersData: this.dataArr
 
       // userData: {
@@ -182,25 +182,25 @@ export default {
         return user.id !== this.userData.id;
       });
 
-      // let date = new Date();
-      // let day;
-      // if (date.getDate().toString().length === 1) {
-      //   day = "0" + date.getDate();
-      // } else {
-      //   day = date.getDate();
-      // }
-      // let month;
-      // if (date.getMonth().toString().length === 1) {
-      //   month = "0" + date.getMonth();
-      // } else {
-      //   month = date.getMonth();
-      // }
-      // let year = date.getFullYear();
-      // let dateCreate = `${day}.${month}.${year}`;
+      let date = new Date();
+      let day;
+      if (date.getDate().toString().length === 1) {
+        day = "0" + date.getDate();
+      } else {
+        day = date.getDate();
+      }
+      let month;
+      if (date.getMonth().toString().length === 1) {
+        month = "0" + date.getMonth();
+      } else {
+        month = date.getMonth();
+      }
+      let year = date.getFullYear();
+      let dateCreate = `${day}.${month}.${year}`;
 
-      // this.userData.id = Math.floor(Math.random() * 100000);
-      // this.userData.date = dateCreate;
-      // this.userData.mailing = false;
+      this.userData.id = Math.floor(Math.random() * 100000);
+      this.userData.date = dateCreate;
+      this.userData.mailing = false;
       this.userData.repassword = "";
 
       newData.unshift(this.userData);

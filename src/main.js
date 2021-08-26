@@ -4,9 +4,6 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import firebase from "firebase";
-import "firebase/database";
-import "firebase/storage";
-import "firebase/auth";
 import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
@@ -24,21 +21,21 @@ firebase.initializeApp({
   measurementId: "G-Q0M07FEVTC"
 });
 
-let app;
-firebase.auth().onAuthStateChanged(() => {
-  if (!app) {
-    app = new Vue({
-      router,
-      store,
-      render: h => h(App)
-    }).$mount("#app");
-  }
-});
+// let app;
+// firebase.auth().onAuthStateChanged(() => {
+//   if (!app) {
+//     app = new Vue({
+//       router,
+//       store,
+//       render: h => h(App)
+//     }).$mount("#app");
+//   }
+// });
 
-// new Vue({
-//   router,
-//   store,
-//   render: (h) => h(App),
-// }).$mount("#app");
+new Vue({
+  router,
+  store,
+  render: (h) => h(App),
+}).$mount("#app");
 
-// createApp(App).mount('#app')
+

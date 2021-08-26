@@ -60,8 +60,5 @@ export default {
     align-items: center;
     display: flex;
   }
-
-  .icon {
-  }
 }
 </style>
