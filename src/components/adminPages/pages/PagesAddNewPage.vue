@@ -25,6 +25,11 @@
       <div class="create__name d-flex">
         <p>Название</p>
         <input v-model="pageData.name" type="text" placeholder="Название" />
+        <DatePicker
+          class="date-title"
+          :date="newsData.date"
+          @dateChange="newDateValue"
+        />
       </div>
       <div class="create__description d-flex">
         <p>Описание</p>
