@@ -25,7 +25,7 @@
       <div class="create__name d-flex">
         <p>Название</p>
         <input v-model="pageData.name" type="text" placeholder="Название" />
-          <p class="date-title">Дата публикации</p>
+        <p class="date-title">Дата публикации</p>
         <DatePicker
           class="date-title"
           :date="pageData.date"
@@ -119,7 +119,6 @@
   </div>
 </template>
 
-
 <script>
 import PagesAddImage from "@/components/adminPages/pages/PagesAddImage.vue";
 import PagesAddGallery from "@/components/adminPages/pages/PagesAddGallery.vue";
@@ -155,9 +154,9 @@ export default {
           url: "",
           title: "",
           keyword: "",
-          description: "",
-        },
-      },
+          description: ""
+        }
+      }
     };
   },
   methods: {
@@ -169,7 +168,7 @@ export default {
       if (file !== undefined) {
         this.galleryData.push({
           name: file.name,
-          imageFile: file,
+          imageFile: file
         });
       }
     },
@@ -178,7 +177,7 @@ export default {
         this.pageData.mainImage = file;
       }
     },
-     newDateValue(value) {
+    newDateValue(value) {
       this.pageData.date = value;
     },
 
@@ -190,18 +189,18 @@ export default {
         this.pageData.mainImage !== undefined &&
         this.pageData.mainImage.imageUrl === undefined
       ) {
-        new Promise((resolve) => {
+        new Promise(resolve => {
           resolve(
             storageImageRef
               .child(this.pageData.mainImage.name)
               .put(this.pageData.mainImage)
-              .then((snapshot) => snapshot.ref.getDownloadURL())
-              .then((url) => ({
+              .then(snapshot => snapshot.ref.getDownloadURL())
+              .then(url => ({
                 name: this.pageData.mainImage.name,
-                imageUrl: url,
+                imageUrl: url
               }))
           );
-        }).then((mainImg) => this.galleryPromise(mainImg));
+        }).then(mainImg => this.galleryPromise(mainImg));
       } else if (
         this.pageData.mainImage !== undefined &&
         this.pageData.mainImage.imageUrl !== undefined
@@ -218,30 +217,30 @@ export default {
     galleryPromise(mainImg) {
       const storageGalleryRef = firebase.storage().ref(this.galleryRef);
       if (this.galleryData.length > 0) {
-        let galleryImage = this.galleryData.filter((image) => {
+        let galleryImage = this.galleryData.filter(image => {
           return image.id === undefined;
         });
         Promise.all(
-          galleryImage.map((value) => {
+          galleryImage.map(value => {
             if (value.imageFile !== undefined)
-              return new Promise((resolve) => {
+              return new Promise(resolve => {
                 resolve(
                   storageGalleryRef
                     .child(value.name)
                     .put(value.imageFile)
-                    .then((snapshot) => snapshot.ref.getDownloadURL())
+                    .then(snapshot => snapshot.ref.getDownloadURL())
                     .then(
-                      (url) =>
+                      url =>
                         (value = {
                           id: Math.floor(Math.random() * 10000),
                           name: value.name,
-                          imageUrl: url,
+                          imageUrl: url
                         })
                     )
                 );
               });
           })
-        ).then((gallery) => this.saveData(mainImg, gallery));
+        ).then(gallery => this.saveData(mainImg, gallery));
       } else {
         alert("Выберете картинки для галереи");
         this.$refs.btnSave.textContent = "Сохранить";
@@ -260,7 +259,7 @@ export default {
         this.onUpload(mainImg, gallery);
       }
     },
-  onUpload(mainImg, gallery) {
+    onUpload(mainImg, gallery) {
       let newData = this.dataSource.filter(news => {
         return news.id !== this.pageData.id;
       });
@@ -289,12 +288,11 @@ export default {
     } else if (this.dataArr === undefined) {
       this.$router.push("/admin/pages");
     }
-  },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-
 .create {
   &__status {
     padding: 20px 18%;

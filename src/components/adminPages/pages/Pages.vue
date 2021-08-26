@@ -76,7 +76,7 @@ export default {
       adPage: {},
       kidRoomPage: {},
       contactsPage: {},
-       pageData: [],
+      pageData: [],
 
       ref: "pages/new",
       mainImageRef: "pages/new/main",
