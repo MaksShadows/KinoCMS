@@ -303,7 +303,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .create {
   &__status {
     padding: 20px 18%;

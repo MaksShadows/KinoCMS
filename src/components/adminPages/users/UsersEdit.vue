@@ -140,7 +140,7 @@ export default {
   data() {
     return {
       ref: this.dbRef,
-       userData: this.dataObj,
+      userData: this.dataObj,
       usersData: this.dataArr
 
       // userData: {
