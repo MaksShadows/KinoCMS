@@ -27,6 +27,7 @@
         params: {
           way: 'users-edit',
           dataArr: usersData,
+          data: usersData,
           dbRef: ref
         }
       }"
