@@ -16,18 +16,18 @@
           style="display: none"
           type="file"
         />
-        Добавить<br />фото
+        {{ $t("banners.addBanner") }}
       </button>
     </div>
     <div class="main-block__bottom">
       <div class="main-block__seconds">
-        <div class="main-block__label">Скорость вращения</div>
+        <div class="main-block__label">{{ $t("banners.speed") }}</div>
         <select v-model="scrollSpeed" class="seconds__input">
           <option :key="number" v-for="number in 10">{{ number }} сек.</option>
         </select>
       </div>
       <button ref="btnSave" @click="save" class="btn btn-default btn-save">
-        Сохранить
+        {{ $t("save") }}
       </button>
     </div>
   </div>

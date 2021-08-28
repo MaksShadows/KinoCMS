@@ -19,7 +19,7 @@
       @click="openFileDialog"
       class="btn btn-default"
     >
-      Добавить
+      {{ $t("add") }}
     </button>
 
     <button

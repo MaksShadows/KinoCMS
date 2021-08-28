@@ -3,10 +3,10 @@
   <div class="about">
     <div class="card mt-2">
       <div class="card-header text-center font-weight-bold">
-        На главной верх
+        <p>{{ $t("banners.mainBanners") }}</p>
       </div>
       <div class="cards-body__items">
-        <div class="cards-body__item">Размер: 1000х190</div>
+        <div class="cards-body__item">{{ $t("banners.size") }}: 1000х190</div>
         <div class="custom-control custom-switch">
           <!-- <input
             v-model="isEnabled"
@@ -28,10 +28,12 @@
     <!-- second block -->
     <div class="card mt-2">
       <div class="card-header text-center font-weight-bold">
-        Сквозной баннер на заднем фоне
+        <p>{{ $t("banners.throughBanner") }}</p>
       </div>
       <div class="row p-3">
-        <div class="col-md-6 text-muted">Pазмер 2000x3000</div>
+        <div class="col-md-6 text-muted">
+          {{ $t("banners.size") }}: 2000x3000
+        </div>
       </div>
 
       <div class="card-group p-3">
@@ -42,11 +44,11 @@
     <!-- third block -->
     <div class="card mt-2">
       <div class="card-header text-center font-weight-bold">
-        На главной новости и акции
+        <p>{{ $t("banners.newsDiscountBanners") }}</p>
       </div>
 
       <div class="cards-body__items">
-        <div class="cards-body__item">Размер: 1000х190</div>
+        <div class="cards-body__item">{{ $t("banners.size") }}: 1000х190</div>
         <div class="custom-control custom-switch">
           <!-- <input
             v-model="isEnabled"

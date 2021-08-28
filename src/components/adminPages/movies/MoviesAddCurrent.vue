@@ -2,23 +2,23 @@
   <div class="main-block">
     <div class="create">
       <div class="create__name d-flex">
-        <p>Название фильма</p>
+        <p>{{ $t("filmName") }}</p>
         <input
           v-model="movieData.name"
           type="text"
-          placeholder="Название фильма"
+          :placeholder="$t('filmName')"
         />
       </div>
       <div class="create__description d-flex">
-        <p>Описание</p>
+        <p>{{ $t("description") }}</p>
         <textarea
           v-model="movieData.description"
           type="text"
-          placeholder="Описание"
+          :placeholder="$t('description')"
         ></textarea>
       </div>
       <div class="create__main-img d-flex">
-        <p>Главная картинка</p>
+        <p>{{ $t("mainImage") }}</p>
         <MoviesAddCurrentImage
           :sourceRef="mainImageRef"
           :sourceData="mainImageData"
@@ -26,9 +26,9 @@
         />
       </div>
       <div class="create__gallery">
-        <p>Галерея картинок</p>
+        <p>{{ $t("imageGallery") }}</p>
         <div class="d-flex">
-          <p>Размер: 1000х190</p>
+          <p>{{ $t("banners.size") }}: 1000х190</p>
           <div class="create__gallery-img d-flex flex-wrap">
             <MoviesAddCurrentGallery
               v-for="(block, index) in galleryData"
@@ -48,21 +48,21 @@
                 style="display: none"
                 type="file"
               />
-              Добавить<br />фото
+              {{ $t("add") }}
             </button>
           </div>
         </div>
       </div>
       <div class="create__trailer d-flex">
-        <p>Ссылка на трейлер</p>
+        <p>{{ $t("trailerLink") }}</p>
         <input
           v-model="movieData.trailer"
           type="text"
-          placeholder="Ссылка на видео в YouTube"
+          :placeholder="$t('trailerY')"
         />
       </div>
       <div class="create__movie-type d-flex">
-        <p>Тип кино</p>
+        <p>{{ $t("filmTypes") }}</p>
         <input type="radio" id="3d" value="3D" v-model="movieData.type" />
         <label for="3d">3D</label>
         <input type="radio" id="2d" value="2D" v-model="movieData.type" />
@@ -110,7 +110,7 @@
         ref="btnSave"
         @click="mainImagePromise"
       >
-        Сохранить
+        {{ $t("save") }}
       </button>
     </div>
   </div>

@@ -1,10 +1,10 @@
 <template>
   <div class="news-list">
-    <h3>Список Новостей</h3>
+    <h3>{{ $t("news.newsList") }}</h3>
     <div class="title title-main">
-      <div class="title__name">Название</div>
-      <div class="title__date">Дата создания</div>
-      <div class="title__status">Статус</div>
+      <div class="title__name">{{ $t("news.newsName") }}</div>
+      <div class="title__date">{{ $t("news.newsDate") }}</div>
+      <div class="title__status">Стату</div>
     </div>
     <NewsList
       v-for="(news, index) in newsData"
@@ -31,7 +31,7 @@
       }"
     >
       <span></span>
-      Создать Новость
+      {{ $t("news.addNews") }}
     </router-link>
   </div>
 </template>

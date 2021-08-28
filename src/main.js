@@ -3,10 +3,15 @@ import Vuelidate from "vuelidate";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import axios from "axios";
+import i18n from "./i18n";
 import firebase from "firebase";
 import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
+
+const lang = localStorage.getItem("lang") || "ru";
+axios.defaults.headers["Accept-Language"] = lang;
 
 Vue.use(Vuelidate);
 
@@ -35,5 +40,6 @@ firebase.initializeApp({
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount("#app");

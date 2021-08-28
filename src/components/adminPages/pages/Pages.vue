@@ -1,9 +1,9 @@
 <template>
   <div class="news-list">
-    <h3>Список Cтраниц</h3>
+    <h3>{{ $t("pages.pageList") }}</h3>
     <div class="title title-main">
-      <div class="title__name">Название</div>
-      <div class="title__date">Дата создания</div>
+      <div class="title__name">{{ $t("name") }}</div>
+      <div class="title__date">{{ $t("news.newsDate") }}</div>
       <div class="title__status">Статус</div>
     </div>
     <PagesMain :key="mainPage.id" :data="mainPage" />
@@ -39,7 +39,7 @@
       }"
     >
       <span></span>
-      Создать Новость
+      {{ $t("pages.addPage") }}
     </router-link>
   </div>
 </template>

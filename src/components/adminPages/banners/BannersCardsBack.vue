@@ -5,11 +5,11 @@
         <div class="banner-tabs-nav">
           <div class="radio icheck-nephritis">
             <input type="radio" id="nephritis1" name="nephritis" :value="1" />
-            <label for="nephritis1">Фото на фон</label>
+            <label for="nephritis1">{{ $t("banners.photoBack") }}</label>
           </div>
           <div class="radio icheck-nephritis">
             <input type="radio" id="nephritis2" name="nephritis" :value="2" />
-            <label for="nephritis2">Просто фон</label>
+            <label for="nephritis2">{{ $t("banners.simpleBack") }}</label>
           </div>
         </div>
 
@@ -29,10 +29,10 @@
               accept="image/*"
             />
             <button @click="openFileDialog" class="btn btn-primary">
-              Добавить
+              {{ $t("add") }}
             </button>
             <button @click="deleteImage" class="btn btn-danger">
-              Удалить
+              {{ $t("delete") }}
             </button>
           </div>
         </div>

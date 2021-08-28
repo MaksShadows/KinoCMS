@@ -1,0 +1,107 @@
+{
+    "filmName": "Назва фільму",
+    "description": "Опис",
+    "mainImage": "Головна картинка",
+    "add": "Додати",
+    "delete": "Видалити",
+    "imageGallery": "Галерея зображень",
+    "trailerLink": "Посилання на трейлер",
+    "trailerY": "Посилання на відео в YouTube",
+    "filmTypes": "Типи кіно",
+    "title": "Заголовок",
+    "keywords": "Ключові слова",
+    "save": "Зберегти",
+    "backToBaseVersion": "Повернути базову версію",
+    "soonShawn": "Скоро покажуть",
+    "name": "Назва",
+    "sidebar": {
+        "statistics": "Статистика",
+        "banners": "Банера/Cлайдери",
+        "films": "Фільми",
+        "filmPage": "Сторінка фільму",
+        "cinemas": "Кінотеатри",
+        "cinemaCard": "Картка кінотеатру",
+        "news": "Новини",
+        "newsPage": "Сторінка новин",
+        "discounts": "Акції",
+        "discountsPage": "Сторінка акції",
+        "pages": "Сторінки",
+        "mainPage": "Головна сторінка",
+        "aboutCinema": "Про кінотеатр",
+        "cafeBar": "Кафе - Бар",
+        "vipHall": "Vip - зала",
+        "advertisement": "Реклама",
+        "childRoom": "Дитяча кімната",
+        "contacts": "Контакти",
+        "users": "Користувачі",
+        "mailing": "Розсилка"
+    },
+    "banners": {
+        "mainBanners": "На головній верх",
+        "size": "Розмір",
+        "addBanner": "Додати банер",
+        "speed": "Швидкість обертання",
+        "throughBanner": "Наскрізний банер на задньому фоні",
+        "photoBack": "Фото на фоні",
+        "simpleBack": "Простий фон",
+        "newsDiscountBanners": "На головній Новини Акції"
+    },
+    "movies": {
+        "moviesList": "Список фільмів поточних",
+        "soonMoviesList": "Список фільмів які скоро з'являться",
+        "addFilm": "Додати фільм"
+
+    },
+    "cinemas": {
+        "cinemasList": "Список кінотеатрів",
+        "cinemasName": "Назва кінотеатру",
+        "conditions": "Умови",
+        "logo": "Логотип",
+        "mainBannerImage": "Фото верхнього банера",
+        "addHall": "Додати зал",
+        "table": {
+            "name": "Назва залу",
+            "date": "Дата створення"
+        },
+        "halls": "Зали кінотеатру"
+    },
+    "cinemaHall": {
+        "hallNumber": "Номер залу",
+        "hallDescription": "Опис залу",
+        "hallSchema": "Схема залу",
+        "topBanner": "Верхній баннер"
+    },
+    "news": {
+        "newsList": "Список новин",
+        "newsName": "Назва новини",
+        "newsDate": "Дата публікації",
+        "newsStatus": "Статус",
+
+        "table": {
+            "name": "Назва новини",
+            "date": "Дата створення",
+            "off": "ВИКЛ"
+        },
+        "noNews": "Поки немає новин",
+        "addNews": "Створити новину"
+    },
+    "promotions": {
+        "promotionsList": "Список акцій",
+        "promotionsName": "Назва акції",
+        "noPromotions": "Поки немає акцій",
+        "addPromotions": "Створити акцію",
+        "table": {
+            "date": "Дата створення",
+            "off": "ВЫКЛ"
+        }
+
+    },
+    "aboutCinema": {
+        "aboutCinema": "Про кінотеатр"
+    },
+    "pages": {
+        "addPage": "Додати сторінку",
+        "pageList": "Список сторінок"
+    }
+
+}

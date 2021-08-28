@@ -1,9 +1,9 @@
 <template>
   <div class="shares-list">
-    <h3>Список Акций</h3>
+    <h3>{{ $t("promotions.promotionsList") }}</h3>
     <div class="title title-main">
-      <div class="title__name">Название</div>
-      <div class="title__date">Дата создания</div>
+      <div class="title__name">{{ $t("promotions.promotionsName") }}</div>
+      <div class="title__date">{{ $t("news.newsDate") }}</div>
       <div class="title__status">Статус</div>
     </div>
     <SharesList
@@ -31,7 +31,7 @@
       }"
     >
       <span></span>
-      Создать Акцию
+      {{ $t("promotions.addPromotions") }}
     </router-link>
   </div>
 </template>

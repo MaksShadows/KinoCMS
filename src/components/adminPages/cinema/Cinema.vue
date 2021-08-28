@@ -1,7 +1,7 @@
 <template>
   <div class="cinema">
     <div class="cinema__title">
-      <h3>Список кинотеатров</h3>
+      <h3>{{ $t("cinemas.cinemasList") }}</h3>
       <div class="cinema__blocks">
         <CinemaBlocks
           v-for="(cinema, index) in dataCinema"
@@ -28,7 +28,7 @@
           }"
         >
           <span></span>
-          <div class="text">Добавить</div>
+          <div class="text">{{ $t("add") }}</div>
         </router-link>
       </div>
     </div>

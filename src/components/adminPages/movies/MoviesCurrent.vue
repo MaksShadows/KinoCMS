@@ -23,7 +23,7 @@
         }
       }"
     >
-      Добавить фильм
+      {{ $t("movies.addFilm") }}
     </router-link>
   </div>
 </template>

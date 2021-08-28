@@ -23,19 +23,19 @@
       </div>
 
       <div class="create__name d-flex">
-        <p>Название</p>
-        <input v-model="pageData.name" type="text" placeholder="Название" />
+        <p>{{ $t("name") }}</p>
+        <input v-model="pageData.name" type="text" :placeholder="$t('name')" />
       </div>
       <div class="create__description d-flex">
-        <p>Описание</p>
+        <p>{{ $t("description") }}</p>
         <textarea
           v-model="pageData.description"
           type="text"
-          placeholder="Описание"
+          :placeholder="$t('description')"
         ></textarea>
       </div>
       <div class="create__main-img d-flex">
-        <p>Главная картинка</p>
+        <p>{{ $t("mainImage") }}</p>
         <PagesAddImage
           :sourceData="pageData.mainImage"
           @mainImageChanged="mainImageFile"
@@ -43,9 +43,9 @@
       </div>
 
       <div class="create__gallery">
-        <p>Галерея картинок</p>
+        <p>{{ $t("imageGallery") }}</p>
         <div class="d-flex">
-          <p>Размер: 1000х190</p>
+          <p>{{ $t("banners.size") }}: 1000х190</p>
           <div class="create__gallery-img d-flex flex-wrap">
             <PagesAddGallery
               v-for="(block, index) in galleryData"
@@ -64,7 +64,7 @@
                 style="display: none"
                 type="file"
               />
-              Добавить<br />фото
+              {{ $t("add") }}
             </button>
           </div>
         </div>
@@ -108,7 +108,7 @@
       ref="btnSave"
       @click="mainImagePromise"
     >
-      Сохранить
+      {{ $t("save") }}
     </button>
   </div>
 </template>

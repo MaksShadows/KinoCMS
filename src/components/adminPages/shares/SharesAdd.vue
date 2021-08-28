@@ -23,13 +23,13 @@
       </div>
 
       <div class="create__name d-flex">
-        <p>Название акции</p>
+        <p>{{ $t("promotions.promotionsName") }}</p>
         <input
           v-model="sharesData.name"
           type="text"
-          placeholder="Название акции"
+          :placeholder="$t('promotions.promotionsName')"
         />
-        <p class="date-title">Дата публикации</p>
+        <p class="date-title">{{ $t("news.newsDate") }}</p>
         <DatePicker
           class="date-title"
           :date="sharesData.date"
@@ -37,15 +37,15 @@
         />
       </div>
       <div class="create__description d-flex">
-        <p>Описание</p>
+        <p>{{ $t("description") }}</p>
         <textarea
           v-model="sharesData.description"
           type="text"
-          placeholder="Описание"
+          :placeholder="$t('description')"
         ></textarea>
       </div>
       <div class="create__main-img d-flex">
-        <p>Главная картинка</p>
+        <p>{{ $t("mainImage") }}</p>
         <SharesAddImage
           :sourceData="sharesData.mainImage"
           @mainImageChanged="mainImageFile"
@@ -53,9 +53,9 @@
       </div>
 
       <div class="create__gallery">
-        <p>Галерея картинок</p>
+        <p>{{ $t("imageGallery") }}</p>
         <div class="d-flex">
-          <p>Размер: 1000х190</p>
+          <p>{{ $t("banners.size") }}: 1000х190</p>
           <div class="create__gallery-img d-flex flex-wrap">
             <SharesAddGallery
               v-for="(block, index) in galleryData"
@@ -74,17 +74,17 @@
                 style="display: none"
                 type="file"
               />
-              Добавить<br />фото
+              {{ $t("add") }}
             </button>
           </div>
         </div>
       </div>
       <div class="create__link d-flex">
-        <p>Ссылка на видео</p>
+        <p>{{ $t("trailerLink") }}</p>
         <input
           v-model="sharesData.link"
           type="text"
-          placeholder="Ссылка на видео в YouTube"
+          :placeholder="$t('trailerY')"
         />
       </div>
       <div class="create__seo d-flex">
@@ -126,7 +126,7 @@
       ref="btnSave"
       @click="mainImagePromise"
     >
-      Сохранить
+      {{ $t("save") }}
     </button>
   </div>
 </template>
@@ -313,8 +313,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-block {
-}
 .create {
   &__status {
     padding: 20px 18%;

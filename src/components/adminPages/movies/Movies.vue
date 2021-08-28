@@ -1,13 +1,13 @@
 <template>
   <div class="movies">
     <div class="movies__title">
-      <h3>Список текущих фильмов</h3>
+      <h3>{{ $t("movies.moviesList") }}</h3>
       <div class="movies__blocks">
         <MoviesCurrent />
       </div>
     </div>
     <div class="movies__blocks">
-      <h3>Список фильмов которые покажут скоро</h3>
+      <h3>{{ $t("movies.soonMoviesList") }}</h3>
       <MoviesNew />
     </div>
   </div>

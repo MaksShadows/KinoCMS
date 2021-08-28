@@ -8,7 +8,6 @@
           <a href="#" class="d-block">KinoCMS</a>
         </div>
       </div>
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul
@@ -18,12 +17,66 @@
         >
           <router-link
             class="nav-link"
-            v-for="link in links"
-            :key="link.url"
             active-class="active"
-            :to="link.url"
+            :to="{ name: 'Statistic' }"
           >
-            {{ link.title }}
+            <p>{{ $t("sidebar.statistics") }}</p>
+          </router-link>
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'Banners' }"
+          >
+            <p>{{ $t("sidebar.banners") }}</p>
+          </router-link>
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'Movies' }"
+          >
+            <p>{{ $t("sidebar.films") }}</p>
+          </router-link>
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'Cinema' }"
+          >
+            <p>{{ $t("sidebar.cinemas") }}</p>
+          </router-link>
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'News' }"
+          >
+            <p>{{ $t("sidebar.news") }}</p>
+          </router-link>
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'Shares' }"
+          >
+            <p>{{ $t("sidebar.discounts") }}</p>
+          </router-link>
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'Pages' }"
+          >
+            <p>{{ $t("sidebar.pages") }}</p>
+          </router-link>
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'Users' }"
+          >
+            <p>{{ $t("sidebar.users") }}</p>
+          </router-link>
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'Mailings' }"
+          >
+            <p>{{ $t("sidebar.mailing") }}</p>
           </router-link>
         </ul>
       </nav>
@@ -35,20 +88,20 @@
 
 <script>
 export default {
-  name: "Sidebar",
-  data: () => ({
-    links: [
-      { title: "Статистика", url: "/admin/statistic" },
-      { title: "Баннеры", url: "/admin/banners" },
-      { title: "Фильмы", url: "/admin/movies" },
-      { title: "Кинотеатры", url: "/admin/cinema" },
-      { title: "Новости", url: "/admin/news" },
-      { title: "Акции", url: "/admin/shares" },
-      { title: "Страницы", url: "/admin/pages" },
-      { title: "Пользователи", url: "/admin/users" },
-      { title: "Рассылки", url: "/admin/mailings" }
-    ]
-  })
+  name: "Sidebar"
+  // data: () => ({
+  //   links: [
+  //     { title1: "Статистика", url: "/admin/statistic" },
+  //     { title2: "Баннеры ",  url: "/admin/banners" },
+  //     { title3: "Фильмы", url: "/admin/movies" },
+  //     { title4: "Кинотеатры", url: "/admin/cinema" },
+  //     { title5: "Новости", url: "/admin/news" },
+  //     { title6: "Акции", url: "/admin/shares" },
+  //     { title7: "Страницы", url: "/admin/pages" },
+  //     { title8: "Пользователи", url: "/admin/users" },
+  //     { title9: "Рассылки", url: "/admin/mailings" }
+  //   ]
+  // })
 };
 </script>
 

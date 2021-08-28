@@ -10,6 +10,14 @@
             <span>Администратор</span>
           </a>
         </router-link>
+        <div class="languages">
+          <img v-if="lang == 'ru'" />
+          <img v-else />
+          <select v-model="lang" @change="handleChange($event)">
+            <option value="ru">Русский</option>
+            <option value="ua">Украинский</option>
+          </select>
+        </div>
         <router-link tag="li" to="/" class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-img fas fa-power-off fa-2x"></i>
@@ -23,8 +31,27 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  data() {
+    return {
+      lang: localStorage.getItem("lang") || "ru"
+    };
+  },
+  methods: {
+    handleChange(event) {
+      localStorage.setItem("lang", event.target.value);
+      this.$i18n.locale = event.target.value;
+      this.$router.push({
+        params: { lang: event.target.value }
+      });
+    }
+  }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.languages img {
+  width: 30px;
+  margin-right: 10px;
+}
+</style>
