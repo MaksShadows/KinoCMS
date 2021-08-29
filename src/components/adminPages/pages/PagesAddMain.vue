@@ -14,10 +14,10 @@
             for="customSwitch3"
             v-if="mainPageData.status"
           >
-            Показывать
+            {{ $t("news.showNews") }}
           </label>
-          <label class="custom-control-label" for="customSwitch3" v-else
-            >Не показывать
+          <label class="custom-control-label" for="customSwitch3" v-else>
+            {{ $t("news.noshowNews") }}
           </label>
         </div>
       </div>
@@ -83,7 +83,7 @@
       </div>
     </div>
     <button class="btn btn-default btn-save" ref="btnSave" @click="onUpload">
-      Сохранить
+      {{ $t("save") }}
     </button>
   </div>
 </template>

@@ -14,10 +14,10 @@
             for="customSwitch3"
             v-if="pageData.status"
           >
-            Показывать
+            {{ $t("news.showNews") }}
           </label>
           <label class="custom-control-label" for="customSwitch3" v-else
-            >Не показывать
+            >{{ $t("news.noshowNews") }}
           </label>
         </div>
       </div>
@@ -35,7 +35,7 @@
           class="btn btn-default gallery__block-add"
         >
           <span></span>
-          Добавить еще кинотеатр
+          {{ $t("addCinema") }}
         </button>
       </div>
       <div class="create__seo d-flex">
@@ -77,7 +77,7 @@
       ref="btnSave"
       @click="galleryPromise"
     >
-      Сохранить
+      {{ $t("save") }}
     </button>
   </div>
 </template>
@@ -112,7 +112,7 @@ export default {
       }
     };
   },
-  methods: {
+  _methods: {
     addGalleryBlock() {
       this.galleryData.push({
         id: Math.floor(Math.random() * 10000),
@@ -176,8 +176,9 @@ export default {
 
       let newGallery = oldGallery.concat(gallery);
 
-      let date = new Date();
+      const date = new Date();
       let day;
+
       if (date.getDate().toString().length === 1) {
         day = "0" + date.getDate();
       }
@@ -199,6 +200,12 @@ export default {
         .then(this.$refs.btnSave.classList.remove("show"))
         .then(this.$router.push("/admin/pages"));
     }
+  },
+  get methods() {
+    return this._methods;
+  },
+  set methods(value) {
+    this._methods = value;
   },
 
   created() {

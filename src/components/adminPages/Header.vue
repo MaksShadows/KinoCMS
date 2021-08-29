@@ -54,4 +54,8 @@ export default {
   width: 30px;
   margin-right: 10px;
 }
+.navbar-expand .navbar-nav {
+  flex-direction: row;
+  align-items: center;
+}
 </style>

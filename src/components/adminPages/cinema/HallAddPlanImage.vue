@@ -19,7 +19,7 @@
       @click="openFileDialog"
       class="btn btn-default"
     >
-      Добавить
+      {{ $t("add") }}
     </button>
 
     <button
@@ -27,7 +27,7 @@
       @click="deleteImage"
       class="btn btn-default info-block__remove"
     >
-      Удалить
+      {{ $t("delete") }}
     </button>
   </div>
 </template>

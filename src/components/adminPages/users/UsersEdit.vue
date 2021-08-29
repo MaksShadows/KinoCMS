@@ -3,21 +3,21 @@
     <div class="d-flex">
       <div class="create">
         <div class="create__item create__firstname d-flex">
-          <p>Имя</p>
+          <p>{{ $t("users.userName") }}</p>
           <input
             v-model="userData.firstname"
             type="text"
             required
-            placeholder="Имя"
+            :placeholder="$t('users.userName')"
           />
         </div>
         <div class="create__item create__lastname d-flex">
-          <p>Фамилия</p>
+          <p>{{ $t("users.userLastName") }}</p>
           <input
             v-model="userData.lastname"
             type="text"
             required
-            placeholder="Фамилия"
+            :placeholder="$t('users.userLastName')"
           />
         </div>
         <div class="create__item create__nickname d-flex">
@@ -38,12 +38,12 @@
           />
         </div>
         <div class="create__item create__adress d-flex">
-          <p>Адресс</p>
+          <p>{{ $t("users.userAdr") }}</p>
           <input
             v-model="userData.adress"
             type="text"
             required
-            placeholder="Адресс"
+            :placeholder="$t('users.userAdr')"
           />
         </div>
         <div class="create__item create__password d-flex">
@@ -58,11 +58,11 @@
       </div>
       <div class="create">
         <div class="create__item create__cardNumber d-flex">
-          <p>Номер карты</p>
+          <p>{{ $t("users.userCard") }}</p>
           <input
             v-model="userData.cardNumber"
             type="text"
-            placeholder="Номер карты"
+            :placeholder="$t('users.userCard')"
           />
         </div>
         <div class="create__sex d-flex">
@@ -90,7 +90,7 @@
           />
         </div>
         <div class="create__item create__birth d-flex">
-          <p>Дата рождения</p>
+          <p>{{ $t("users.addBirth") }}</p>
           <DatePicker
             class="birth-title"
             v-model="userData.birth"
@@ -101,13 +101,15 @@
           />
         </div>
         <div class="create__item create__city d-flex">
-          <p>Город</p>
+          <p>{{ $t("users.addCity") }}</p>
           <select v-model="userData.city" required class="form-control">
-            <option disabled value="Город не указан">Город не выбран</option>
-            <option value="Киев">Киев</option>
-            <option value="Харьков">Харьков</option>
-            <option value="Одесса">Одесса</option>
-            <option value="Львов">Львов</option>
+            <option disabled value="$t('users.city')">{{
+              $t("users.city")
+            }}</option>
+            <option value="$t('kiev')">{{ $t("kiev") }}</option>
+            <option value="$t('kharkov')">{{ $t("kharkov") }}</option>
+            <option value="$t('odessa')">{{ $t("odessa") }}</option>
+            <option value="$t('lviv')">{{ $t("lviv") }}</option>
           </select>
         </div>
         <div class="create__item create__repassword d-flex">
@@ -122,7 +124,7 @@
       </div>
     </div>
     <button class="btn btn-default btn-save" ref="btnSave" @click="checking">
-      Сохранить
+      {{ $t("save") }}
     </button>
   </div>
 </template>

@@ -14,10 +14,10 @@
             for="customSwitch3"
             v-if="pageData.status"
           >
-            Показывать
+            {{ $t("news.showNews") }}
           </label>
-          <label class="custom-control-label" for="customSwitch3" v-else
-            >Не показывать
+          <label class="custom-control-label" for="customSwitch3" v-else>
+            {{ $t("news.noshowNews") }}
           </label>
         </div>
       </div>

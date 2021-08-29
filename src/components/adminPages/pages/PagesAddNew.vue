@@ -14,10 +14,10 @@
             for="customSwitch3"
             v-if="pageData.status"
           >
-            Показывать
+            {{ $t("news.showNews") }}
           </label>
-          <label class="custom-control-label" for="customSwitch3" v-else
-            >Не показывать
+          <label class="custom-control-label" for="customSwitch3" v-else>
+            {{ $t("news.noshowNews") }}
           </label>
         </div>
       </div>
@@ -237,7 +237,7 @@ export default {
       this.onUpload(mainImg, newGallery);
     },
     onUpload(mainImg, gallery) {
-      let date = new Date();
+      var date = new Date();
       let day;
       if (date.getDate().toString().length === 1) {
         day = "0" + date.getDate();
@@ -248,10 +248,12 @@ export default {
       }
       let year = date.getFullYear();
       let dateCreate = `${day}.${month}.${year}`;
+
       this.pageData.date = dateCreate;
       this.pageData.id = Math.floor(Math.random() * 10000);
       this.pageData.mainImage = mainImg;
       this.pageData.galleryImages = gallery;
+
       const baseRef = firebase.database().ref(this.ref);
       baseRef
         .set(this.pageData)

@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: "SharesList",
+  name: "PagesContacts",
   props: ["data"],
   data() {
     return {

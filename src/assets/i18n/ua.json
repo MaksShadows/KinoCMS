@@ -3,6 +3,9 @@
     "description": "Опис",
     "mainImage": "Головна картинка",
     "add": "Додати",
+     "addhalls": "Cтворити  Зал",
+    "addCinema": "Додати ще кінотеатр",
+    "addUsers": "Додати пользоватлей",
     "delete": "Видалити",
     "imageGallery": "Галерея зображень",
     "trailerLink": "Посилання на трейлер",
@@ -11,9 +14,14 @@
     "title": "Заголовок",
     "keywords": "Ключові слова",
     "save": "Зберегти",
+    "sendSMS": "Почати розсилку",
     "backToBaseVersion": "Повернути базову версію",
     "soonShawn": "Скоро покажуть",
     "name": "Назва",
+    "kiev": "Київ",
+    "kharkov": "Харків",
+    "lviv": "Львів",
+    "odessa": "Одеса",
     "sidebar": {
         "statistics": "Статистика",
         "banners": "Банера/Cлайдери",
@@ -63,7 +71,7 @@
             "name": "Назва залу",
             "date": "Дата створення"
         },
-        "halls": "Зали кінотеатру"
+        "halls": "Список залів"
     },
     "cinemaHall": {
         "hallNumber": "Номер залу",
@@ -83,7 +91,9 @@
             "off": "ВИКЛ"
         },
         "noNews": "Поки немає новин",
-        "addNews": "Створити новину"
+        "addNews": "Створити новину",
+         "showNews": "Показувати",
+        "noshowNews": "Не показувати"
     },
     "promotions": {
         "promotionsList": "Список акцій",
@@ -101,7 +111,32 @@
     },
     "pages": {
         "addPage": "Додати сторінку",
-        "pageList": "Список сторінок"
+        "pageList": "Список сторінок",
+         "addAdr": "Адреса",
+         "addCord": "Координати для карти"
+    },
+       "users": {
+        "addDate": "Дата реєстрації",
+        "addBirth": "День народження",
+        "addInit": "ПІБ",
+        "addCity": "Мiсто",
+        "addSearch": "Пошук",
+         "userName": "Ім'я",
+        "userLastName": "Прізвище",
+        "userAdr": "Адресa",
+        "userCard": "Номер картки",
+        "city": "Місто не обрана"
+    },
+        "mail": {
+        "mailUsers": "Вибрати користувачів для розсилки",
+        "mailAllUsers": "Всі користувачі",
+        "mailAllUser": "Вибірково",
+        "mailChoseuser": "Вибрати користувачів",
+        "mailSumb": "Cимволів",
+        "mailNumSum": "Kількість листів",
+         "mailDesc": "Введіть текст",
+        "mailLoad": "Завантажити файл",
+        "mailNum": "Кількість"
     }
 
 }

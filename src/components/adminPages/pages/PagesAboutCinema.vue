@@ -3,7 +3,7 @@
     <div class="title__name">{{ dataSource.name }}</div>
     <div class="title__date">{{ dataSource.date }}</div>
     <div class="title__status" v-if="dataSource.status">ВКЛ</div>
-    <div class="title__status" v-else>ВЫКЛ</div>
+    <div class="title__status" v-else>{{ $t("news.table.off") }}</div>
     <router-link
       class="title__edit"
       tag="div"

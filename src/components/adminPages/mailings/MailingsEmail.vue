@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mailings__choose d-flex">
-      <p>Выбрать пользователей для рассылки</p>
+      <p>{{ $t("mail.mailUsers") }}</p>
       <input
         type="radio"
         id="allForEmail"
@@ -9,7 +9,7 @@
         v-model="select"
         @click="selectUsers(true)"
       />
-      <label for="allForEmail">Все пользователи</label>
+      <label for="allForEmail">{{ $t("mail.mailAllUsers") }}</label>
       <input
         type="radio"
         id="selectForEmail"
@@ -17,7 +17,7 @@
         v-model="select"
         @click="selectUsers(false)"
       />
-      <label for="selectForEmail">Выборочно</label>
+      <label for="selectForEmail">{{ $t("mail.mailAllUser") }}</label>
 
       <router-link
         :disabled="select !== 'select'"
@@ -34,7 +34,7 @@
           }
         }"
       >
-        Выбрать пользователей
+        {{ $t("mail.mailChoseuser") }}
       </router-link>
     </div>
     <div class="mailings__file">
@@ -52,16 +52,16 @@
             @click="deleteFile()"
             class="btn btn-default"
           >
-            Удалить
+            {{ $t("delete") }}
           </button>
         </p>
         <p v-if="file === undefined">
-          Загрузить файл:
+          {{ $t("mail.mailLoad") }}:
           <button @click="openFileDialog" class="btn btn-default">
-            Добавить
+            {{ $t("add") }}
           </button>
         </p>
-        <p>Количество писем: {{ emailLength }}</p>
+        <p>{{ $t("mail.mailNumSum") }}: {{ emailLength }}</p>
       </div>
       <div class="mailings-start">
         <button
@@ -69,7 +69,7 @@
           :disabled="send !== true"
           @click="uploadFile()"
         >
-          Начать рассылку
+          {{ $t("sendSMS") }}
         </button>
       </div>
     </div>
@@ -196,9 +196,6 @@ export default {
     .users-choose {
       margin-left: 20px;
     }
-  }
-  &__file-info {
-    /* justify-content: space-between; */
   }
   &-start {
     display: flex;

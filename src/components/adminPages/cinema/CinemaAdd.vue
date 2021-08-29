@@ -2,31 +2,31 @@
   <div class="main-block">
     <div class="create">
       <div class="create__name d-flex">
-        <p>Название кинотеатра</p>
+        <p>{{ $t("cinemas.cinemasName") }}</p>
         <input
           v-model="cinemaData.name"
           type="text"
-          placeholder="Название кинотеатра"
+          :placeholder="$t('cinemas.cinemasName')"
         />
       </div>
       <div class="create__description d-flex">
-        <p>Описание</p>
+        <p>{{ $t("description") }}</p>
         <textarea
           v-model="cinemaData.description"
           type="text"
-          placeholder="Описание"
+          :placeholder="$t('description')"
         ></textarea>
       </div>
       <div class="create__conditions d-flex">
-        <p>Условия</p>
+        <p>{{ $t("cinemas.conditions") }}</p>
         <textarea
           v-model="cinemaData.conditions"
           type="text"
-          placeholder="Условия"
+          :placeholder="$t('cinemas.conditions')"
         ></textarea>
       </div>
       <div class="create__main-img d-flex">
-        <p>Логотип</p>
+        <p>{{ $t("cinemas.logo") }}</p>
         <CinemaAddLogoImage
           :sourceRef="mainImageRef"
           :sourceData="mainImageData"
@@ -34,7 +34,7 @@
         />
       </div>
       <div class="create__main-img d-flex">
-        <p>Фото верхнего баннера</p>
+        <p>{{ $t("cinemas.mainBannerImage") }}</p>
         <CinemaAddBannerImage
           :sourceRef="topBannerRef"
           :sourceData="topBannerData"
@@ -42,9 +42,9 @@
         />
       </div>
       <div class="create__gallery">
-        <p>Галерея картинок</p>
+        <p>{{ $t("imageGallery") }}</p>
         <div class="d-flex">
-          <p>Размер: 1000х190</p>
+          <p>{{ $t("banners.size") }}: 1000х190</p>
           <div class="create__gallery-img d-flex flex-wrap">
             <CinemaAddGallery
               v-for="(block, index) in galleryData"
@@ -64,16 +64,16 @@
                 style="display: none"
                 type="file"
               />
-              Добавить<br />фото
+              {{ $t("add") }}
             </button>
           </div>
         </div>
       </div>
       <div class="create__hall-list">
-        <h5>Список Залов</h5>
+        <h5>{{ $t("cinemas.halls") }}</h5>
         <div class="title title-main">
-          <div class="title__name">Название</div>
-          <div class="title__date">Дата создания</div>
+          <div class="title__name">{{ $t("cinemas.table.name") }}</div>
+          <div class="title__date">{{ $t("cinemas.table.date") }}</div>
         </div>
         <HallList
           v-for="(hall, index) in hallData"
@@ -104,7 +104,7 @@
           }"
         >
           <span></span>
-          Создать Зал
+          {{ $t("addhalls") }}
         </router-link>
       </div>
       <div class="create__seo d-flex">
@@ -146,7 +146,7 @@
       ref="btnSave"
       @click="mainImagePromise"
     >
-      Сохранить
+      {{ $t("save") }}
     </button>
   </div>
 </template>

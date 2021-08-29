@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mailings__choose d-flex">
-      <p>Выбрать пользователей для рассылки</p>
+      <p>{{ $t("mail.mailUsers") }}</p>
       <input
         type="radio"
         id="all"
@@ -9,7 +9,7 @@
         v-model="select"
         @click="selectUsers(true)"
       />
-      <label for="all">Все пользователи</label>
+      <label for="all">{{ $t("mail.mailAllUsers") }}</label>
       <input
         type="radio"
         id="select"
@@ -17,7 +17,7 @@
         v-model="select"
         @click="selectUsers(false)"
       />
-      <label for="select">Выборочно</label>
+      <label for="select">{{ $t("mail.mailAllUser") }}</label>
 
       <router-link
         :disabled="select !== 'select'"
@@ -34,16 +34,16 @@
           }
         }"
       >
-        Выбрать пользователей
+        {{ $t("mail.mailChoseuser") }}
       </router-link>
     </div>
     <div class="mailings__text">
       <div class="mailings__text-info d-flex">
         <p>Текст SMS</p>
-        <p>Символов: {{ textLength }}</p>
-        <p>Количество SMS: {{ smsLength }}</p>
+        <p>{{ $t("mail.mailSumb") }}: {{ textLength }}</p>
+        <p>{{ $t("mail.mailNum") }} SMS: {{ smsLength }}</p>
       </div>
-      <textarea v-model="text" placeholder="Введите текст"></textarea>
+      <textarea v-model="text" :placeholder="$t('mail.mailDesc')"></textarea>
     </div>
     <div class="mailings-start">
       <button
@@ -51,7 +51,7 @@
         class="btn btn-default"
         @click="startMeiling()"
       >
-        Начать рассылку
+        {{ $t("sendSMS") }}
       </button>
     </div>
   </div>

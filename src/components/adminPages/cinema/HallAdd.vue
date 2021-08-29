@@ -2,35 +2,39 @@
   <div class="main-block">
     <div class="create">
       <div class="create__number d-flex">
-        <p>Номер зала</p>
-        <input v-model="hallData.number" type="text" placeholder="Номер зала" />
+        <p>{{ $t("cinemaHall.hallNumber") }}</p>
+        <input
+          v-model="hallData.number"
+          type="text"
+          :placeholder="$t('cinemaHall.hallNumber')"
+        />
       </div>
       <div class="create__description d-flex">
-        <p>Описание зала</p>
+        <p>{{ $t("cinemaHall.hallDescription") }}</p>
         <textarea
           v-model="hallData.description"
           type="text"
-          placeholder="Описание"
+          :placeholder="$t('description')"
         ></textarea>
       </div>
       <div class="create__main-img d-flex">
-        <p>Схема зала</p>
+        <p>{{ $t("cinemaHall.hallSchema") }}</p>
         <HallAddPlanImage
           :sourceData="hallData.plan"
           @mainImageChanged="mainImageFile"
         />
       </div>
       <div class="create__main-img d-flex">
-        <p>Верхний баннер</p>
+        <p>{{ $t("cinemaHall.topBanner") }}</p>
         <HallAddBannerImage
           :sourceData="hallData.banner"
           @topBannerChanged="topBannerFile"
         />
       </div>
       <div class="create__gallery">
-        <p>Галерея картинок</p>
+        <p>{{ $t("imageGallery") }}</p>
         <div class="d-flex">
-          <p>Размер: 1000х190</p>
+          <p>{{ $t("banners.size") }}: 1000х190</p>
           <div class="create__gallery-img d-flex flex-wrap">
             <HallAddGallery
               v-for="(block, index) in galleryData"
@@ -49,7 +53,7 @@
                 style="display: none"
                 type="file"
               />
-              Добавить<br />фото
+              {{ $t("add") }}
             </button>
           </div>
         </div>
@@ -93,7 +97,7 @@
       ref="btnSave"
       @click="mainImagePromise"
     >
-      Сохранить
+      {{ $t("save") }}
     </button>
     <router-link
       class="btn btn-default btn-save"
@@ -115,8 +119,9 @@
           dbGalleryRef: 'cinema/gallery'
         }
       }"
-      >Вернуться</router-link
     >
+      {{ $t("backToBaseVersion") }}
+    </router-link>
   </div>
 </template>
 
@@ -358,8 +363,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-block {
-}
 .create {
   &__number {
     padding: 20px 40px;

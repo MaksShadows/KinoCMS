@@ -1,15 +1,15 @@
 <template>
   <div class="users-list">
-    <h3>Пользователи</h3>
+    <h3>{{ $t("sidebar.users") }}</h3>
     <div class="title title-main">
       <div class="title__item">ID</div>
-      <div class="title__item">Дата регистрации</div>
-      <div class="title__item">День рождения</div>
+      <div class="title__item">{{ $t("users.addDate") }}</div>
+      <div class="title__item">{{ $t("users.addBirth") }}</div>
       <div class="title__item">Email</div>
       <div class="title__item">Телефон</div>
-      <div class="title__item">ФИО</div>
+      <div class="title__item">{{ $t("users.addInit") }}</div>
       <div class="title__item">Псевдоним</div>
-      <div class="title__item">Город</div>
+      <div class="title__item">{{ $t("users.addCity") }}</div>
     </div>
     <UsersList
       v-for="(users, index) in paginatedData"
@@ -33,14 +33,14 @@
       }"
     >
       <span></span>
-      Добавить пользоватля
+      {{ $t("addUsers") }}
     </router-link>
 
     <input
       v-model="search"
       class="users-list-search"
       type="search"
-      placeholder="Поиск"
+      :placeholder="$t('users.addSearch')"
     />
 
     <div class="pages">
@@ -220,7 +220,6 @@ export default {
       align-items: center;
       display: flex;
       justify-content: center;
-      word-break: break-all;
     }
   }
 

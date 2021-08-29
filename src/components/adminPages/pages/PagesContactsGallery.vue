@@ -14,10 +14,10 @@
             :for="galleryData.id"
             v-if="galleryData.status"
           >
-            Показывать
+            {{ $t("news.showNews") }}
           </label>
           <label class="custom-control-label" :for="galleryData.id" v-else
-            >Не показывать
+            >{{ $t("news.noshowNews") }}
           </label>
         </div>
         <div @click="$emit('remove')" class="btn btn-default remove">
@@ -28,31 +28,31 @@
               fill="rgba(0,0,0,0.7)"
             ></path>
           </svg> -->
-          Удалить
+          {{ $t("delete") }}
         </div>
       </div>
       <div class="create__name d-flex">
-        <p>Название кинотеатра</p>
+        <p>{{ $t("cinemas.cinemasName") }}</p>
         <input
           v-model="galleryData.name"
           type="text"
-          placeholder="Название кинотеатра"
+          :placeholder="$t('cinemas.cinemasName')"
         />
       </div>
       <div class="create__adress d-flex">
-        <p>Адресс</p>
+        <p>{{ $t("pages.addAdr") }}</p>
         <textarea
           v-model="galleryData.adress"
           type="text"
-          placeholder="Адресс"
+          :placeholder="$t('pages.addAdr')"
         ></textarea>
       </div>
       <div class="create__map d-flex">
-        <p>Координаты для карты</p>
+        <p>{{ $t("pages.addCord") }}</p>
         <input
           v-model="galleryData.map"
           type="text"
-          placeholder="Координаты для карты"
+          :placeholder="$t('pages.addCord')"
         />
       </div>
       <div class="create__main-img d-flex">
