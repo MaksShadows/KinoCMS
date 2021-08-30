@@ -237,7 +237,7 @@ export default {
       this.onUpload(mainImg, newGallery);
     },
     onUpload(mainImg, gallery) {
-      var date = new Date();
+      let date = new Date();
       let day;
       if (date.getDate().toString().length === 1) {
         day = "0" + date.getDate();
