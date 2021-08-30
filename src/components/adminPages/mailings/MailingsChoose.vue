@@ -14,12 +14,7 @@
       <div class="title__item">Псевдоним</div>
       <div class="title__item">Город</div>
     </div>
-    <MailingsList
-      v-for="user in paginatedData"
-      :key="user.id"
-      :user="user"
-      :usersData="usersData"
-    />
+    <MailingsList v-for="user in paginatedData" :key="user.id" :user="user" />
 
     <input
       v-model="search"
@@ -76,7 +71,7 @@ import firebase from "firebase";
 
 export default {
   name: "MailingsChoose",
-  props: ["usersData", "message", "mailingsData", "ref"],
+  props: ["message", "mailingsData", "ref"],
 
   components: {
     MailingsList
@@ -119,9 +114,7 @@ export default {
       // console.log(mailing);
 
       const baseRef = firebase.database().ref(this.ref);
-      baseRef
-        .set(this.mailingsData)
-        .then(this.$router.push("/admin/" + this.ref));
+      baseRef.set(this.mailingsData);
     }
   },
 

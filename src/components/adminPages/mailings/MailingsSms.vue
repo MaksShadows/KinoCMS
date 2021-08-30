@@ -20,14 +20,12 @@
       <label for="select">{{ $t("mail.mailAllUser") }}</label>
 
       <router-link
-        :disabled="select !== 'select'"
         class="users-choose btn btn-default"
         tag="button"
         :to="{
           name: 'MailingsChoose',
           params: {
             way: 'users-choose',
-            usersData: usersData,
             message: text,
             mailingsData: mailingsData,
             ref: ref

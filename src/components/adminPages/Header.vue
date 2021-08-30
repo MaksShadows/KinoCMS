@@ -11,8 +11,8 @@
           </a>
         </router-link>
         <div class="languages">
-          <img v-if="lang == 'ru'" src="@/assets/img/ru.png" alt="ru"  />
-          <img v-else src="@/assets/img/ua.png" alt="ua">
+          <img v-if="lang == 'ru'" src="@/assets/img/ru.png" alt="ru" />
+          <img v-else src="@/assets/img/ua.png" alt="ua" />
           <select v-model="lang" @change="handleChange($event)">
             <option value="ru">Русский</option>
             <option value="ua">Украинский</option>

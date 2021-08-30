@@ -28,6 +28,8 @@
         <p class="date-title">{{ $t("news.newsDate") }}</p>
         <DatePicker
           class="date-title"
+          type="date"
+          format="DD.MM.YYYY"
           :date="pageData.date"
           @dateChange="newDateValue"
         />

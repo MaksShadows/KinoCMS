@@ -1,7 +1,7 @@
 <template>
   <div class="title">
     <div class="title__name">{{ dataSource.name }}</div>
-    <div class="title__date">{{ dataSource.date}}</div>
+    <div class="title__date">{{ dataSource.date }}</div>
     <div class="title__status" v-if="dataSource.status">ВКЛ</div>
     <div class="title__status" v-else>ВЫКЛ</div>
     <router-link

@@ -134,13 +134,12 @@ export default {
     paginatedData() {
       const start = this.pageNumber * this.size,
         end = start + this.size;
+      // const changeUsers = this.usersData
       return this.usersData
-        .filter(elem => {
-          return (
-            elem.firstname.toLowerCase().includes(this.search.toLowerCase()) ||
-            elem.lastname.toLowerCase().includes(this.search.toLowerCase()) ||
-            elem.nickname.toLowerCase().includes(this.search.toLowerCase())
-          );
+        .filter(user => {
+          let fullUsers =
+            user.firstname + "" + user.lastname + "" + user.nickname;
+          return fullUsers.toLowerCase().includes(this.search);
         })
         .slice(start, end);
     }

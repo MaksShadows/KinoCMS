@@ -17,7 +17,7 @@
 <script>
 export default {
   name: "MailingsList",
-  props: ["user", "usersData"],
+  props: ["user"],
   data() {
     return {};
   }
