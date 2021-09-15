@@ -46,6 +46,13 @@
           <router-link
             class="nav-link"
             active-class="active"
+            :to="{ name: 'Tickets' }"
+          >
+            <p>Tickets</p>
+          </router-link>
+          <router-link
+            class="nav-link"
+            active-class="active"
             :to="{ name: 'News' }"
           >
             <p>{{ $t("sidebar.news") }}</p>

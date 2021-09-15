@@ -6,6 +6,9 @@ import store from "./store";
 import axios from "axios";
 import i18n from "./i18n";
 import firebase from "firebase";
+import "firebase/database";
+import "firebase/storage";
+import "firebase/auth";
 import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
@@ -26,20 +29,21 @@ firebase.initializeApp({
   measurementId: "G-Q0M07FEVTC"
 });
 
-// let app;
-// firebase.auth().onAuthStateChanged(() => {
-//   if (!app) {
-//     app = new Vue({
-//       router,
-//       store,
-//       render: h => h(App)
-//     }).$mount("#app");
-//   }
-// });
+let app;
+firebase.auth().onAuthStateChanged(() => {
+  if (!app) {
+    app = new Vue({
+      router,
+      store,
+      i18n,
+      render: h => h(App)
+    }).$mount("#app");
+  }
+});
 
-new Vue({
-  router,
-  store,
-  i18n,
-  render: h => h(App)
-}).$mount("#app");
+// new Vue({
+//   router,
+//   store,
+//   i18n,
+//   render: h => h(App)
+// }).$mount("#app");

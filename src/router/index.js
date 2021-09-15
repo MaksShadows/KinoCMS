@@ -8,22 +8,17 @@ export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
-    // Auth page
     {
       path: "/",
+      name: "Home",
+      meta: {
+        layout: "main"
+      },
+      component: () => import("@/components/mainPages/home/Home.vue")
+    },
+    {
+      path: "/lang",
       redirect: `/${i18n.locale}`
-    },
-    {
-      path: "/login",
-      name: "Login.vue",
-      meta: { layout: "auth" },
-      component: () => import("@/components/authPages/Login.vue")
-    },
-    {
-      path: "/registr",
-      name: "Registr.vue",
-      meta: { layout: "auth" },
-      component: () => import("@/components/authPages/Registr.vue")
     },
     {
       path: "/:lang",
@@ -34,6 +29,60 @@ export default new Router({
       },
 
       children: [
+        // User pages
+        {
+          path: "/user",
+          name: "User",
+          meta: {
+            layout: "main"
+          },
+          component: () => import("@/components/mainPages/user/User.vue")
+        },
+        {
+          path: "/poster",
+          name: "Poster",
+          meta: {
+            layout: "main"
+          },
+          component: () => import("@/components/mainPages/poster/Poster.vue")
+        },
+        {
+          path: "/poster/:way",
+          name: "PosterMovie",
+          meta: {
+            layout: "main"
+          },
+          props: true,
+          component: () =>
+            import("@/components/mainPages/poster/PosterMovie.vue")
+        },
+        {
+          path: "/schedule",
+          name: "Schedule",
+          meta: {
+            layout: "main"
+          },
+          component: () =>
+            import("@/components/mainPages/schedule/Schedule.vue")
+        },
+        {
+          path: "/cinema",
+          name: "Cinemas",
+          meta: {
+            layout: "main"
+          },
+          component: () => import("@/components/mainPages/cinema/Cinema.vue")
+        },
+        {
+          path: "/cinema/:way",
+          name: "CinemaInfo",
+          meta: {
+            layout: "main"
+          },
+          props: true,
+          component: () =>
+            import("@/components/mainPages/cinema/CinemaInfo.vue")
+        },
         // Admin pages
         {
           path: "/admin/statistic",
@@ -96,6 +145,24 @@ export default new Router({
           },
           props: true,
           component: () => import("@/components/adminPages/cinema/HallAdd.vue")
+        },
+        {
+          path: "/admin/tickets",
+          name: "Tickets",
+          meta: {
+            layout: "admin"
+          },
+          component: () => import("@/components/adminPages/tickets/Tickets.vue")
+        },
+        {
+          path: "/admin/tickets/:way",
+          name: "TicketsEdit",
+          meta: {
+            layout: "admin"
+          },
+          props: true,
+          component: () =>
+            import("@/components/adminPages/tickets/TicketsEdit.vue")
         },
         {
           path: "/admin/news",
@@ -218,6 +285,23 @@ export default new Router({
             import("@/components/adminPages/mailings/MailingsChoose.vue")
         }
       ]
+    },
+    // Auth page
+    {
+      path: "/login",
+      name: "Login.vue",
+      meta: {
+        layout: "auth"
+      },
+      component: () => import("@/components/authPages/Login.vue")
+    },
+    {
+      path: "/registr",
+      name: "Registr.vue",
+      meta: {
+        layout: "auth"
+      },
+      component: () => import("@/components/authPages/Registr.vue")
     }
   ]
 });
