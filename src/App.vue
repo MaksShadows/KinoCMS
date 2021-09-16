@@ -1,22 +1,22 @@
 <template>
   <div id="app">
-    <AdminLayout />
+    <!-- <AdminLayout /> -->
     <!-- <MainLayout /> -->
     <!-- <AuthLayout /> -->
-    <!-- <component :is="layout"></component> -->
+    <component :is="layout"></component>
   </div>
 </template>
 
 <script>
 import AdminLayout from "@/components/adminPages/AdminLayout.vue";
-// import MainLayout from "@/components/mainPages/MainLayout.vue";
-// import AuthLayout from "@/components/authPages/AuthLayout.vue";
+import MainLayout from "@/components/mainPages/MainLayout.vue";
+import AuthLayout from "@/components/authPages/AuthLayout.vue";
 export default {
   name: "App",
   components: {
-    AdminLayout
-    // MainLayout,
-    // AuthLayout
+    AdminLayout,
+    MainLayout,
+    AuthLayout
   },
   computed: {
     layout() {

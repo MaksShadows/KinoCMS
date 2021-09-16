@@ -9,7 +9,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
+      path: "/home",
       name: "Home",
       meta: {
         layout: "main"
@@ -29,6 +29,23 @@ export default new Router({
       },
 
       children: [
+        // Auth page
+        {
+          path: "/login",
+          name: "Login.vue",
+          meta: {
+            layout: "auth"
+          },
+          component: () => import("@/components/authPages/Login.vue")
+        },
+        {
+          path: "/registr",
+          name: "Registr.vue",
+          meta: {
+            layout: "auth"
+          },
+          component: () => import("@/components/authPages/Registr.vue")
+        },
         // User pages
         {
           path: "/user",
@@ -285,23 +302,6 @@ export default new Router({
             import("@/components/adminPages/mailings/MailingsChoose.vue")
         }
       ]
-    },
-    // Auth page
-    {
-      path: "/login",
-      name: "Login.vue",
-      meta: {
-        layout: "auth"
-      },
-      component: () => import("@/components/authPages/Login.vue")
-    },
-    {
-      path: "/registr",
-      name: "Registr.vue",
-      meta: {
-        layout: "auth"
-      },
-      component: () => import("@/components/authPages/Registr.vue")
     }
   ]
 });

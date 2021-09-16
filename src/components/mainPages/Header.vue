@@ -199,6 +199,7 @@ export default {
       });
     }
   },
+
   ready() {
     var self = this;
     window.addEventListener(
