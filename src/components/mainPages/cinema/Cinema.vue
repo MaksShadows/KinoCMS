@@ -10,7 +10,7 @@
         />
       </div>
     </div>
-    <div class="ad">kfdghkndfkjbn dfkbjnf</div>
+    <!-- <div class="ad">kfdghkndfkjbn dfkbjnf</div> -->
   </div>
 </template>
 

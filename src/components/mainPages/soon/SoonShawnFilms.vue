@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import PosterList from "@/components/mainPages/poster/PosterList.vue";
+import PosterList from "@/components/mainPages/soon/PosterList.vue";
 import firebase from "firebase";
 
 export default {
-  name: "Poster",
+  name: "SoonFilms",
   components: {
     PosterList
   },
@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     allMovies() {
-      return this.moviesData.current;
+      return this.moviesData.new;
     }
   },
   created() {

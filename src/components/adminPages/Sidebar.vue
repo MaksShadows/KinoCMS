@@ -48,7 +48,7 @@
             active-class="active"
             :to="{ name: 'Tickets' }"
           >
-            <p>Tickets</p>
+            <p>Расписание</p>
           </router-link>
           <router-link
             class="nav-link"

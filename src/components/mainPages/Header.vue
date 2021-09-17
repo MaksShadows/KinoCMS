@@ -10,19 +10,9 @@
         <div class="info">
           <div class="info__search">
             <input v-model="search" type="search" placeholder="Поиск" />
-            <ul v-if="search.length">
+            <!-- <ul v-if="search.length">
               <router-link
-                v-for="movie in serchingMovie"
-                :key="movie.id"
                 class="info__search-movie"
-                tag="li"
-                :to="{
-                  name: 'PosterMovie',
-                  params: {
-                    way: 'poster-movie',
-                    movieData: movie
-                  }
-                }"
               >
                 <img :src="movie.mainImage.imageUrl" />
                 <p>{{ movie.name }}</p>
@@ -32,7 +22,7 @@
               <li class="info__search-movie">
                 <p>Фильм не найден</p>
               </li>
-            </ul>
+            </ul> -->
           </div>
           <div class="info__contacts">
             <a href="#" class="info__contacts-img">
@@ -92,14 +82,23 @@
         <div class="navbar-custom-menu">
           <nav class="mt-2">
             <ul class="nav nav-pills d-flex" data-widget="treeview" role="menu">
-              <router-link
-                v-for="link in links"
-                :key="link.url"
-                tag="li"
-                active-class="active"
-                :to="link.url"
-              >
-                <a href="#" class="nav-link">{{ link.title }}</a>
+              <router-link active-class="active" :to="{ name: 'Poster' }">
+                <a href="#" class="nav-link">Афиша</a>
+              </router-link>
+              <router-link active-class="active" :to="{ name: 'Schedule' }">
+                <a href="#" class="nav-link">Расписание</a>
+              </router-link>
+              <router-link active-class="active" :to="{ name: 'SoonFilms' }">
+                <a href="#" class="nav-link">Скоро</a>
+              </router-link>
+              <router-link active-class="active" :to="{ name: 'Cinemas' }">
+                <a href="#" class="nav-link">Кинотеатры</a>
+              </router-link>
+              <router-link active-class="active" :to="{ name: 'Poster' }">
+                <a href="#" class="nav-link">Акции</a>
+              </router-link>
+              <router-link active-class="active" :to="{ name: 'AboutCinema' }">
+                <a href="#" class="nav-link">О кинотеатре</a>
               </router-link>
 
               <li
@@ -145,7 +144,7 @@ export default {
     links: [
       { title: "Афиша", url: "/poster" },
       { title: "Расписание", url: "/schedule" },
-      { title: "Скоро", url: "/movies" },
+      { title: "Скоро", url: "/poster" },
       { title: "Кинотеатры", url: "/cinema" },
       { title: "Акции", url: "/shares" },
       { title: "О кинотеатре", url: "/about" }
@@ -162,17 +161,17 @@ export default {
       ranking: { open: false }
     },
     mainPageData: {},
-    // banners: [],
+    banners: [],
     moviesData: {},
     search: ""
   }),
-  //   watch: {
-  //     $route(to, from) {
-  //       // обрабатываем изменение параметров маршрута...
-  //       console.log(to, from);
-  //       console.log(this.$route.path);
-  //     },
-  //   },
+  watch: {
+    $route(to, from) {
+      // обрабатываем изменение параметров маршрута...
+      console.log(to, from);
+      console.log(this.$route.path);
+    }
+  },
   methods: {
     toggle(dropdownName) {
       //alert(dropdownName)
@@ -186,20 +185,19 @@ export default {
       }
     }
   },
-  computed: {
-    serchingMovie() {
-      const allMovies = this.moviesData.current.concat(this.moviesData.new);
-      return allMovies.filter(movie => {
-        return movie.name.toLowerCase().includes(this.search.toLowerCase());
-        // if (movie.name.length) {
-        //   return movie.name.toLowerCase().includes(this.search.toLowerCase());
-        // } else {
-        //   return [{ name: "Фильм не найден" }];
-        // }
-      });
-    }
-  },
-
+  // computed: {
+  //   serchingMovie() {
+  //     const allMovies = this.moviesData.current.concat(this.moviesData.new);
+  //     return allMovies.filter((movie) => {
+  //       return movie.name.toLowerCase().includes(this.search.toLowerCase());
+  //       // if (movie.name.length) {
+  //       //   return movie.name.toLowerCase().includes(this.search.toLowerCase());
+  //       // } else {
+  //       //   return [{ name: "Фильм не найден" }];
+  //       // }
+  //     });
+  //   },
+  // },
   ready() {
     var self = this;
     window.addEventListener(
@@ -225,12 +223,12 @@ export default {
         this.moviesData = snapshot.val();
       }
     });
-    // const bannersRef = firebase.database().ref("banners/topcards");
-    // bannersRef.on("value", (snapshot) => {
-    //   if (snapshot.val() !== null) {
-    //     this.banners = snapshot.val();
-    //   }
-    // });
+    const bannersRef = firebase.database().ref("banners/topcards");
+    bannersRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.banners = snapshot.val();
+      }
+    });
   }
 };
 </script>

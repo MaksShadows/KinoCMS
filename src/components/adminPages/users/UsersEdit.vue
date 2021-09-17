@@ -136,11 +136,11 @@ export default {
   components: {
     DatePicker
   },
-  props: ["dataArr", "dataObj", "dbRef"],
+  props: ["dataArr", "dataOb", "dbRef"],
   data() {
     return {
       ref: this.dbRef,
-      userData: this.dataObj,
+      userData: this.dataOb,
       usersData: this.dataArr
 
       // userData: {
@@ -182,25 +182,25 @@ export default {
         return user.id !== this.userData.id;
       });
 
-      let date = new Date();
-      let day;
-      if (date.getDate().toString().length === 1) {
-        day = "0" + date.getDate();
-      } else {
-        day = date.getDate();
-      }
-      let month;
-      if (date.getMonth().toString().length === 1) {
-        month = "0" + date.getMonth();
-      } else {
-        month = date.getMonth();
-      }
-      let year = date.getFullYear();
-      let dateCreate = `${day}.${month}.${year}`;
+      // let date = new Date();
+      // let day;
+      // if (date.getDate().toString().length === 1) {
+      //   day = "0" + date.getDate();
+      // } else {
+      //   day = date.getDate();
+      // }
+      // let month;
+      // if (date.getMonth().toString().length === 1) {
+      //   month = "0" + date.getMonth();
+      // } else {
+      //   month = date.getMonth();
+      // }
+      // let year = date.getFullYear();
+      // let dateCreate = `${day}.${month}.${year}`;
 
-      this.userData.id = Math.floor(Math.random() * 100000);
-      this.userData.date = dateCreate;
-      this.userData.mailing = false;
+      // this.userData.id = Math.floor(Math.random() * 100000);
+      // this.userData.date = dateCreate;
+      // this.userData.mailing = false;
       this.userData.repassword = "";
 
       newData.unshift(this.userData);
@@ -208,8 +208,8 @@ export default {
       const baseRef = firebase.database().ref(this.ref);
       baseRef
         .set(newData)
-        .then((this.$refs.btnSave.textContent = "Сохранено"))
-        .then(this.$refs.btnSave.classList.remove("show"))
+        //   .then((this.$refs.btnSave.textContent = "Сохранено"))
+        //   .then(this.$refs.btnSave.classList.remove("show"))
         .then(this.$router.push("/admin/users"));
     }
   },
@@ -217,11 +217,8 @@ export default {
   created() {
     if (this.dataArr !== undefined && this.dataArr.length > 0) {
       this.usersData = this.dataArr;
-      if (
-        this.dataObj !== undefined &&
-        Object.keys(this.dataObj).length !== 0
-      ) {
-        this.userData = this.dataObj;
+      if (this.dataOb !== undefined && Object.keys(this.dataOb).length !== 0) {
+        this.userData = this.dataOb;
       } else {
         this.userData = {};
       }

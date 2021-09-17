@@ -8,16 +8,82 @@ export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
+    // Auth page
     {
-      path: "/home",
+      path: "/login",
+      name: "Login.vue",
+      meta: { layout: "auth" },
+      component: () => import("@/components/authPages/Login.vue")
+    },
+    {
+      path: "/registr",
+      name: "Registr.vue",
+      meta: { layout: "auth" },
+      component: () => import("@/components/authPages/Registr.vue")
+    },
+
+    // User pages
+    {
+      path: "/",
       name: "Home",
-      meta: {
-        layout: "main"
-      },
+      meta: { layout: "main" },
       component: () => import("@/components/mainPages/home/Home.vue")
     },
     {
-      path: "/lang",
+      path: "/user",
+      name: "User",
+      meta: { layout: "main" },
+      component: () => import("@/components/mainPages/user/User.vue")
+    },
+    {
+      path: "/poster",
+      name: "Poster",
+      meta: { layout: "main" },
+      component: () => import("@/components/mainPages/poster/Poster.vue")
+    },
+    {
+      path: "/poster/:way",
+      name: "PosterMovie",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/poster/PosterMovie.vue")
+    },
+    {
+      path: "/schedule",
+      name: "Schedule",
+      meta: { layout: "main" },
+      component: () => import("@/components/mainPages/schedule/Schedule.vue")
+    },
+    {
+      path: "/soon",
+      name: "SoonFilms",
+      meta: { layout: "main" },
+      component: () => import("@/components/mainPages/soon/SoonShawnFilms.vue")
+    },
+    {
+      path: "/cinema",
+      name: "Cinemas",
+      meta: { layout: "main" },
+      component: () => import("@/components/mainPages/cinema/Cinema.vue")
+    },
+    {
+      path: "/cinema/:way",
+      name: "CinemaInfo",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/cinema/CinemaInfo.vue")
+    },
+    {
+      path: "/aboutcinime",
+      name: "AboutCinema",
+      meta: { layout: "main" },
+      props: true,
+      component: () =>
+        import("@/components/mainPages/aboutCinema/AboutCinema.vue")
+    },
+
+    {
+      path: "/langs",
       redirect: `/${i18n.locale}`
     },
     {
@@ -27,79 +93,7 @@ export default new Router({
           return c("router-view");
         }
       },
-
       children: [
-        // Auth page
-        {
-          path: "/login",
-          name: "Login.vue",
-          meta: {
-            layout: "auth"
-          },
-          component: () => import("@/components/authPages/Login.vue")
-        },
-        {
-          path: "/registr",
-          name: "Registr.vue",
-          meta: {
-            layout: "auth"
-          },
-          component: () => import("@/components/authPages/Registr.vue")
-        },
-        // User pages
-        {
-          path: "/user",
-          name: "User",
-          meta: {
-            layout: "main"
-          },
-          component: () => import("@/components/mainPages/user/User.vue")
-        },
-        {
-          path: "/poster",
-          name: "Poster",
-          meta: {
-            layout: "main"
-          },
-          component: () => import("@/components/mainPages/poster/Poster.vue")
-        },
-        {
-          path: "/poster/:way",
-          name: "PosterMovie",
-          meta: {
-            layout: "main"
-          },
-          props: true,
-          component: () =>
-            import("@/components/mainPages/poster/PosterMovie.vue")
-        },
-        {
-          path: "/schedule",
-          name: "Schedule",
-          meta: {
-            layout: "main"
-          },
-          component: () =>
-            import("@/components/mainPages/schedule/Schedule.vue")
-        },
-        {
-          path: "/cinema",
-          name: "Cinemas",
-          meta: {
-            layout: "main"
-          },
-          component: () => import("@/components/mainPages/cinema/Cinema.vue")
-        },
-        {
-          path: "/cinema/:way",
-          name: "CinemaInfo",
-          meta: {
-            layout: "main"
-          },
-          props: true,
-          component: () =>
-            import("@/components/mainPages/cinema/CinemaInfo.vue")
-        },
         // Admin pages
         {
           path: "/admin/statistic",

@@ -4,12 +4,12 @@
 // import "firebase/auth";
 
 // firebase.initializeApp({
-//   apiKey: "AIzaSyDPW3q0dh8B2ynr4IrViOqzUeyyTH3PKEA",
-//   authDomain: "vue-kinocms-10712.firebaseapp.com",
-//   databaseURL: "https://vue-kinocms-10712-default-rtdb.firebaseio.com",
-//   projectId: "vue-kinocms-10712",
-//   storageBucket: "vue-kinocms-10712.appspot.com",
-//   messagingSenderId: "843263933443",
-//   appId: "1:843263933443:web:f58ef770f8c2967eb06236",
-//   measurementId: "G-Q0M07FEVTC"
+//   apiKey: "AIzaSyBIhqKgsI4d75iNUw5Uscpre2YJY6rkHpI",
+//     authDomain: "vue-adminlte.firebaseapp.com",
+//     databaseURL: "https://vue-adminlte-default-rtdb.firebaseio.com",
+//     projectId: "vue-adminlte",
+//     storageBucket: "vue-adminlte.appspot.com",
+//     messagingSenderId: "906463419950",
+//     appId: "1:906463419950:web:fe03524d022611427889bf",
+//     measurementId: "G-PQY2T4QPD1",
 // });

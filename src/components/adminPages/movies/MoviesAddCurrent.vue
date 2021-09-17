@@ -231,27 +231,23 @@ export default {
         let galleryImage = this.galleryData.filter(image => {
           return image.id === undefined;
         });
-        Promise.all(
-          galleryImage.map(value => {
+        galleryImage
+          .map(value => {
             if (value.imageFile !== undefined)
-              return new Promise(resolve => {
-                resolve(
-                  storageGalleryRef
-                    .child(value.name)
-                    .put(value.imageFile)
-                    .then(snapshot => snapshot.ref.getDownloadURL())
-                    .then(
-                      url =>
-                        (value = {
-                          id: Math.floor(Math.random() * 10000),
-                          name: value.name,
-                          imageUrl: url
-                        })
-                    )
+              storageGalleryRef
+                .child(value.name)
+                .put(value.imageFile)
+                .then(snapshot => snapshot.ref.getDownloadURL())
+                .then(
+                  url =>
+                    (value = {
+                      id: Math.floor(Math.random() * 10000),
+                      name: value.name,
+                      imageUrl: url
+                    })
                 );
-              });
           })
-        ).then(gallery => this.saveData(mainImg, gallery));
+          .then(gallery => this.saveData(mainImg, gallery));
       } else {
         alert("Выберете картинки для галереи");
       }

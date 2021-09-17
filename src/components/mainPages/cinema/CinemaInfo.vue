@@ -1,9 +1,9 @@
 <template>
   <div class="cinema__description">
-    <!-- <div
+    <div
       class="cinema__description-banner"
       :style="{ 'background-image': 'url(' + data.topBanner.imageUrl + ')' }"
-    ></div> -->
+    ></div>
     <div class="cinema__description-banner">
       <img :src="data.topBanner.imageUrl" />
     </div>
@@ -38,7 +38,7 @@
 
 <script>
 import Slider from "@/components/mainPages/home/SliderMain.vue";
-// import firebase from "firebase";
+import firebase from "firebase";
 
 export default {
   name: "Cinema",
@@ -46,17 +46,17 @@ export default {
   props: ["data"],
   data() {
     return {
-      //   cinemaData: [],
+      cinemaData: []
     };
   },
 
   created() {
-    //     const baseRef = firebase.database().ref("cinema");
-    //     baseRef.on("value", (snapshot) => {
-    //       if (snapshot.val() !== null) {
-    //         this.cinemaData = snapshot.val();
-    //       }
-    //     });
+    const baseRef = firebase.database().ref("cinema");
+    baseRef.on("value", snapshot => {
+      if (snapshot.val() !== null) {
+        this.cinemaData = snapshot.val();
+      }
+    });
     if (this.data == undefined) {
       this.$router.push("/cinema");
     }
@@ -94,7 +94,5 @@ export default {
       }
     }
   }
-}
-.ad {
 }
 </style>

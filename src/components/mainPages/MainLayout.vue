@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header v-if="this.$route.path != '/home'" style="margin-top: 20px" />
+    <Header v-if="this.$route.path != '/'" style="margin-top: 20px" />
     <router-view />
     <Footer />
   </div>

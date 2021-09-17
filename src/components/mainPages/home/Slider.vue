@@ -572,8 +572,6 @@ export default {
 }
 .v_slider__track {
   position: relative;
-  -ms-touch-action: pan-Y;
-  -moz-backface-visibility: hidden;
 }
 .v_slider__track:after {
   content: "";
@@ -583,8 +581,6 @@ export default {
 .v_slider__item {
   min-height: 1px;
   float: left;
-  -webkit-backface-visibility: hidden;
-  -webkit-touch-callout: none;
 }
 .v_slider__item.clone {
   z-index: 2;

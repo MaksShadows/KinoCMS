@@ -1,15 +1,15 @@
 <template>
   <div class="users-list">
-    <h3>{{ $t("sidebar.users") }}</h3>
+    <h3>Пользователи</h3>
     <div class="title title-main">
       <div class="title__item">ID</div>
-      <div class="title__item">{{ $t("users.addDate") }}</div>
-      <div class="title__item">{{ $t("users.addBirth") }}</div>
+      <div class="title__item">Дата регистрации</div>
+      <div class="title__item">День рождения</div>
       <div class="title__item">Email</div>
       <div class="title__item">Телефон</div>
-      <div class="title__item">{{ $t("users.addInit") }}</div>
+      <div class="title__item">ФИО</div>
       <div class="title__item">Псевдоним</div>
-      <div class="title__item">{{ $t("users.addCity") }}</div>
+      <div class="title__item">Город</div>
     </div>
     <UsersList
       v-for="(users, index) in paginatedData"
@@ -27,20 +27,19 @@
         params: {
           way: 'users-edit',
           dataArr: usersData,
-          data: usersData,
           dbRef: ref
         }
       }"
     >
       <span></span>
-      {{ $t("addUsers") }}
+      Добавить пользоватля
     </router-link>
 
     <input
       v-model="search"
       class="users-list-search"
       type="search"
-      :placeholder="$t('users.addSearch')"
+      placeholder="Поиск"
     />
 
     <div class="pages">
@@ -134,12 +133,22 @@ export default {
     paginatedData() {
       const start = this.pageNumber * this.size,
         end = start + this.size;
-      // const changeUsers = this.usersData
       return this.usersData
-        .filter(user => {
-          let fullUsers =
-            user.firstname + "" + user.lastname + "" + user.nickname;
-          return fullUsers.toLowerCase().includes(this.search);
+        .filter(elem => {
+          return (
+            elem.firstname.toLowerCase().includes(this.search.toLowerCase()) ||
+            elem.lastname.toLowerCase().includes(this.search.toLowerCase()) ||
+            elem.nickname.toLowerCase().includes(this.search.toLowerCase())
+            // ||
+            // elem.phone
+            //   .toString()
+            //   .toLowerCase()
+            //   .includes(this.search.toString().toLowerCase()) ||
+            // elem.mail
+            //   .toString()
+            //   .toLowerCase()
+            //   .includes(this.search.toString().toLowerCase())
+          );
         })
         .slice(start, end);
     }
@@ -155,7 +164,7 @@ export default {
   h3 {
     padding: 20px 10px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
   }
   &-search {
     width: 225px;
@@ -219,6 +228,7 @@ export default {
       align-items: center;
       display: flex;
       justify-content: center;
+      word-break: break-all;
     }
   }
 

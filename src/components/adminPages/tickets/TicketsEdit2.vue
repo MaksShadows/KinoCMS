@@ -5,7 +5,7 @@
         <p>Фильм</p>
         <select v-model="ticket.movie" class="form-control">
           <!-- <option value="">Веберите фильм</option> -->
-          <option v-for="movie in moviesData" :key="movie.id" :value="movie">
+          <option v-for="movie in moviesData" :key="movie.id" :value="movie.id">
             {{ movie.name }}
           </option>
         </select>
@@ -23,7 +23,7 @@
             <input
               type="checkbox"
               :id="cinema.id"
-              :value="cinema"
+              :value="cinema.id"
               v-model="ticket.cinema"
             />
           </div>
@@ -40,7 +40,7 @@
               <input
                 type="checkbox"
                 :id="hall.id"
-                :value="hall"
+                :value="hall.id"
                 v-model="ticket.hall"
               />
               <label :for="hall.id">{{ hall.number }}</label>
@@ -54,19 +54,7 @@
         <DatePicker
           class="create__date-title"
           :date="ticket.date"
-          type="date"
-          format="DD MMM"
           @dateChange="newDateValue"
-        />
-      </div>
-      <div class="create__item create__date d-flex">
-        <p>Время</p>
-        <DatePicker
-          class="create__date-title"
-          :date="ticket.time"
-          type="time"
-          format="HH:mm"
-          @dateChange="newTimeValue"
         />
       </div>
       <div class="create__status">
@@ -102,14 +90,12 @@
 
 <script>
 import DatePicker from "@/components/adminPages/DatePicker.vue";
-// import DatePickerTime from "@/components/adminPages/DatePickerTime.vue";
 import firebase from "firebase";
 
 export default {
   name: "TicketsEdit",
   components: {
     DatePicker
-    // DatePickerTime,
   },
   props: {
     ticket: {
@@ -152,9 +138,6 @@ export default {
     };
   },
   methods: {
-    newTimeValue(value) {
-      this.ticket.time = value;
-    },
     newDateValue(value) {
       this.ticket.date = value;
     },
@@ -166,11 +149,12 @@ export default {
       this.ticket.id = Math.floor(Math.random() * 10000);
       newData.push(this.ticket);
 
-      const baseRef = firebase.database().ref(this.ref);
-      baseRef
-        .set(newData)
-        .then((this.$refs.btnSave.textContent = "Сохранено"))
-        .then(this.$refs.btnSave.classList.add("show"));
+      // const baseRef = firebase.database().ref(this.ref);
+      // baseRef
+      //   .set(newData)
+      //   .then((this.$refs.btnSave.textContent = "Сохранено"))
+      //   .then(this.$refs.btnSave.classList.add("show"));
+
       // .then(this.$router.push("/admin/"+this.ref));
     }
   },

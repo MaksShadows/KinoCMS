@@ -15,7 +15,7 @@
       <router-link class="btn btn-default" to="/registr" v-if="!name">
         Регистрация
       </router-link>
-      <router-link class="btn btn-default" to="/admin/statistic" v-if="admin">
+      <router-link class="btn btn-default" to="/admin/statistic" v-if="name">
         Админка
       </router-link>
     </div>
@@ -104,13 +104,13 @@ export default {
   computed: {
     name() {
       if (this.$store.getters.info) {
-        // console.log(this.$store.getters.info.nickname);
+        console.log(this.$store.getters.info.nickname);
         return this.$store.getters.info.nickname;
       } else return null;
     },
     admin() {
       if (this.$store.getters.info) {
-        // console.log(this.$store.getters.info.email);
+        console.log(this.$store.getters.info.email);
         if (this.$store.getters.info.email === "admin@ukr.net") {
           return true;
         } else return false;
