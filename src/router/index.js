@@ -74,12 +74,55 @@ export default new Router({
       component: () => import("@/components/mainPages/cinema/CinemaInfo.vue")
     },
     {
+      path: "/shares",
+      name: "SharesPages",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/shares/SharePage.vue")
+    },
+    {
       path: "/aboutcinime",
       name: "AboutCinema",
       meta: { layout: "main" },
       props: true,
       component: () =>
         import("@/components/mainPages/aboutCinema/AboutCinema.vue")
+    },
+    {
+      path: "/news",
+      name: "NewsPages",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/news/NewsPages.vue")
+    },
+    {
+      path: "/cafebar",
+      name: "CafeBar",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/cafebar/CafeBar.vue")
+    },
+    {
+      path: "/viphall",
+      name: "VipHall",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/viphall/VipHall.vue")
+    },
+    {
+      path: "/childroom",
+      name: "ChildRoom",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/childroom/ChildRoom.vue")
+    },
+    {
+      path: "/sharepages",
+      name: "SharePages",
+      meta: { layout: "main" },
+      props: true,
+      component: () =>
+        import("@/components/mainPages/sharespage/SharePages.vue")
     },
 
     {

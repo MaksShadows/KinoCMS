@@ -92,13 +92,13 @@
                 <a href="#" class="nav-link">Скоро</a>
               </router-link>
               <router-link active-class="active" :to="{ name: 'Cinemas' }">
-                <a href="#" class="nav-link">Кинотеатры</a>
+                <a href="#" class="nav-link">{{ $t("sidebar.cinemas") }}</a>
               </router-link>
-              <router-link active-class="active" :to="{ name: 'Poster' }">
-                <a href="#" class="nav-link">Акции</a>
+              <router-link active-class="active" :to="{ name: 'SharesPages' }">
+                <a href="#" class="nav-link">{{ $t("sidebar.discounts") }}</a>
               </router-link>
               <router-link active-class="active" :to="{ name: 'AboutCinema' }">
-                <a href="#" class="nav-link">О кинотеатре</a>
+                <a href="#" class="nav-link">{{ $t("sidebar.aboutCinema") }}</a>
               </router-link>
 
               <li
@@ -114,17 +114,51 @@
                 </a>
                 <ul class="dropdown-menu">
                   <router-link
-                    v-for="link in linksMore"
-                    :key="link.url"
-                    tag="li"
-                    class="nav-link"
                     active-class="active"
-                    :to="link.url"
+                    :to="{ name: 'NewsPages' }"
                   >
-                    <a href="#" class="nav-link">{{ link.title }}</a>
+                    <a href="#" class="nav-link">{{ $t("sidebar.news") }}</a>
+                  </router-link>
+                  <router-link active-class="active" :to="{ name: 'CafeBar' }">
+                    <a href="#" class="nav-link">Кафе-Бар</a>
+                  </router-link>
+                  <router-link active-class="active" :to="{ name: 'VipHall' }">
+                    <a href="#" class="nav-link">Vip-зал</a>
+                  </router-link>
+                  <router-link
+                    active-class="active"
+                    :to="{ name: 'ChildRoom' }"
+                  >
+                    <a href="#" class="nav-link">Десткая комната</a>
+                  </router-link>
+                  <router-link
+                    active-class="active"
+                    :to="{ name: 'SharePages' }"
+                  >
+                    <a href="#" class="nav-link">Реклама</a>
+                  </router-link>
+                  <router-link
+                    active-class="active"
+                    :to="{ name: 'NewsPages' }"
+                  >
+                    <a href="#" class="nav-link">Мобильные приложение</a>
+                  </router-link>
+                  <router-link
+                    active-class="active"
+                    :to="{ name: 'NewsPages' }"
+                  >
+                    <a href="#" class="nav-link">Контакты</a>
                   </router-link>
                 </ul>
               </li>
+              <div class="languages">
+                <img v-if="lang == 'ru'" src="@/assets/img/ru.png" alt="ru" />
+                <img v-else src="@/assets/img/ua.png" alt="ua" />
+                <select v-model="lang" @change="handleChange($event)">
+                  <option value="ru">Русский</option>
+                  <option value="ua">Украинский</option>
+                </select>
+              </div>
             </ul>
           </nav>
         </div>
@@ -160,6 +194,7 @@ export default {
     dropDowns: {
       ranking: { open: false }
     },
+    lang: localStorage.getItem("lang") || "ru",
     mainPageData: {},
     banners: [],
     moviesData: {},
@@ -178,7 +213,13 @@ export default {
       this.dropDowns[dropdownName].open = !this.dropDowns[dropdownName].open;
       // console.log(this.$route);
     },
-
+    handleChange(event) {
+      localStorage.setItem("lang", event.target.value);
+      this.$i18n.locale = event.target.value;
+      this.$router.push({
+        params: { lang: event.target.value }
+      });
+    },
     close() {
       for (let dd in this.dropDowns) {
         this.dropDowns[dd].open = false;
@@ -399,6 +440,10 @@ nav {
     .active {
       background: #e4e3e3;
     }
+  }
+  .languages img {
+    width: 30px;
+    margin-right: 10px;
   }
 }
 </style>

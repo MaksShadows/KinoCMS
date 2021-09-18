@@ -9,14 +9,14 @@
     </div>
     <div class="container cinema__description-info">
       <div class="aside">
-        <div class="ad">Ad</div>
+        <!-- <div class="ad">Ad</div> -->
         <div class="hall-list"></div>
       </div>
       <div class="cinema__about">
         <div class="cinema__about-name">
           <h3>{{ data.name }}</h3>
           <img :src="data.mainImage.imageUrl" />
-          <div class="schedule">Расписание</div>
+          <!-- <div class="schedule">Расписание</div> -->
         </div>
         <div class="cinema__about-description">
           <p>{{ data.description }}</p>

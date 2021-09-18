@@ -5,6 +5,10 @@
       <div class="maker">
         Разработка сайтов: <br />
         AVADA-MEDIA
+        <div class="mobile">
+          <img src="../../assets/app.jpeg" alt="apple" />
+          <img src="../../assets/googleplay.jpeg" alt="google" />
+        </div>
       </div>
       <div class="links__nav">
         <ul
@@ -198,6 +202,10 @@ footer {
   .bottom {
     margin: 20px 0;
     text-align: center;
+  }
+  .mobile img {
+    width: 100px;
+    cursor: pointer;
   }
 }
 </style>

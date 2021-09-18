@@ -1,7 +1,7 @@
 <template>
   <div class="about__cinema">
-    <img src="@/assets/aboutcinema.jpg" alt="Kino" />
-    <h2>О Кинотеатре</h2>
+    <img src="@/assets/viphallbanner.jpg" alt="Kino" />
+    <h2>Vip - Зал</h2>
     <div class="about__cinema-item">
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum
@@ -29,8 +29,8 @@
     </div>
     <h2>ФотоГалерея</h2>
     <div class="equipment">
-      <img src="@/assets/aboutcinema.jpg" alt="" />
-      <img src="@/assets/kinoteatr.jpg" alt="" />
+      <img src="@/assets/viphall1.jpg" alt="" />
+      <img src="@/assets/viphall1.jpg" alt="" />
     </div>
     <div class="about__cinema-item">
       <p>
@@ -62,7 +62,7 @@
 
 <script>
 export default {
-  name: "AboutCinema"
+  name: "VipHall"
 };
 </script>
 

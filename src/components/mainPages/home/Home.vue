@@ -22,10 +22,7 @@
     <div class="banner-top">
       <Carusel :data="banner.topcards" :interval="5000" />
     </div>
-    <div
-      class="back-banner"
-      :style="{ 'background-image': 'url(' + banner.backcard.url + ')' }"
-    >
+    <div class="back-banner">
       <Header />
       <div class="container">
         <div class="gallery-slider">
