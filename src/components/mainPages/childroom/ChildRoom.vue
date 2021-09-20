@@ -1,7 +1,7 @@
 <template>
   <div class="about__cinema">
-    <img src="@/assets/roomchild.jpg" alt="Kino" />
-    <h2>Десткая комната</h2>
+    <img src="@/assets/roomchild.jpg" alt="" />
+    <h2>{{ $t("sidebar.childRoom") }}</h2>
     <div class="about__cinema-item">
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum

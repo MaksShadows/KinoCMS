@@ -1,7 +1,7 @@
 <template>
   <div class="about__cinema">
     <img src="@/assets/cafebarbanner.jpg" alt="Kino" />
-    <h2>Кафе - Бар</h2>
+    <h2>{{ $t("sidebar.cafeBar") }}</h2>
     <div class="about__cinema-item">
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum

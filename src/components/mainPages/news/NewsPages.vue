@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <h1>Новости</h1>
+    <h1>{{ $t("sidebar.news") }}</h1>
     <div class="promotions">
       <div class="promotion__item">
         <img src="@/assets/news.jpg" alt="" />

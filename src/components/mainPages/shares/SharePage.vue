@@ -1,18 +1,18 @@
 <template>
   <div class="page">
-    <h1>Акции</h1>
+    <h1>{{ $t("sidebar.discounts") }}</h1>
     <div class="promotions">
       <div class="promotion__item">
         <img src="@/assets/shares2.jpg" alt="" />
         <p class="date">20.08.2021</p>
-        <p class="description">Только сегодня!!!</p>
+        <p class="description">Только сегодня!!!Скидка на покупку</p>
       </div>
     </div>
     <div class="promotions">
       <div class="promotion__item">
         <img src="@/assets/shares1.jpg" alt="" />
         <p class="date">29.08.2021</p>
-        <p class="description">Только сегодня!!!</p>
+        <p class="description">Только сегодня!!!Билет 2+1</p>
       </div>
     </div>
   </div>

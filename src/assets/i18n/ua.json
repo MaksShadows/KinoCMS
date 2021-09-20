@@ -16,7 +16,9 @@
     "save": "Зберегти",
     "sendSMS": "Почати розсилку",
     "backToBaseVersion": "Повернути базову версію",
-    "soonShawn": "Скоро покажуть",
+    "soonShawn": "Дивіться скоро",
+    "soonSoon": "Дивіться сьогодні",
+    "newsandshares": "Новини та Акції",
     "name": "Назва",
     "kiev": "Київ",
     "kharkov": "Харків",
@@ -42,7 +44,10 @@
         "childRoom": "Дитяча кімната",
         "contacts": "Контакти",
         "users": "Користувачі",
-        "mailing": "Розсилка"
+        "mailing": "Розсилка",
+        "afisha": "Афіша",
+        "shedule": "Розклад",
+        "mobile": "Мобільні додатки"
     },
     "banners": {
         "mainBanners": "На головній верх",

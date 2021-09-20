@@ -16,15 +16,24 @@
           data-widget="treeview"
           role="menu"
         >
-          <router-link
-            v-for="link in links"
-            :key="link.url"
-            tag="li"
-            active-class="active"
-            :to="link.url"
-          >
-            <a href="#" class="nav-link">{{ link.title }}</a>
-          </router-link>
+            <router-link active-class="active" :to="{ name: 'Poster' }">
+                <a href="#" class="nav-link">{{ $t("sidebar.afisha") }}</a>
+              </router-link>
+              <router-link active-class="active" :to="{ name: 'Schedule' }">
+                <a href="#" class="nav-link">{{ $t("sidebar.shedule") }}</a>
+              </router-link>
+              <router-link active-class="active" :to="{ name: 'SoonFilms' }">
+                <a href="#" class="nav-link">Скоро</a>
+              </router-link>
+              <router-link active-class="active" :to="{ name: 'Cinemas' }">
+                <a href="#" class="nav-link">{{ $t("sidebar.cinemas") }}</a>
+              </router-link>
+              <router-link active-class="active" :to="{ name: 'SharesPages' }">
+                <a href="#" class="nav-link">{{ $t("sidebar.discounts") }}</a>
+              </router-link>
+              <router-link active-class="active" :to="{ name: 'AboutCinema' }">
+                <a href="#" class="nav-link">{{ $t("sidebar.aboutCinema") }}</a>
+              </router-link>
         </ul>
 
         <ul
@@ -32,15 +41,42 @@
           data-widget="treeview"
           role="menu"
         >
-          <router-link
-            v-for="link in linksAbout"
-            :key="link.url"
-            tag="li"
-            active-class="active"
-            :to="link.url"
-          >
-            <a href="#" class="nav-link">{{ link.title }}</a>
-          </router-link>
+            <router-link
+                    active-class="active"
+                    :to="{ name: 'NewsPages' }"
+                  >
+                    <a href="#" class="nav-link">{{ $t("sidebar.news") }}</a>
+                  </router-link>
+                  <router-link active-class="active" :to="{ name: 'CafeBar' }">
+                    <a href="#" class="nav-link">{{ $t("sidebar.cafeBar") }}</a>
+                  </router-link>
+                  <router-link active-class="active" :to="{ name: 'VipHall' }">
+                    <a href="#" class="nav-link">{{ $t("sidebar.vipHall") }}</a>
+                  </router-link>
+                  <router-link
+                    active-class="active"
+                    :to="{ name: 'ChildRoom' }"
+                  >
+                    <a href="#" class="nav-link">{{ $t("sidebar.childRoom") }}</a>
+                  </router-link>
+                  <router-link
+                    active-class="active"
+                    :to="{ name: 'SharePages' }"
+                  >
+                    <a href="#" class="nav-link">Реклама</a>
+                  </router-link>
+                  <router-link
+                    active-class="active"
+                    :to="{ name: 'MobilePages' }"
+                  >
+                    <a href="#" class="nav-link">{{ $t("sidebar.mobile") }}</a>
+                  </router-link>
+                  <router-link
+                    active-class="active"
+                    :to="{ name: 'ContactsPages' }"
+                  >
+                    <a href="#" class="nav-link">{{ $t("sidebar.contacts") }}</a>
+                  </router-link>
         </ul>
       </div>
 

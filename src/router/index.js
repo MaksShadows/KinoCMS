@@ -124,6 +124,22 @@ export default new Router({
       component: () =>
         import("@/components/mainPages/sharespage/SharePages.vue")
     },
+    {
+      path: "/mobilepages",
+      name: "MobilePages",
+      meta: { layout: "main" },
+      props: true,
+      component: () =>
+        import("@/components/mainPages/mobilepage/Mobile.vue")
+    },
+    {
+      path: "/contactpages",
+      name: "ContactsPages",
+      meta: { layout: "main" },
+      props: true,
+      component: () =>
+        import("@/components/mainPages/contact/Contacts.vue")
+    },
 
     {
       path: "/langs",

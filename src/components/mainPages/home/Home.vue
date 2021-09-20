@@ -48,7 +48,7 @@
         </div>
 
         <div class="movies">
-          <h3>Смотрите сегодня</h3>
+          <h3>{{ $t("soonSoon") }}</h3>
           <div class="movies__list">
             <PosterList
               v-for="movie in moviesData.current"
@@ -57,7 +57,7 @@
             />
           </div>
 
-          <h3>Смотрите скоро</h3>
+          <h3>{{ $t("soonShawn") }}</h3>
           <div class="movies__list">
             <PosterList
               v-for="movie in moviesData.new"
@@ -68,7 +68,7 @@
         </div>
 
         <div class="gallery-slider">
-          <h3>Новости и Акции</h3>
+          <h3>{{ $t("newsandshares") }}</h3>
           <Slider :gallery="banner.newscards" />
         </div>
       </div>

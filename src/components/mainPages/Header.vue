@@ -83,10 +83,10 @@
           <nav class="mt-2">
             <ul class="nav nav-pills d-flex" data-widget="treeview" role="menu">
               <router-link active-class="active" :to="{ name: 'Poster' }">
-                <a href="#" class="nav-link">Афиша</a>
+                <a href="#" class="nav-link">{{ $t("sidebar.afisha") }}</a>
               </router-link>
               <router-link active-class="active" :to="{ name: 'Schedule' }">
-                <a href="#" class="nav-link">Расписание</a>
+                <a href="#" class="nav-link">{{ $t("sidebar.shedule") }}</a>
               </router-link>
               <router-link active-class="active" :to="{ name: 'SoonFilms' }">
                 <a href="#" class="nav-link">Скоро</a>
@@ -120,16 +120,16 @@
                     <a href="#" class="nav-link">{{ $t("sidebar.news") }}</a>
                   </router-link>
                   <router-link active-class="active" :to="{ name: 'CafeBar' }">
-                    <a href="#" class="nav-link">Кафе-Бар</a>
+                    <a href="#" class="nav-link">{{ $t("sidebar.cafeBar") }}</a>
                   </router-link>
                   <router-link active-class="active" :to="{ name: 'VipHall' }">
-                    <a href="#" class="nav-link">Vip-зал</a>
+                    <a href="#" class="nav-link">{{ $t("sidebar.vipHall") }}</a>
                   </router-link>
                   <router-link
                     active-class="active"
                     :to="{ name: 'ChildRoom' }"
                   >
-                    <a href="#" class="nav-link">Десткая комната</a>
+                    <a href="#" class="nav-link">{{ $t("sidebar.childRoom") }}</a>
                   </router-link>
                   <router-link
                     active-class="active"
@@ -139,15 +139,15 @@
                   </router-link>
                   <router-link
                     active-class="active"
-                    :to="{ name: 'NewsPages' }"
+                    :to="{ name: 'MobilePages' }"
                   >
-                    <a href="#" class="nav-link">Мобильные приложение</a>
+                    <a href="#" class="nav-link">{{ $t("sidebar.mobile") }}</a>
                   </router-link>
                   <router-link
                     active-class="active"
-                    :to="{ name: 'NewsPages' }"
+                    :to="{ name: 'ContactsPages' }"
                   >
-                    <a href="#" class="nav-link">Контакты</a>
+                    <a href="#" class="nav-link">{{ $t("sidebar.contacts") }}</a>
                   </router-link>
                 </ul>
               </li>
