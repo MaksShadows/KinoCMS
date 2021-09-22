@@ -129,16 +129,14 @@ export default new Router({
       name: "MobilePages",
       meta: { layout: "main" },
       props: true,
-      component: () =>
-        import("@/components/mainPages/mobilepage/Mobile.vue")
+      component: () => import("@/components/mainPages/mobilepage/Mobile.vue")
     },
     {
       path: "/contactpages",
       name: "ContactsPages",
       meta: { layout: "main" },
       props: true,
-      component: () =>
-        import("@/components/mainPages/contact/Contacts.vue")
+      component: () => import("@/components/mainPages/contact/Contacts.vue")
     },
 
     {

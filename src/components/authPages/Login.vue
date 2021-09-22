@@ -67,9 +67,9 @@
       Нет акаунта?
       <router-link to="/registr"> Зарегестрироваться </router-link>
     </div>
-     <router-link to="/" class="navbar-brand d-flex">
-          <h4>На главную</h4>
-        </router-link>
+    <router-link to="/" class="navbar-brand d-flex">
+      <h4>На главную</h4>
+    </router-link>
   </form>
 </template>
 

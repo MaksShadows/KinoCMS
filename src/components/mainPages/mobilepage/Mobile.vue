@@ -1,6 +1,6 @@
 <template>
   <div class="about__cinema">
-      <img src="@/assets/mobile1.jpg" alt="" />
+    <img src="@/assets/mobile1.jpg" alt="" />
     <h2>{{ $t("sidebar.mobile") }}</h2>
     <div class="about__cinema-item">
       <p>

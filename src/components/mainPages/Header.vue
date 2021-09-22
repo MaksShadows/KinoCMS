@@ -129,7 +129,9 @@
                     active-class="active"
                     :to="{ name: 'ChildRoom' }"
                   >
-                    <a href="#" class="nav-link">{{ $t("sidebar.childRoom") }}</a>
+                    <a href="#" class="nav-link">{{
+                      $t("sidebar.childRoom")
+                    }}</a>
                   </router-link>
                   <router-link
                     active-class="active"
@@ -147,7 +149,9 @@
                     active-class="active"
                     :to="{ name: 'ContactsPages' }"
                   >
-                    <a href="#" class="nav-link">{{ $t("sidebar.contacts") }}</a>
+                    <a href="#" class="nav-link">{{
+                      $t("sidebar.contacts")
+                    }}</a>
                   </router-link>
                 </ul>
               </li>
