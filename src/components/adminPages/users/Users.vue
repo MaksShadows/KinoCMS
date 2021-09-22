@@ -1,6 +1,6 @@
 <template>
   <div class="users-list">
-    <h3>Пользователи</h3>
+    <h3>{{ $t("sidebar.users") }}</h3>
     <div class="title title-main">
       <div class="title__item">ID</div>
       <div class="title__item">Дата регистрации</div>
@@ -32,14 +32,14 @@
       }"
     >
       <span></span>
-      Добавить пользоватля
+      {{ $t("addUsers") }}
     </router-link>
 
     <input
       v-model="search"
       class="users-list-search"
       type="search"
-      placeholder="Поиск"
+      :placeholder="$t('users.addSearch')"
     />
 
     <div class="pages">
@@ -164,7 +164,7 @@ export default {
   h3 {
     padding: 20px 10px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
   }
   &-search {
     width: 225px;

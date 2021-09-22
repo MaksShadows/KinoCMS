@@ -9,7 +9,11 @@
       <nav>
         <div class="info">
           <div class="info__search">
-            <input v-model="search" type="search" placeholder="Поиск" />
+            <input
+              v-model="search"
+              type="search"
+              :placeholder="$t('users.addSearch')"
+            />
             <!-- <ul v-if="search.length">
               <router-link
                 class="info__search-movie"

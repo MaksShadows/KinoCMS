@@ -10,10 +10,10 @@
         <i class="fas fa-power-off fa-2x" @click="logout"></i>
       </div>
       <router-link class="btn btn-default" to="/login" v-if="!name">
-        Вход
+        {{ $t("entry") }}
       </router-link>
       <router-link class="btn btn-default" to="/registr" v-if="!name">
-        Регистрация
+        {{ $t("registration") }}
       </router-link>
       <router-link class="btn btn-default" to="/admin/statistic" v-if="name">
         Админка

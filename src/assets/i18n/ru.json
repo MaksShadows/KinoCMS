@@ -1,4 +1,6 @@
 {
+    "entry": "Вход",
+    "registration": "Регистрация",
     "filmName": "Название фильма",
     "description": "Описание",
     "mainImage": "Главная картинка",
