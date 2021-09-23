@@ -15,6 +15,20 @@
         <div class="cinema__about-name">
           <h3>{{ data.name }}</h3>
           <img :src="data.mainImage.imageUrl" />
+          <div class="schedule">
+            Расписание:
+
+            <select class="filter__item filter__hall" v-model="hall">
+              <option :value="null">-- Зал --</option>
+              <option value="Зал1">Зал1 (Красний)</option>
+              <option value="Зал2">Зал2 (Синий)</option>
+            </select>
+            <select class="filter__item filter__hall" v-model="cinemas">
+              <option :value="null">-- Фильм --</option>
+              <option value="Зал1">Джокер</option>
+              <option value="Зал2">Мситатели: Война бесконечности</option>
+            </select>
+          </div>
         </div>
         <div class="cinema__about-description">
           <p>{{ data.description }}</p>
@@ -44,7 +58,9 @@ export default {
   props: ["data"],
   data() {
     return {
-      cinemaData: []
+      cinemaData: [],
+      cinemas: null,
+      hall: null
     };
   },
 

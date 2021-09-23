@@ -15,7 +15,7 @@
       <router-link class="btn btn-default" to="/registr" v-if="!name">
         {{ $t("registration") }}
       </router-link>
-      <router-link class="btn btn-default" to="/admin/statistic" v-if="name">
+      <router-link class="btn btn-default" to="/admin/statistic" v-if="admin">
         Админка
       </router-link>
     </div>
@@ -108,7 +108,7 @@ export default {
     admin() {
       if (this.$store.getters.info) {
         console.log(this.$store.getters.info.email);
-        if (this.$store.getters.info.email === "admin@ukr.net") {
+        if (this.$store.getters.info.email === "admin@gmail.com") {
           return true;
         } else return false;
       } else return null;
