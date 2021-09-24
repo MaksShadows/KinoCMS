@@ -14,9 +14,19 @@
               type="search"
               :placeholder="$t('users.addSearch')"
             />
-            <!-- <ul v-if="search.length">
+            <ul v-if="search.length">
               <router-link
+                v-for="movie in serchingMovie"
+                :key="movie.id"
                 class="info__search-movie"
+                tag="li"
+                :to="{
+                  name: 'Poster',
+                  params: {
+                    way: 'poster-movie',
+                    movieData: movie
+                  }
+                }"
               >
                 <img :src="movie.mainImage.imageUrl" />
                 <p>{{ movie.name }}</p>
@@ -26,7 +36,7 @@
               <li class="info__search-movie">
                 <p>Фильм не найден</p>
               </li>
-            </ul> -->
+            </ul>
           </div>
           <div class="info__contacts">
             <a href="#" class="info__contacts-img">
@@ -98,7 +108,7 @@
               <router-link active-class="active" :to="{ name: 'Cinemas' }">
                 <a href="#" class="nav-link">{{ $t("sidebar.cinemas") }}</a>
               </router-link>
-              <router-link active-class="active" :to="{ name: 'SharesPages' }">
+              <router-link active-class="active" :to="{ name: 'Promo' }">
                 <a href="#" class="nav-link">{{ $t("sidebar.discounts") }}</a>
               </router-link>
               <router-link active-class="active" :to="{ name: 'AboutCinema' }">
@@ -234,19 +244,19 @@ export default {
       }
     }
   },
-  // computed: {
-  //   serchingMovie() {
-  //     const allMovies = this.moviesData.current.concat(this.moviesData.new);
-  //     return allMovies.filter((movie) => {
-  //       return movie.name.toLowerCase().includes(this.search.toLowerCase());
-  //       // if (movie.name.length) {
-  //       //   return movie.name.toLowerCase().includes(this.search.toLowerCase());
-  //       // } else {
-  //       //   return [{ name: "Фильм не найден" }];
-  //       // }
-  //     });
-  //   },
-  // },
+  computed: {
+    serchingMovie() {
+      const allMovies = this.moviesData.current.concat(this.moviesData.new);
+      return allMovies.filter(movie => {
+        return movie.name.toLowerCase().includes(this.search.toLowerCase());
+        // if (movie.name.length) {
+        //   return movie.name.toLowerCase().includes(this.search.toLowerCase());
+        // } else {
+        //   return [{ name: "Фильм не найден" }];
+        // }
+      });
+    }
+  },
   ready() {
     var self = this;
     window.addEventListener(

@@ -74,11 +74,25 @@ export default new Router({
       component: () => import("@/components/mainPages/cinema/CinemaInfo.vue")
     },
     {
-      path: "/shares",
-      name: "SharesPages",
+      path: "/promopage",
+      name: "Promo",
       meta: { layout: "main" },
       props: true,
-      component: () => import("@/components/mainPages/shares/SharePage.vue")
+      component: () => import("@/components/mainPages/promo/Promo.vue")
+    },
+    {
+      path: "/promopages/promo1",
+      name: "Promo1",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/promo/Shares1.vue")
+    },
+    {
+      path: "/promopags/promo2",
+      name: "Promo2",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/promo/Shares2.vue")
     },
     {
       path: "/aboutcinime",
@@ -94,6 +108,13 @@ export default new Router({
       meta: { layout: "main" },
       props: true,
       component: () => import("@/components/mainPages/news/NewsPages.vue")
+    },
+    {
+      path: "/news/1",
+      name: "News1",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/news/News1.vue")
     },
     {
       path: "/cafebar",
@@ -123,6 +144,20 @@ export default new Router({
       props: true,
       component: () =>
         import("@/components/mainPages/sharespage/SharePages.vue")
+    },
+    {
+      path: "/sharepages/1",
+      name: "Shares3",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/sharespage/Shares3.vue")
+    },
+    {
+      path: "/sharepages/2",
+      name: "Shares4",
+      meta: { layout: "main" },
+      props: true,
+      component: () => import("@/components/mainPages/sharespage/Shares4.vue")
     },
     {
       path: "/mobilepages",

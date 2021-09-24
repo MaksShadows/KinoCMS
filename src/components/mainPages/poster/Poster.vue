@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     allMovies() {
-      return this.moviesData.current;
+      return this.moviesData.current.concat(this.moviesData.new);
     }
   },
   created() {

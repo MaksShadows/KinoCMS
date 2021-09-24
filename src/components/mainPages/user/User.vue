@@ -51,7 +51,6 @@
         <div class="create__item create__password">
           <p>Пароль</p>
           <input
-            v-model="user.password"
             :type="passwordType"
             class="form-control"
             placeholder="Пароль"

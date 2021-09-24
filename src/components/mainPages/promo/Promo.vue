@@ -1,18 +1,22 @@
 <template>
   <div class="page">
-    <h1>{{ $t("sidebar.discounts") }}</h1>
+    <h4 class="page__title">{{ $t("sidebar.discounts") }}</h4>
     <div class="promotions">
       <div class="promotion__item">
-        <img src="@/assets/shares2.jpg" alt="" />
-        <p class="date">20.08.2021</p>
-        <p class="description">Только сегодня!!!Скидка на покупку</p>
+        <router-link :to="{ name: 'Promo1' }">
+          <img src="@/assets/shares2.jpg" alt="" />
+          <p class="date">20.08.2021</p>
+          <p class="description">Только сегодня!!!Скидка на покупку</p>
+        </router-link>
       </div>
     </div>
     <div class="promotions">
       <div class="promotion__item">
-        <img src="@/assets/shares1.jpg" alt="" />
-        <p class="date">29.08.2021</p>
-        <p class="description">Только сегодня!!!Билет 2+1</p>
+        <router-link :to="{ name: 'Promo2' }">
+          <img src="@/assets/shares1.jpg" alt="" />
+          <p class="date">29.08.2021</p>
+          <p class="description">Только сегодня!!!Билет 2+1</p>
+        </router-link>
       </div>
     </div>
   </div>
@@ -20,21 +24,25 @@
 
 <script>
 export default {
-  name: "SharesPages"
+  name: "Promo"
 };
 </script>
 
 <style scoped>
 .page {
+  padding: 60px 20px 180px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 }
-h1 {
-  color: #000;
+.page__title {
+  color: black;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
 }
 .promotions {
   padding-left: 100px;
-  padding-top: 60px;
+  padding-top: 80px;
 }
 .promotion__item {
   display: flex;

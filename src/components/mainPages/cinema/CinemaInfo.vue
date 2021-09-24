@@ -15,30 +15,17 @@
         <div class="cinema__about-name">
           <h3>{{ data.name }}</h3>
           <img :src="data.mainImage.imageUrl" />
-          <div class="schedule">
-            Расписание:
-
-            <select class="filter__item filter__hall" v-model="hall">
-              <option :value="null">-- Зал --</option>
-              <option value="Зал1">Зал1 (Красний)</option>
-              <option value="Зал2">Зал2 (Синий)</option>
-            </select>
-            <select class="filter__item filter__hall" v-model="cinemas">
-              <option :value="null">-- Фильм --</option>
-              <option value="Зал1">Джокер</option>
-              <option value="Зал2">Мситатели: Война бесконечности</option>
-            </select>
-          </div>
+          <div class="schedule">{{ $t("sidebar.shedule") }}:</div>
         </div>
         <div class="cinema__about-description">
           <p>{{ data.description }}</p>
         </div>
         <div class="condition">
-          <h3>Условия</h3>
+          <h3>{{ $t("terms") }}</h3>
           <p>{{ data.conditions }}</p>
         </div>
         <div class="gallery">
-          <h3>ФОТОГАЛЕРЕЯ</h3>
+          <h3>Фотогалрея</h3>
           <div class="gallery-slider">
             <Slider :gallery="data.galleryImages" />
           </div>

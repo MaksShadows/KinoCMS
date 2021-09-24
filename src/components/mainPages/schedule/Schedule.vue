@@ -14,11 +14,11 @@
 
       <select class="filter__item filter__hall" v-model="hall">
         <option :value="null">-- Зал --</option>
-        <option value="Зал1 (Красний)">Зал1 (Красний)</option>
-        <option value="Зал2 (Синий)">Зал2 (Синий)</option>
-        <!-- <option v-for="hall in sortedHalls" :key="hall.id" :value="hall.id">
+        <!-- <option value="Зал1 (Красний)">Зал1 (Красний)</option>
+        <option value="Зал2 (Синий)">Зал2 (Синий)</option> -->
+        <option v-for="hall in sortedHalls" :key="hall.id" :value="hall.id">
           {{ hall.number }}
-        </option> -->
+        </option>
       </select>
 
       <select class="filter__item filter__movies" v-model="movie">

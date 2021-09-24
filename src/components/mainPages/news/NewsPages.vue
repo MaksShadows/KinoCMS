@@ -3,16 +3,11 @@
     <h1>{{ $t("sidebar.news") }}</h1>
     <div class="promotions">
       <div class="promotion__item">
-        <img src="@/assets/news.jpg" alt="" />
-        <p class="date">20.08.2021</p>
-        <p class="description">Только сегодня!!!</p>
-      </div>
-    </div>
-    <div class="promotions">
-      <div class="promotion__item">
-        <img src="@/assets/news.jpg" alt="" />
-        <p class="date">29.08.2021</p>
-        <p class="description">Только сегодня!!!</p>
+        <router-link :to="{ name: 'News1' }">
+          <img src="@/assets/news.jpg" alt="" />
+          <p class="date">20.08.2021</p>
+          <p class="description">Только сегодня!!!</p>
+        </router-link>
       </div>
     </div>
   </div>

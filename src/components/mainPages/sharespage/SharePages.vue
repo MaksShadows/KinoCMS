@@ -3,16 +3,20 @@
     <h1>Реклама</h1>
     <div class="promotions">
       <div class="promotion__item">
-        <img src="@/assets/reklame1.jpg" alt="" />
-        <p class="date">20.08.2021</p>
-        <p class="description">Только сегодня скидка !!!</p>
+        <router-link :to="{ name: 'Shares3' }">
+          <img src="@/assets/reklame1.jpg" alt="" />
+          <p class="date">20.08.2021</p>
+          <p class="description">Только сегодня скидка !!!</p>
+        </router-link>
       </div>
     </div>
     <div class="promotions">
       <div class="promotion__item">
-        <img src="@/assets/reklame1.jpg" alt="" />
-        <p class="date">29.08.2021</p>
-        <p class="description">Два билета по стоимоти одного!!!</p>
+        <router-link :to="{ name: 'Shares4' }">
+          <img src="@/assets/reklame1.jpg" alt="" />
+          <p class="date">29.08.2021</p>
+          <p class="description">Два билета по стоимоти одного!!!</p>
+        </router-link>
       </div>
     </div>
   </div>
@@ -26,15 +30,19 @@ export default {
 
 <style scoped>
 .page {
+  padding: 60px 20px 180px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 }
-h1 {
-  color: #000;
+.page__title {
+  color: black;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
 }
 .promotions {
   padding-left: 100px;
-  padding-top: 60px;
+  padding-top: 80px;
 }
 .promotion__item {
   display: flex;
