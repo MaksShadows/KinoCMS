@@ -3,7 +3,7 @@
     <div class="container">
       <div class="logo">
         <router-link to="/" class="navbar-brand d-flex">
-          <h4>Cinema</h4>
+          <h4>KinoCinema</h4>
         </router-link>
       </div>
       <nav>

@@ -18,6 +18,17 @@ Vue.config.productionTip = false;
 const lang = localStorage.getItem("lang") || "ru";
 axios.defaults.headers["Accept-Language"] = lang;
 
+// export const db = app.database()
+
+export async function fetch(path) {
+  try {
+    const snapshot = await firebase.ref(path).once("value");
+    return snapshot.val();
+  } catch (e) {
+    console.log("Error.\nFetching from database.", e);
+  }
+}
+
 Vue.use(Vuelidate);
 
 firebase.initializeApp({
