@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- <AdminLayout /> -->
+    <AdminLayout />
 
     <component :is="layout"></component>
   </div>
