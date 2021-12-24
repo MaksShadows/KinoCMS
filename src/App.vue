@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <AdminLayout />
-
-    <component :is="layout"></component>
+    <!--
+    <component :is="layout"></component> -->
   </div>
 </template>
 
@@ -16,13 +16,13 @@ export default {
   components: {
     AdminLayout,
     MainLayout,
-    AuthLayout
+    AuthLayout,
   },
   computed: {
     layout() {
       return (this.$route.meta.layout || "main") + "-layout";
-    }
-  }
+    },
+  },
 };
 </script>
 
